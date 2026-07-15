@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallup Korea × ZAG — Узбекистан, полевой проект</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#12161d;
+    --bg-2:#171d26;
+    --surface:#1c232e;
+    --surface-2:#232b38;
+    --border:#2c3543;
+    --ink:#ece8dd;
+    --ink-dim:#a3aab8;
+    --ink-faint:#69707e;
+    --gold:#c9a24b;
+    --gold-dim:#7d6832;
+    --teal:#4ea89e;
+    --teal-dim:#2f6b64;
+    --warn:#d97a52;
+    --radius:10px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(1200px 700px at 85% -10%, rgba(201,162,75,0.08), transparent 60%),
+      radial-gradient(900px 600px at -10% 30%, rgba(78,168,158,0.07), transparent 55%),
+      var(--bg);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Zilla Slab', serif;
+    letter-spacing:-0.01em;
+    color:var(--ink);
+    margin:0;
+  }
+  .mono{font-family:'IBM Plex Mono', monospace;}
+
+  /* ===== Top bar ===== */
+  header.top{
+    position:sticky; top:0; z-index:50;
+    background:rgba(18,22,29,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .top-inner{
+    max-width:1100px; margin:0 auto;
+    padding:16px 24px;
+    display:flex; align-items:center; justify-content:space-between;
+    gap:16px; flex-wrap:wrap;
+  }
+  .brandmark{display:flex; align-items:center; gap:12px;}
+  .stamp{
+    width:40px; height:40px; border-radius:50%;
+    border:1.5px solid var(--gold);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Zilla Slab', serif; font-weight:700; color:var(--gold);
+    font-size:13px; letter-spacing:0.02em;
+    flex-shrink:0;
+  }
+  .brand-text .t1{font-size:12px; text-transform:uppercase; letter-spacing:0.12em; color:var(--ink-faint);}
+  .brand-text .t2{font-size:16px; font-weight:600; color:var(--ink);}
+
+  nav.tabs{
+    display:flex; gap:4px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:999px;
+    padding:4px;
+  }
+  nav.tabs button{
+    appearance:none; border:none; cursor:pointer;
+    background:transparent; color:var(--ink-dim);
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:13.5px; font-weight:600;
+    padding:9px 18px; border-radius:999px;
+    transition:all .2s ease;
+    white-space:nowrap;
+  }
+  nav.tabs button.active{
+    background:var(--gold);
+    color:#191204;
+  }
+  nav.tabs button:not(.active):hover{ color:var(--ink); }
+
+  /* ===== Layout ===== */
+  main{max-width:1100px; margin:0 auto; padding:40px 24px 100px;}
+  section.view{display:none;}
+  section.view.active{display:block; animation:fadeIn .35s ease;}
+  @keyframes fadeIn{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+
+  .hero{
+    padding:36px 0 28px;
+    border-bottom:1px solid var(--border);
+    margin-bottom:36px;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--gold); margin-bottom:14px;
+  }
+  .eyebrow.teal{color:var(--teal);}
+  .eyebrow::before{content:''; width:16px; height:1px; background:currentColor;}
+  .hero h1{font-size:38px; font-weight:600; max-width:760px;}
+  .hero p.lead{
+    margin-top:14px; color:var(--ink-dim); font-size:16px;
+    max-width:640px;
+  }
+  .meta-row{
+    display:flex; gap:28px; margin-top:24px; flex-wrap:wrap;
+  }
+  .meta-item .k{font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--ink-faint);}
+  .meta-item .v{font-family:'IBM Plex Mono', monospace; font-size:14px; color:var(--ink); margin-top:3px;}
+
+  .block{margin-bottom:44px;}
+  .block h2{
+    font-size:22px; font-weight:600;
+    display:flex; align-items:baseline; gap:10px;
+    margin-bottom:6px;
+  }
+  .block h2 .idx{font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--gold); font-weight:500;}
+  section.view.instr .block h2 .idx{color:var(--teal);}
+  .block .sub{color:var(--ink-dim); font-size:14.5px; margin-bottom:20px; max-width:700px;}
+
+  .card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:22px 24px;
+  }
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
+  @media(max-width:760px){ .grid2,.grid3{grid-template-columns:1fr;} }
+
+  /* team cards */
+  .team-card{
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius); padding:20px;
+    position:relative; overflow:hidden;
+  }
+  .team-card .role-tag{
+    font-family:'IBM Plex Mono', monospace; font-size:10.5px;
+    text-transform:uppercase; letter-spacing:0.08em; color:var(--gold);
+    border:1px solid var(--gold-dim); border-radius:999px;
+    padding:3px 10px; display:inline-block; margin-bottom:12px;
+  }
+  .team-card h3{font-size:17px; font-weight:600; margin-bottom:8px;}
+  .team-card p{color:var(--ink-dim); font-size:13.8px; margin:0;}
+  .team-card ul{margin:10px 0 0; padding-left:18px; color:var(--ink-dim); font-size:13.5px;}
+  .team-card ul li{margin-bottom:4px;}
+
+  /* responsibility split */
+  .split-table{width:100%; border-collapse:collapse; font-size:14px;}
+  .split-table th{
+    text-align:left; font-family:'IBM Plex Mono', monospace;
+    font-size:11px; text-transform:uppercase; letter-spacing:0.08em;
+    color:var(--ink-faint); padding:0 0 10px; font-weight:500;
+  }
+  .split-table td{
+    padding:12px 14px 12px 0; border-top:1px solid var(--border);
+    vertical-align:top; color:var(--ink-dim);
+  }
+  .split-table td.who{width:70px;}
+  .pill{
+    display:inline-block; font-family:'IBM Plex Mono', monospace;
+    font-size:11px; font-weight:600; padding:3px 9px; border-radius:6px;
+  }
+  .pill.zag{background:rgba(201,162,75,0.16); color:var(--gold);}
+  .pill.gk{background:rgba(120,130,150,0.16); color:#8b93a1;}
+
+  /* ===== Quota tally (signature element) ===== */
+  .tally-wrap{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:26px;
+  }
+  .tally-head{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    margin-bottom:18px; flex-wrap:wrap; gap:14px;
+  }
+  .tally-total{font-family:'Zilla Slab',serif; font-size:15px; color:var(--ink-dim);}
+  .tally-total b{color:var(--gold); font-size:20px;}
+  .progress-bar{
+    height:6px; border-radius:4px; background:var(--surface-2);
+    overflow:hidden; margin:14px 0 22px;
+  }
+  .progress-fill{
+    height:100%; background:linear-gradient(90deg,var(--gold-dim),var(--gold));
+    width:0%; transition:width .4s ease;
+  }
+  .tally-grid{
+    display:grid; grid-template-columns:1fr repeat(2,1fr) 90px;
+    gap:1px; background:var(--border); border:1px solid var(--border); border-radius:8px; overflow:hidden;
+  }
+  .tally-grid > div{background:var(--bg-2); padding:14px;}
+  .tally-grid .head{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-faint); background:var(--surface-2);
+  }
+  .tally-grid .lang-label{
+    display:flex; align-items:center; font-weight:600; font-size:14.5px; color:var(--ink);
+  }
+  .cell{
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:8px;
+  }
+  .cell .count{font-family:'IBM Plex Mono', monospace; font-size:22px; color:var(--gold); font-weight:600;}
+  .cell .target{font-size:11px; color:var(--ink-faint);}
+  .cell .btns{display:flex; gap:6px;}
+  .cell button{
+    width:26px; height:26px; border-radius:6px; border:1px solid var(--border);
+    background:var(--surface-2); color:var(--ink-dim); cursor:pointer; font-size:14px;
+    line-height:1; display:flex; align-items:center; justify-content:center;
+    transition:all .15s ease;
+  }
+  .cell button:hover{border-color:var(--gold); color:var(--gold);}
+  .tally-grid .total-cell{
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    font-family:'IBM Plex Mono',monospace; font-weight:600; color:var(--ink);
+  }
+  .tally-foot{
+    display:flex; justify-content:space-between; align-items:center;
+    margin-top:16px; flex-wrap:wrap; gap:10px;
+  }
+  .reset-link{
+    background:none; border:none; color:var(--ink-faint); font-size:12.5px;
+    cursor:pointer; text-decoration:underline; text-underline-offset:3px;
+  }
+  .reset-link:hover{color:var(--warn);}
+  .gender-note{
+    font-size:12.5px; color:var(--ink-faint); font-family:'IBM Plex Mono',monospace;
+  }
+
+  /* timeline */
+  .timeline{position:relative; padding-left:26px;}
+  .timeline::before{
+    content:''; position:absolute; left:6px; top:6px; bottom:6px; width:1px; background:var(--border);
+  }
+  .tl-item{position:relative; padding-bottom:26px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-item::before{
+    content:''; position:absolute; left:-26px; top:4px; width:11px; height:11px;
+    border-radius:50%; background:var(--bg); border:2px solid var(--gold);
+  }
+  .tl-day{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--gold); margin-bottom:3px;}
+  .tl-title{font-weight:600; font-size:15.5px; margin-bottom:3px;}
+  .tl-desc{color:var(--ink-dim); font-size:13.8px;}
+
+  /* risk table */
+  .risk{
+    display:flex; gap:14px; padding:16px 0; border-top:1px solid var(--border);
+  }
+  .risk:first-child{border-top:none; padding-top:0;}
+  .risk .flag{
+    flex-shrink:0; width:8px; height:8px; border-radius:50%; margin-top:7px; background:var(--warn);
+  }
+  .risk .rt{font-weight:600; font-size:14.5px; margin-bottom:3px;}
+  .risk .rd{color:var(--ink-dim); font-size:13.8px;}
+
+  /* instructions specific */
+  .num-block{
+    display:flex; gap:18px; padding:22px 0; border-top:1px solid var(--border);
+  }
+  .num-block:first-child{border-top:none; padding-top:0;}
+  .num-block .n{
+    font-family:'Zilla Slab',serif; font-size:26px; color:var(--teal-dim);
+    font-weight:700; width:36px; flex-shrink:0;
+  }
+  .num-block .body h3{font-size:16.5px; font-weight:600; margin-bottom:6px;}
+  .num-block .body p{color:var(--ink-dim); font-size:14.3px; margin:0 0 8px;}
+  .num-block .body ul{margin:6px 0 0; padding-left:18px; color:var(--ink-dim); font-size:14px;}
+  .num-block .body ul li{margin-bottom:6px;}
+  .num-block .body ul li b{color:var(--ink);}
+
+  .callout{
+    border:1px solid var(--teal-dim); background:rgba(78,168,158,0.08);
+    border-radius:var(--radius); padding:18px 20px; font-size:14px; color:var(--ink);
+    margin:18px 0;
+  }
+  .callout b{color:var(--teal);}
+  .callout.warn{border-color:#7a4a34; background:rgba(217,122,82,0.08);}
+  .callout.warn b{color:var(--warn);}
+
+  .dont-do{
+    display:grid; grid-template-columns:1fr 1fr; gap:16px;
+  }
+  @media(max-width:760px){.dont-do{grid-template-columns:1fr;}}
+  .dd-col{border-radius:var(--radius); padding:18px 20px; border:1px solid var(--border);}
+  .dd-col.yes{border-color:var(--teal-dim); background:rgba(78,168,158,0.05);}
+  .dd-col.no{border-color:#5a3226; background:rgba(217,122,82,0.05);}
+  .dd-col h4{font-size:13px; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:12px;}
+  .dd-col.yes h4{color:var(--teal);}
+  .dd-col.no h4{color:var(--warn);}
+  .dd-col ul{margin:0; padding-left:18px; font-size:13.8px; color:var(--ink-dim);}
+  .dd-col ul li{margin-bottom:8px;}
+
+  /* checklist */
+  .checklist{list-style:none; margin:0; padding:0;}
+  .checklist li{
+    display:flex; align-items:flex-start; gap:12px;
+    padding:11px 0; border-top:1px solid var(--border); font-size:14.3px; color:var(--ink-dim);
+    cursor:pointer;
+  }
+  .checklist li:first-child{border-top:none;}
+  .checklist input{
+    appearance:none; width:18px; height:18px; border-radius:5px;
+    border:1.5px solid var(--border); background:var(--bg-2); flex-shrink:0; margin-top:1px;
+    cursor:pointer; position:relative; transition:all .15s ease;
+  }
+  .checklist input:checked{ background:var(--teal); border-color:var(--teal); }
+  .checklist input:checked::after{
+    content:'✓'; position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    color:#0b1512; font-size:12px; font-weight:700;
+  }
+  .checklist li.done span{ color:var(--ink-faint); text-decoration:line-through; }
+
+  .stimuli-strip{
+    display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;
+  }
+  .stim{
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--ink-dim);
+    border:1px dashed var(--border); border-radius:6px; padding:6px 12px;
+  }
+
+  footer{
+    max-width:1100px; margin:0 auto; padding:30px 24px 60px;
+    color:var(--ink-faint); font-size:12.5px; border-top:1px solid var(--border);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <div class="brandmark">
+      <div class="stamp">GK</div>
+      <div class="brand-text">
+        <div class="t1">ZAG · Полевой офис Ташкент</div>
+        <div class="t2">Cigarette Naming Study — UZ</div>
+      </div>
+    </div>
+    <nav class="tabs">
+      <button class="active" data-tab="plan">План проекта</button>
+      <button data-tab="instr">Инструкция интервьюеру</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- ===================== TAB 1: PLAN ===================== -->
+  <section class="view plan active" id="view-plan">
+
+    <div class="hero">
+      <div class="eyebrow">Внутренний документ · для руководства</div>
+      <h1>Опрос по оценке названий сигаретных брендов — Узбекистан</h1>
+      <p class="lead">Заказчик — Gallup Korea. Цель — проверить, насколько новые торговые марки приемлемы и корректно звучат на местных рынках до запуска: как респонденты произносят название и какие спонтанные ассоциации оно вызывает.</p>
+      <div class="meta-row">
+        <div class="meta-item"><div class="k">Страна</div><div class="v">Узбекистан</div></div>
+        <div class="meta-item"><div class="k">Метод</div><div class="v">CAPI / TAPI</div></div>
+        <div class="meta-item"><div class="k">Выборка</div><div class="v">100 интервью</div></div>
+        <div class="meta-item"><div class="k">Аудитория</div><div class="v">Курильщики 20–49 лет</div></div>
+        <div class="meta-item"><div class="k">Команда ZAG</div><div class="v">4 человека, Ташкент</div></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2><span class="idx">01</span> Кто за что отвечает</h2>
+      <p class="sub">Из ТЗ Gallup Korea. ZAG отвечает за всё, что происходит «на земле»: перевод, обучение, поле, контроль качества.</p>
+      <div class="card">
+        <table class="split-table">
+          <tr><th class="who">Кто</th><th>Задача</th></tr>
+          <tr><td class="who"><span class="pill gk">GK</span></td><td>Разработка анкет и перевод с английского на русский</td></tr>
+          <tr><td class="who"><span class="pill zag">ZAG</span></td><td>Корректура русского перевода + локализованный перевод на узбекский</td></tr>
+          <tr><td class="who"><span class="pill gk">GK</span></td><td>Веб-программирование CAPI/TAPI по готовым сценариям</td></tr>
+          <tr><td class="who"><span class="pill zag">ZAG</span></td><td>Тестирование ссылок и обратная связь по производительности сайта, включая проверку стабильности в локальной сети СНГ</td></tr>
+          <tr><td class="who"><span class="pill gk">GK</span></td><td>Разработка стимулов — карточки с названиями, визуальные концепции пачек</td></tr>
+          <tr><td class="who"><span class="pill zag">ZAG</span></td><td>Обучение интервьюеров и проведение полевых работ</td></tr>
+          <tr><td class="who"><span class="pill gk">GK</span></td><td>Сбор и хранение данных на стороне GK</td></tr>
+          <tr><td class="who"><span class="pill zag">ZAG</span></td><td>Контроль и проверка качества данных</td></tr>
+          <tr><td class="who"><span class="pill gk">GK</span></td><td>Обработка, табулирование и итоговый отчёт</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2><span class="idx">02</span> Команда в Ташкенте</h2>
+      <p class="sub">4 человека закрывают весь цикл ZAG — от обучения до сдачи проверенных данных.</p>
+      <div class="grid2">
+        <div class="team-card">
+          <span class="role-tag">Координатор</span>
+          <h3>Руководитель проекта на месте</h3>
+          <p>Связь с GK, распределение квот между интервьюерами, контроль сроков, эскалация проблем со стимулами и ссылками.</p>
+          <ul>
+            <li>Проводит обучение интервьюеров</li>
+            <li>Ежедневно сверяет закрытые квоты</li>
+            <li>Отвечает за тест ссылок CAPI/TAPI</li>
+          </ul>
+        </div>
+        <div class="team-card">
+          <span class="role-tag">Контроль качества</span>
+          <h3>Бэк-чекер</h3>
+          <p>Проверяет анкеты и перезванивает / навещает часть респондентов, чтобы подтвердить, что интервью реально состоялось и без искажений.</p>
+          <ul>
+            <li>Бэк-чек не менее 15% анкет</li>
+            <li>Проверка логики и заполненности</li>
+            <li>Отчёт по качеству — координатору</li>
+          </ul>
+        </div>
+        <div class="team-card">
+          <span class="role-tag">Полевой сотрудник</span>
+          <h3>Интервьюер № 1</h3>
+          <p>Скрининг, рекрутинг и проведение интервью на узбекском и русском языках среди курильщиков 20–49 лет.</p>
+        </div>
+        <div class="team-card">
+          <span class="role-tag">Полевой сотрудник</span>
+          <h3>Интервьюер № 2</h3>
+          <p>Работает в паре с интервьюером № 1, закрывает вторую половину квот по возрасту и языку интервью.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2><span class="idx">03</span> Целевая аудитория и квоты</h2>
+      <p class="sub">Курильщики обычных сигарет и пользователи IQOS/Glo, 20–49 лет. Гендерное распределение — 85–90% мужчины, 10–15% женщины. Ниже — рабочий счётчик квот по языку и возрасту: жмите «+» после каждого закрытого интервью, данные сохраняются в браузере.</p>
+
+      <div class="tally-wrap">
+        <div class="tally-head">
+          <div class="tally-total">Закрыто интервью: <b id="grand-total">0</b> / 100</div>
+          <div class="gender-note">Целевой гендерный сплит: 85–90% М · 10–15% Ж</div>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+
+        <div class="tally-grid">
+          <div class="head"></div>
+          <div class="head" style="text-align:center;">20–34 года</div>
+          <div class="head" style="text-align:center;">35–49 лет</div>
+          <div class="head" style="text-align:center;">Всего</div>
+
+          <div class="lang-label">Узбекский язык</div>
+          <div class="cell" data-cell="uz-young" data-target="35"></div>
+          <div class="cell" data-cell="uz-old" data-target="35"></div>
+          <div class="total-cell" id="total-uz">0 / 70</div>
+
+          <div class="lang-label">Русский язык</div>
+          <div class="cell" data-cell="ru-young" data-target="15"></div>
+          <div class="cell" data-cell="ru-old" data-target="15"></div>
+          <div class="total-cell" id="total-ru">0 / 30</div>
+        </div>
+
+        <div class="tally-foot">
+          <span class="gender-note">Хранится локально на этом устройстве</span>
+          <button class="reset-link" id="reset-tally">обнулить счётчик</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2><span class="idx">04</span> Этапы и сроки</h2>
+      <p class="sub">Ориентировочный график для команды из 2 интервьюеров при плотности 8–10 интервью в день на человека.</p>
+      <div class="card">
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-day">День 1</div>
+            <div class="tl-title">Обучение и тест системы</div>
+            <div class="tl-desc">Разбор скрипта, отработка скрининга, тест ссылок CAPI/TAPI и стабильности сети, репетиция работы со стимулами.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-day">Дни 2–6</div>
+            <div class="tl-title">Полевой сбор данных</div>
+            <div class="tl-desc">Параллельная работа 2 интервьюеров по квотам язык × возраст. Координатор ежедневно сверяет прогресс по счётчику квот.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-day">Дни 6–7</div>
+            <div class="tl-title">Контроль качества</div>
+            <div class="tl-desc">Бэк-чек не менее 15% анкет, проверка логики ответов, устранение ошибок и добор при отбраковке.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-day">День 7</div>
+            <div class="tl-title">Сдача данных</div>
+            <div class="tl-desc">Финальная выгрузка подтверждённых данных в базу GK, отчёт по квотам и качеству.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2><span class="idx">05</span> Риски, на которые стоит обратить внимание</h2>
+      <div class="card">
+        <div class="risk">
+          <div class="flag"></div>
+          <div>
+            <div class="rt">Узкая аудитория IQOS/Glo среди женщин</div>
+            <div class="rd">Квота 10–15% женщин может закрываться медленнее — заложить дополнительный день на добор.</div>
+          </div>
+        </div>
+        <div class="risk">
+          <div class="flag"></div>
+          <div>
+            <div class="rt">Стабильность сети в поле</div>
+            <div class="rd">CAPI/TAPI зависит от связи — интервьюерам заранее проверять покрытие в районах рекрутинга, иметь офлайн-режим как запасной план.</div>
+          </div>
+        </div>
+        <div class="risk">
+          <div class="flag"></div>
+          <div>
+            <div class="rt">Точность фиксации произношения</div>
+            <div class="rd">Ключевая ценность исследования — как респондент сам произносит название. Ошибки интервьюера на этом шаге обесценивают анкету целиком.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ===================== TAB 2: INSTRUCTIONS ===================== -->
+  <section class="view instr" id="view-instr">
+
+    <div class="hero">
+      <div class="eyebrow teal">Инструкция · для интервьюеров</div>
+      <h1>Как проводить интервью по названиям сигаретных брендов</h1>
+      <p class="lead">Прочитайте перед первым интервью и держите под рукой первую неделю в поле. Главное здесь — не просто дойти до конца анкеты, а честно зафиксировать первую реакцию респондента на название.</p>
+    </div>
+
+    <div class="block">
+      <h2><span class="idx">01</span> Кого мы опрашиваем</h2>
+      <div class="num-block">
+        <div class="n">A</div>
+        <div class="body">
+          <h3>Требования к респонденту</h3>
+          <ul>
+            <li><b>Возраст</b> — 20–49 лет, без исключений</li>
+            <li><b>Курит регулярно</b> — обычные сигареты <b>или</b> использует IQOS/Glo</li>
+            <li>Респондент говорит либо на узбекском, либо на русском — интервью проводится на том языке, который ему удобнее</li>
+          </ul>
+          <p>Если человек не курит и не пользуется IQOS/Glo — вежливо завершите скрининг, он не подходит для опроса.</p>
+        </div>
+      </div>
+      <div class="num-block">
+        <div class="n">B</div>
+        <div class="body">
+          <h3>Квоты, которые нужно закрыть</h3>
+          <p>Всего 100 анкет по Узбекистану, распределены так:</p>
+          <ul>
+            <li><b>Узбекский язык — 70</b> (35 в возрасте 20–34, 35 в возрасте 35–49)</li>
+            <li><b>Русский язык — 30</b> (15 в возрасте 20–34, 15 в возрасте 35–49)</li>
+            <li><b>Пол — 85–90% мужчины, 10–15% женщины</b> по каждой группе</li>
+          </ul>
+          <p>Сверяйте закрытые квоты с координатором ежедневно, не набирайте одну ячейку с запасом за счёт другой.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2><span class="idx">02</span> Работа с планшетом (CAPI/TAPI)</h2>
+      <div class="num-block">
+        <div class="n">C</div>
+        <div class="body">
+          <h3>Перед выходом в поле</h3>
+          <ul>
+            <li>Проверьте ссылку на анкету и соединение с интернетом — если сеть нестабильна в вашем районе, сообщите координатору <b>до</b> начала работы, а не после потерянных интервью</li>
+            <li>Планшет заряжен полностью, есть запасной пауэрбанк</li>
+            <li>Стимулы (карточки с названиями, визуалы пачек) — в порядке, ничего не помято и не подписано</li>
+          </ul>
+        </div>
+      </div>
+      <div class="num-block">
+        <div class="n">D</div>
+        <div class="body">
+          <h3>Во время интервью</h3>
+          <ul>
+            <li>Следуйте скрипту дословно — формулировки согласованы с заказчиком и переведены и вычитаны намеренно точно</li>
+            <li>Не пропускайте и не меняйте порядок вопросов, даже если кажется, что респондент уже ответил на следующий</li>
+            <li>Если ссылка зависла или сеть пропала — не досочиняйте ответы по памяти, зафиксируйте момент сбоя и сообщите координатору</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2><span class="idx">03</span> Самое важное: произношение и первая ассоциация</h2>
+      <div class="callout">
+        <b>Зачем вообще этот опрос:</b> заказчик проверяет, не будет ли новое название бренда звучать неудачно или странно на местном рынке — <b>до</b> запуска. Ваша задача — честно зафиксировать, как респондент произносит название сам, и что первое приходит ему в голову, а не подсказать «правильный» вариант.
+      </div>
+      <div class="num-block">
+        <div class="n">E</div>
+        <div class="body">
+          <h3>Как показывать название</h3>
+          <ul>
+            <li>Покажите карточку с названием молча и попросите респондента прочитать его вслух <b>первым</b>, до того как вы сами его произнесёте</li>
+            <li>Записывайте произношение так, как это прозвучало у респондента — не исправляйте и не переспрашивайте «а разве не так»</li>
+            <li>Дайте 2–3 секунды тишины перед вопросом об ассоциациях — первая реакция важнее развёрнутого ответа</li>
+          </ul>
+        </div>
+      </div>
+      <div class="dont-do" style="margin-top:8px;">
+        <div class="dd-col yes">
+          <h4>Так правильно</h4>
+          <ul>
+            <li>Респондент читает название вслух сам, до подсказок</li>
+            <li>Записываете первую спонтанную реакцию дословно</li>
+            <li>Нейтральный тон при показе любого названия</li>
+          </ul>
+        </div>
+        <div class="dd-col no">
+          <h4>Так нельзя</h4>
+          <ul>
+            <li>Произносить название за респондента до его ответа</li>
+            <li>Подсказывать «правильное» ударение или чтение</li>
+            <li>Комментировать реакцию или удивляться вслух</li>
+          </ul>
+        </div>
+      </div>
+      <div class="stimuli-strip">
+        <span class="stim">карточка с названием</span>
+        <span class="stim">визуальная концепция пачки</span>
+        <span class="stim">каждый стимул показывается по одному</span>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2><span class="idx">04</span> Общение с респондентом</h2>
+      <div class="num-block">
+        <div class="n">F</div>
+        <div class="body">
+          <h3>Этика и тон разговора</h3>
+          <ul>
+            <li>Тема — табак и никотин, без оценочных комментариев по поводу курения</li>
+            <li>Конфиденциальность: объясните, что ответы используются только в обобщённом виде для исследования</li>
+            <li>Респондент вправе отказаться от продолжения в любой момент — это фиксируется, а не оспаривается</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout warn">
+        <b>Если сомневаетесь</b> — подходит ли респондент по квоте, зависла ли ссылка, корректно ли показывать стимул повторно — остановитесь и спросите координатора. Лучше уточнить, чем испортить анкету.
+      </div>
+    </div>
+
+    <div class="block">
+      <h2><span class="idx">05</span> Чек-лист интервьюера</h2>
+      <p class="sub">Отмечайте по ходу дня — статус сохраняется на этом устройстве.</p>
+      <div class="card">
+        <ul class="checklist" id="checklist">
+          <li><input type="checkbox" data-key="c1"><span>Планшет заряжен, ссылка на анкету открыта и работает</span></li>
+          <li><input type="checkbox" data-key="c2"><span>Стимулы (карточки, визуалы) в порядке, ничего не перепутано</span></li>
+          <li><input type="checkbox" data-key="c3"><span>Респондент прошёл скрининг: возраст 20–49, курит / IQOS/Glo</span></li>
+          <li><input type="checkbox" data-key="c4"><span>Язык интервью подтверждён и соответствует незакрытой квоте</span></li>
+          <li><input type="checkbox" data-key="c5"><span>Название показано молча, произношение зафиксировано дословно</span></li>
+          <li><input type="checkbox" data-key="c6"><span>Анкета отправлена, координатор уведомлён о закрытой ячейке квоты</span></li>
+        </ul>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  <span>Gallup Korea × ZAG — Узбекистан</span>
+  <span>Внутренний рабочий документ, не для внешнего распространения</span>
+</footer>
+
+<script>
+  // ---- Tabs ----
+  const tabButtons = document.querySelectorAll('nav.tabs button');
+  const views = { plan: document.getElementById('view-plan'), instr: document.getElementById('view-instr') };
+  tabButtons.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      tabButtons.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      Object.values(views).forEach(v=>v.classList.remove('active'));
+      views[btn.dataset.tab].classList.add('active');
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+  });
+
+  // ---- Quota tally ----
+  const CELLS = ['uz-young','uz-old','ru-young','ru-old'];
+  const STORAGE_KEY = 'gallup_uz_quota_v1';
+
+  function loadTally(){
+    try{
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if(raw) return JSON.parse(raw);
+    }catch(e){}
+    return {'uz-young':0,'uz-old':0,'ru-young':0,'ru-old':0};
+  }
+  function saveTally(data){
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }catch(e){}
+  }
+
+  let tally = loadTally();
+
+  function buildCell(container){
+    const key = container.dataset.cell;
+    const target = container.dataset.target;
+    container.innerHTML = `
+      <div class="count" data-count="${key}">0</div>
+      <div class="target">из ${target}</div>
+      <div class="btns">
+        <button data-action="minus" data-key="${key}">−</button>
+        <button data-action="plus" data-key="${key}">+</button>
+      </div>
+    `;
+  }
+  document.querySelectorAll('.cell').forEach(buildCell);
+
+  function render(){
+    let grand = 0;
+    CELLS.forEach(k=>{
+      const val = tally[k] || 0;
+      grand += val;
+      const el = document.querySelector(`[data-count="${k}"]`);
+      if(el) el.textContent = val;
+    });
+    document.getElementById('total-uz').textContent = `${(tally['uz-young']||0)+(tally['uz-old']||0)} / 70`;
+    document.getElementById('total-ru').textContent = `${(tally['ru-young']||0)+(tally['ru-old']||0)} / 30`;
+    document.getElementById('grand-total').textContent = grand;
+    document.getElementById('progress-fill').style.width = Math.min(100, grand) + '%';
+  }
+
+  document.querySelector('.tally-grid').addEventListener('click', (e)=>{
+    const btn = e.target.closest('button[data-action]');
+    if(!btn) return;
+    const key = btn.dataset.key;
+    const delta = btn.dataset.action === 'plus' ? 1 : -1;
+    tally[key] = Math.max(0, (tally[key]||0) + delta);
+    saveTally(tally);
+    render();
+  });
+
+  document.getElementById('reset-tally').addEventListener('click', ()=>{
+    if(confirm('Обнулить счётчик закрытых квот?')){
+      tally = {'uz-young':0,'uz-old':0,'ru-young':0,'ru-old':0};
+      saveTally(tally);
+      render();
+    }
+  });
+
+  render();
+
+  // ---- Checklist ----
+  const CL_KEY = 'gallup_uz_checklist_v1';
+  function loadCL(){
+    try{
+      const raw = localStorage.getItem(CL_KEY);
+      if(raw) return JSON.parse(raw);
+    }catch(e){}
+    return {};
+  }
+  function saveCL(data){
+    try{ localStorage.setItem(CL_KEY, JSON.stringify(data)); }catch(e){}
+  }
+  let clState = loadCL();
+  document.querySelectorAll('#checklist input').forEach(input=>{
+    const key = input.dataset.key;
+    input.checked = !!clState[key];
+    if(input.checked) input.closest('li').classList.add('done');
+    input.addEventListener('change', ()=>{
+      clState[key] = input.checked;
+      saveCL(clState);
+      input.closest('li').classList.toggle('done', input.checked);
+    });
+  });
+</script>
+
+</body>
+</html>

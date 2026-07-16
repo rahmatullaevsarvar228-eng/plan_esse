@@ -1,779 +1,1130 @@
-<!DOCTYPE html>
-<html lang="ru">
+<!doctype html>
+<html lang="uz">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gallup Korea × ZAG — Узбекистан, полевой проект</title>
+<title>Интервью олувчилар учун қўлланма · HTP naming study</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=PT+Sans:wght@400;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#12161d;
-    --bg-2:#171d26;
-    --surface:#1c232e;
-    --surface-2:#232b38;
-    --border:#2c3543;
-    --ink:#ece8dd;
-    --ink-dim:#a3aab8;
-    --ink-faint:#69707e;
-    --gold:#c9a24b;
-    --gold-dim:#7d6832;
-    --teal:#4ea89e;
-    --teal-dim:#2f6b64;
-    --warn:#d97a52;
-    --radius:10px;
-  }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0;
-    background:
-      radial-gradient(1200px 700px at 85% -10%, rgba(201,162,75,0.08), transparent 60%),
-      radial-gradient(900px 600px at -10% 30%, rgba(78,168,158,0.07), transparent 55%),
-      var(--bg);
-    color:var(--ink);
-    font-family:'IBM Plex Sans', sans-serif;
-    line-height:1.55;
-    -webkit-font-smoothing:antialiased;
-  }
-  h1,h2,h3,.display{
-    font-family:'Zilla Slab', serif;
-    letter-spacing:-0.01em;
-    color:var(--ink);
-    margin:0;
-  }
-  .mono{font-family:'IBM Plex Mono', monospace;}
+:root{
+  --navy:#16233F;
+  --navy2:#223760;
+  --navy3:#2E4A82;
+  --accent:#2F7A6B;
+  --accent-soft:#E4F0EC;
+  --stamp:#B3652E;
+  --warn-bg:#FBEAE6;
+  --warn-border:#B3432B;
+  --warn-text:#7A2E1D;
+  --note-bg:#EAF1F7;
+  --note-border:#2F5C8A;
+  --note-text:#1F3B57;
+  --paper:#F6F4EE;
+  --card:#FFFFFF;
+  --ink:#1B2130;
+  --muted:#666C78;
+  --border:#E3DFD2;
+  --sidebar-w:290px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'PT Sans', 'Segoe UI', sans-serif;
+  font-size:16px;
+  line-height:1.55;
+}
+h1,h2,h3,.disp{font-family:'Manrope', sans-serif;}
+.mono{font-family:'JetBrains Mono', monospace;}
+a{color:inherit;}
+::selection{background:var(--accent-soft);}
 
-  /* ===== Top bar ===== */
-  header.top{
-    position:sticky; top:0; z-index:50;
-    background:rgba(18,22,29,0.86);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--border);
-  }
-  .top-inner{
-    max-width:1100px; margin:0 auto;
-    padding:16px 24px;
-    display:flex; align-items:center; justify-content:space-between;
-    gap:16px; flex-wrap:wrap;
-  }
-  .brandmark{display:flex; align-items:center; gap:12px;}
-  .stamp{
-    width:40px; height:40px; border-radius:50%;
-    border:1.5px solid var(--gold);
-    display:flex; align-items:center; justify-content:center;
-    font-family:'Zilla Slab', serif; font-weight:700; color:var(--gold);
-    font-size:13px; letter-spacing:0.02em;
-    flex-shrink:0;
-  }
-  .brand-text .t1{font-size:12px; text-transform:uppercase; letter-spacing:0.12em; color:var(--ink-faint);}
-  .brand-text .t2{font-size:16px; font-weight:600; color:var(--ink);}
+/* ===== HEADER ===== */
+.topbar{
+  position:sticky; top:0; z-index:50;
+  background:var(--navy);
+  color:#fff;
+  border-bottom:3px solid var(--stamp);
+}
+.topbar-inner{
+  max-width:1280px; margin:0 auto;
+  padding:14px 22px;
+  display:flex; align-items:center; gap:18px; flex-wrap:wrap;
+}
+.kit-tag{
+  font-family:'JetBrains Mono', monospace;
+  font-size:11px; letter-spacing:.12em;
+  background:var(--stamp); color:#fff;
+  padding:4px 9px; border-radius:3px;
+  white-space:nowrap;
+  text-transform:uppercase;
+}
+.topbar-title{
+  font-weight:800; font-size:17px; letter-spacing:.01em;
+  flex:1 1 auto; min-width:180px;
+}
+.topbar-title small{
+  display:block; font-family:'PT Sans',sans-serif;
+  font-weight:400; font-size:12.5px; color:#C6D0E4; margin-top:2px;
+}
 
-  nav.tabs{
-    display:flex; gap:4px;
-    background:var(--surface);
-    border:1px solid var(--border);
-    border-radius:999px;
-    padding:4px;
-  }
-  nav.tabs button{
-    appearance:none; border:none; cursor:pointer;
-    background:transparent; color:var(--ink-dim);
-    font-family:'IBM Plex Sans', sans-serif;
-    font-size:13.5px; font-weight:600;
-    padding:9px 18px; border-radius:999px;
-    transition:all .2s ease;
-    white-space:nowrap;
-  }
-  nav.tabs button.active{
-    background:var(--gold);
-    color:#191204;
-  }
-  nav.tabs button:not(.active):hover{ color:var(--ink); }
+/* language stamps */
+.stamps{display:flex; gap:8px; align-items:center; flex-wrap:wrap;}
+.stamp-label{font-size:11px; color:#9FB0CC; font-family:'JetBrains Mono',monospace; letter-spacing:.1em; margin-right:2px; text-transform:uppercase;}
+.stamp-btn{
+  position:relative;
+  width:46px; height:46px;
+  border-radius:50%;
+  border:2px dashed #6C7FA4;
+  background:transparent;
+  color:#D7DEEC;
+  font-family:'JetBrains Mono',monospace;
+  font-weight:700; font-size:12.5px;
+  cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  transition:transform .18s ease, background .18s ease, border-color .18s ease, color .18s ease;
+}
+.stamp-btn:hover{border-color:#fff; color:#fff;}
+.stamp-btn.active{
+  background:var(--stamp);
+  border:2px solid var(--stamp);
+  border-style:solid;
+  color:#fff;
+  transform:rotate(-6deg) scale(1.08);
+  box-shadow:0 3px 10px rgba(0,0,0,.35);
+}
+.stamp-btn:focus-visible{outline:2px solid #fff; outline-offset:2px;}
 
-  /* ===== Layout ===== */
-  main{max-width:1100px; margin:0 auto; padding:40px 24px 100px;}
-  section.view{display:none;}
-  section.view.active{display:block; animation:fadeIn .35s ease;}
-  @keyframes fadeIn{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+/* progress rail */
+.progress-rail{height:4px; background:#0F1930;}
+.progress-fill{height:100%; width:0%; background:var(--accent); transition:width .25s ease;}
 
-  .hero{
-    padding:36px 0 28px;
-    border-bottom:1px solid var(--border);
-    margin-bottom:36px;
-  }
-  .eyebrow{
-    display:inline-flex; align-items:center; gap:8px;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:11.5px; letter-spacing:0.14em; text-transform:uppercase;
-    color:var(--gold); margin-bottom:14px;
-  }
-  .eyebrow.teal{color:var(--teal);}
-  .eyebrow::before{content:''; width:16px; height:1px; background:currentColor;}
-  .hero h1{font-size:38px; font-weight:600; max-width:760px;}
-  .hero p.lead{
-    margin-top:14px; color:var(--ink-dim); font-size:16px;
-    max-width:640px;
-  }
-  .meta-row{
-    display:flex; gap:28px; margin-top:24px; flex-wrap:wrap;
-  }
-  .meta-item .k{font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--ink-faint);}
-  .meta-item .v{font-family:'IBM Plex Mono', monospace; font-size:14px; color:var(--ink); margin-top:3px;}
+/* ===== LAYOUT ===== */
+.layout{
+  max-width:1280px; margin:0 auto;
+  display:grid;
+  grid-template-columns:var(--sidebar-w) 1fr;
+  gap:0;
+  align-items:start;
+}
+.sidebar{
+  position:sticky; top:57px;
+  height:calc(100vh - 57px);
+  overflow-y:auto;
+  padding:26px 14px 40px 22px;
+  border-right:1px solid var(--border);
+}
+.side-hint{
+  font-size:12px; color:var(--muted); font-family:'JetBrains Mono',monospace;
+  text-transform:uppercase; letter-spacing:.08em; margin:4px 0 12px;
+}
+.navlist{list-style:none; margin:0; padding:0;}
+.navlist li{margin-bottom:2px;}
+.navlink{
+  display:flex; align-items:center; gap:10px;
+  padding:9px 10px; border-radius:8px;
+  text-decoration:none; color:var(--ink);
+  font-size:14px; font-weight:700;
+  border-left:3px solid transparent;
+  transition:background .15s ease, border-color .15s ease, color .15s ease;
+}
+.navlink .num{
+  font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700;
+  width:22px; height:22px; border-radius:4px;
+  display:flex; align-items:center; justify-content:center;
+  border:1.5px dashed #B7BFCF; color:var(--muted); flex:0 0 auto;
+}
+.navlink:hover{background:#EFEAdd;}
+.navlink.done .num{border-style:solid; border-color:var(--accent); color:var(--accent); background:var(--accent-soft);}
+.navlink.active{background:var(--navy); color:#fff; border-left-color:var(--stamp);}
+.navlink.active .num{border-color:#fff; color:#fff; background:transparent;}
 
-  .block{margin-bottom:44px;}
-  .block h2{
-    font-size:22px; font-weight:600;
-    display:flex; align-items:baseline; gap:10px;
-    margin-bottom:6px;
-  }
-  .block h2 .idx{font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--gold); font-weight:500;}
-  section.view.instr .block h2 .idx{color:var(--teal);}
-  .block .sub{color:var(--ink-dim); font-size:14.5px; margin-bottom:20px; max-width:700px;}
+/* ===== MAIN ===== */
+main{padding:30px 26px 90px; min-width:0;}
 
-  .card{
-    background:var(--surface);
-    border:1px solid var(--border);
-    border-radius:var(--radius);
-    padding:22px 24px;
-  }
-  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
-  .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
-  @media(max-width:760px){ .grid2,.grid3{grid-template-columns:1fr;} }
+.hero{
+  background:linear-gradient(135deg, var(--navy) 0%, var(--navy3) 100%);
+  color:#fff; border-radius:14px; padding:30px 28px;
+  margin-bottom:30px; position:relative; overflow:hidden;
+}
+.hero::after{
+  content:""; position:absolute; right:-40px; top:-40px; width:220px; height:220px;
+  border:2px dashed rgba(255,255,255,.18); border-radius:50%;
+}
+.hero-badge{
+  display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11.5px;
+  letter-spacing:.1em; text-transform:uppercase; background:rgba(255,255,255,.12);
+  padding:5px 10px; border-radius:20px; margin-bottom:14px;
+}
+.hero h1{font-size:clamp(24px,3.4vw,34px); margin:0 0 10px; font-weight:800; letter-spacing:-.01em;}
+.hero p{margin:0; font-size:15.5px; color:#D6DEEE; max-width:640px;}
+.quickfacts{display:flex; gap:26px; margin-top:22px; flex-wrap:wrap; position:relative; z-index:1;}
+.qf{min-width:70px;}
+.qf b{display:block; font-family:'Manrope',sans-serif; font-size:26px; font-weight:800;}
+.qf span{font-size:12px; color:#B9C4DC; text-transform:uppercase; letter-spacing:.06em;}
 
-  /* team cards */
-  .team-card{
-    background:var(--surface); border:1px solid var(--border);
-    border-radius:var(--radius); padding:20px;
-    position:relative; overflow:hidden;
-  }
-  .team-card .role-tag{
-    font-family:'IBM Plex Mono', monospace; font-size:10.5px;
-    text-transform:uppercase; letter-spacing:0.08em; color:var(--gold);
-    border:1px solid var(--gold-dim); border-radius:999px;
-    padding:3px 10px; display:inline-block; margin-bottom:12px;
-  }
-  .team-card h3{font-size:17px; font-weight:600; margin-bottom:8px;}
-  .team-card p{color:var(--ink-dim); font-size:13.8px; margin:0;}
-  .team-card ul{margin:10px 0 0; padding-left:18px; color:var(--ink-dim); font-size:13.5px;}
-  .team-card ul li{margin-bottom:4px;}
+.section-card{
+  background:var(--card); border:1px solid var(--border); border-radius:12px;
+  padding:26px 26px 22px; margin-bottom:22px; scroll-margin-top:72px;
+}
+.section-head{display:flex; align-items:center; gap:14px; margin-bottom:16px;}
+.section-num{
+  font-family:'JetBrains Mono',monospace; font-weight:700; font-size:15px;
+  width:42px; height:42px; flex:0 0 auto; border-radius:8px;
+  border:2px dashed var(--stamp); color:var(--stamp);
+  display:flex; align-items:center; justify-content:center;
+}
+.section-head h2{margin:0; font-size:19.5px; font-weight:800; color:var(--navy); letter-spacing:-.005em;}
 
-  /* responsibility split */
-  .split-table{width:100%; border-collapse:collapse; font-size:14px;}
-  .split-table th{
-    text-align:left; font-family:'IBM Plex Mono', monospace;
-    font-size:11px; text-transform:uppercase; letter-spacing:0.08em;
-    color:var(--ink-faint); padding:0 0 10px; font-weight:500;
-  }
-  .split-table td{
-    padding:12px 14px 12px 0; border-top:1px solid var(--border);
-    vertical-align:top; color:var(--ink-dim);
-  }
-  .split-table td.who{width:70px;}
-  .pill{
-    display:inline-block; font-family:'IBM Plex Mono', monospace;
-    font-size:11px; font-weight:600; padding:3px 9px; border-radius:6px;
-  }
-  .pill.zag{background:rgba(201,162,75,0.16); color:var(--gold);}
-  .pill.gk{background:rgba(120,130,150,0.16); color:#8b93a1;}
+.section-card h3{font-size:15px; color:var(--navy2); margin:18px 0 8px; font-weight:700;}
+.section-card p{margin:0 0 12px; color:#333947;}
 
-  /* ===== Quota tally (signature element) ===== */
-  .tally-wrap{
-    background:var(--surface);
-    border:1px solid var(--border);
-    border-radius:var(--radius);
-    padding:26px;
-  }
-  .tally-head{
-    display:flex; justify-content:space-between; align-items:flex-end;
-    margin-bottom:18px; flex-wrap:wrap; gap:14px;
-  }
-  .tally-total{font-family:'Zilla Slab',serif; font-size:15px; color:var(--ink-dim);}
-  .tally-total b{color:var(--gold); font-size:20px;}
-  .progress-bar{
-    height:6px; border-radius:4px; background:var(--surface-2);
-    overflow:hidden; margin:14px 0 22px;
-  }
-  .progress-fill{
-    height:100%; background:linear-gradient(90deg,var(--gold-dim),var(--gold));
-    width:0%; transition:width .4s ease;
-  }
-  .tally-grid{
-    display:grid; grid-template-columns:1fr repeat(2,1fr) 90px;
-    gap:1px; background:var(--border); border:1px solid var(--border); border-radius:8px; overflow:hidden;
-  }
-  .tally-grid > div{background:var(--bg-2); padding:14px;}
-  .tally-grid .head{
-    font-family:'IBM Plex Mono', monospace; font-size:11px; text-transform:uppercase;
-    letter-spacing:0.08em; color:var(--ink-faint); background:var(--surface-2);
-  }
-  .tally-grid .lang-label{
-    display:flex; align-items:center; font-weight:600; font-size:14.5px; color:var(--ink);
-  }
-  .cell{
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    gap:8px;
-  }
-  .cell .count{font-family:'IBM Plex Mono', monospace; font-size:22px; color:var(--gold); font-weight:600;}
-  .cell .target{font-size:11px; color:var(--ink-faint);}
-  .cell .btns{display:flex; gap:6px;}
-  .cell button{
-    width:26px; height:26px; border-radius:6px; border:1px solid var(--border);
-    background:var(--surface-2); color:var(--ink-dim); cursor:pointer; font-size:14px;
-    line-height:1; display:flex; align-items:center; justify-content:center;
-    transition:all .15s ease;
-  }
-  .cell button:hover{border-color:var(--gold); color:var(--gold);}
-  .tally-grid .total-cell{
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    font-family:'IBM Plex Mono',monospace; font-weight:600; color:var(--ink);
-  }
-  .tally-foot{
-    display:flex; justify-content:space-between; align-items:center;
-    margin-top:16px; flex-wrap:wrap; gap:10px;
-  }
-  .reset-link{
-    background:none; border:none; color:var(--ink-faint); font-size:12.5px;
-    cursor:pointer; text-decoration:underline; text-underline-offset:3px;
-  }
-  .reset-link:hover{color:var(--warn);}
-  .gender-note{
-    font-size:12.5px; color:var(--ink-faint); font-family:'IBM Plex Mono',monospace;
-  }
+ul.bullets{margin:0 0 6px; padding-left:0; list-style:none;}
+ul.bullets li{
+  position:relative; padding:6px 0 6px 24px; font-size:15px; color:#2A2F3A;
+  border-bottom:1px dashed #ECE8DB;
+}
+ul.bullets li:last-child{border-bottom:none;}
+ul.bullets li::before{
+  content:"›"; position:absolute; left:2px; top:5px; color:var(--stamp); font-weight:700; font-size:16px;
+}
 
-  /* timeline */
-  .timeline{position:relative; padding-left:26px;}
-  .timeline::before{
-    content:''; position:absolute; left:6px; top:6px; bottom:6px; width:1px; background:var(--border);
-  }
-  .tl-item{position:relative; padding-bottom:26px;}
-  .tl-item:last-child{padding-bottom:0;}
-  .tl-item::before{
-    content:''; position:absolute; left:-26px; top:4px; width:11px; height:11px;
-    border-radius:50%; background:var(--bg); border:2px solid var(--gold);
-  }
-  .tl-day{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--gold); margin-bottom:3px;}
-  .tl-title{font-weight:600; font-size:15.5px; margin-bottom:3px;}
-  .tl-desc{color:var(--ink-dim); font-size:13.8px;}
+.callout{
+  border-radius:8px; padding:12px 14px; margin:12px 0; font-size:14.5px;
+  display:flex; gap:10px; align-items:flex-start; border:1px solid;
+}
+.callout .tag{
+  font-family:'JetBrains Mono',monospace; font-size:10.5px; font-weight:700; letter-spacing:.08em;
+  text-transform:uppercase; padding:2px 7px; border-radius:4px; flex:0 0 auto; margin-top:1px;
+}
+.callout.warn{background:var(--warn-bg); border-color:#F0C6BC; color:var(--warn-text);}
+.callout.warn .tag{background:var(--warn-border); color:#fff;}
+.callout.note{background:var(--note-bg); border-color:#C4D7E8; color:var(--note-text);}
+.callout.note .tag{background:var(--note-border); color:#fff;}
 
-  /* risk table */
-  .risk{
-    display:flex; gap:14px; padding:16px 0; border-top:1px solid var(--border);
-  }
-  .risk:first-child{border-top:none; padding-top:0;}
-  .risk .flag{
-    flex-shrink:0; width:8px; height:8px; border-radius:50%; margin-top:7px; background:var(--warn);
-  }
-  .risk .rt{font-weight:600; font-size:14.5px; margin-bottom:3px;}
-  .risk .rd{color:var(--ink-dim); font-size:13.8px;}
+table{width:100%; border-collapse:collapse; font-size:14.5px;}
+.table-wrap{overflow-x:auto; border:1px solid var(--border); border-radius:8px; margin-bottom:8px;}
+table thead th{
+  background:var(--navy); color:#fff; text-align:left; padding:10px 12px;
+  font-family:'Manrope',sans-serif; font-weight:700; font-size:13px; white-space:nowrap;
+}
+table tbody td{padding:10px 12px; border-top:1px solid var(--border); vertical-align:top;}
+table tbody tr:nth-child(even){background:#FAF8F2;}
+table tbody td:first-child{font-weight:700; color:var(--navy2); white-space:nowrap;}
 
-  /* instructions specific */
-  .num-block{
-    display:flex; gap:18px; padding:22px 0; border-top:1px solid var(--border);
-  }
-  .num-block:first-child{border-top:none; padding-top:0;}
-  .num-block .n{
-    font-family:'Zilla Slab',serif; font-size:26px; color:var(--teal-dim);
-    font-weight:700; width:36px; flex-shrink:0;
-  }
-  .num-block .body h3{font-size:16.5px; font-weight:600; margin-bottom:6px;}
-  .num-block .body p{color:var(--ink-dim); font-size:14.3px; margin:0 0 8px;}
-  .num-block .body ul{margin:6px 0 0; padding-left:18px; color:var(--ink-dim); font-size:14px;}
-  .num-block .body ul li{margin-bottom:6px;}
-  .num-block .body ul li b{color:var(--ink);}
+.checklist{list-style:none; margin:0; padding:0;}
+.checklist li{
+  display:flex; align-items:center; gap:12px; padding:10px 6px;
+  border-bottom:1px dashed #ECE8DB; cursor:pointer; user-select:none;
+}
+.checklist li:last-child{border-bottom:none;}
+.checklist .box{
+  width:22px; height:22px; border-radius:5px; border:2px solid #B7BFCF; flex:0 0 auto;
+  display:flex; align-items:center; justify-content:center; transition:all .15s ease;
+}
+.checklist .box svg{width:13px; height:13px; opacity:0; transition:opacity .15s;}
+.checklist li.checked .box{background:var(--accent); border-color:var(--accent);}
+.checklist li.checked .box svg{opacity:1;}
+.checklist li.checked .txt{color:var(--muted); text-decoration:line-through;}
+.checklist-progress{font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--muted); margin-top:10px;}
 
-  .callout{
-    border:1px solid var(--teal-dim); background:rgba(78,168,158,0.08);
-    border-radius:var(--radius); padding:18px 20px; font-size:14px; color:var(--ink);
-    margin:18px 0;
-  }
-  .callout b{color:var(--teal);}
-  .callout.warn{border-color:#7a4a34; background:rgba(217,122,82,0.08);}
-  .callout.warn b{color:var(--warn);}
+.footer-note{
+  text-align:center; color:var(--muted); font-size:13px; padding:34px 20px 10px;
+  border-top:1px solid var(--border); margin-top:10px;
+}
 
-  .dont-do{
-    display:grid; grid-template-columns:1fr 1fr; gap:16px;
-  }
-  @media(max-width:760px){.dont-do{grid-template-columns:1fr;}}
-  .dd-col{border-radius:var(--radius); padding:18px 20px; border:1px solid var(--border);}
-  .dd-col.yes{border-color:var(--teal-dim); background:rgba(78,168,158,0.05);}
-  .dd-col.no{border-color:#5a3226; background:rgba(217,122,82,0.05);}
-  .dd-col h4{font-size:13px; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:12px;}
-  .dd-col.yes h4{color:var(--teal);}
-  .dd-col.no h4{color:var(--warn);}
-  .dd-col ul{margin:0; padding-left:18px; font-size:13.8px; color:var(--ink-dim);}
-  .dd-col ul li{margin-bottom:8px;}
+/* mobile nav toggle */
+.nav-toggle{display:none;}
 
-  /* checklist */
-  .checklist{list-style:none; margin:0; padding:0;}
-  .checklist li{
-    display:flex; align-items:flex-start; gap:12px;
-    padding:11px 0; border-top:1px solid var(--border); font-size:14.3px; color:var(--ink-dim);
-    cursor:pointer;
+@media (max-width: 900px){
+  .layout{grid-template-columns:1fr;}
+  .sidebar{
+    position:static; height:auto; border-right:none; border-bottom:1px solid var(--border);
+    padding:14px 16px;
   }
-  .checklist li:first-child{border-top:none;}
-  .checklist input{
-    appearance:none; width:18px; height:18px; border-radius:5px;
-    border:1.5px solid var(--border); background:var(--bg-2); flex-shrink:0; margin-top:1px;
-    cursor:pointer; position:relative; transition:all .15s ease;
-  }
-  .checklist input:checked{ background:var(--teal); border-color:var(--teal); }
-  .checklist input:checked::after{
-    content:'✓'; position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
-    color:#0b1512; font-size:12px; font-weight:700;
-  }
-  .checklist li.done span{ color:var(--ink-faint); text-decoration:line-through; }
-
-  .stimuli-strip{
-    display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;
-  }
-  .stim{
-    font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--ink-dim);
-    border:1px dashed var(--border); border-radius:6px; padding:6px 12px;
-  }
-
-  footer{
-    max-width:1100px; margin:0 auto; padding:30px 24px 60px;
-    color:var(--ink-faint); font-size:12.5px; border-top:1px solid var(--border);
-    display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
-  }
+  .navlist{display:flex; overflow-x:auto; gap:6px; padding-bottom:6px;}
+  .navlist li{margin:0;}
+  .navlink{white-space:nowrap;}
+  .side-hint{display:none;}
+  main{padding:20px 16px 70px;}
+  .stamp-btn{width:38px; height:38px; font-size:11px;}
+  .quickfacts{gap:16px;}
+}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  *{transition:none !important;}
+}
 </style>
 </head>
 <body>
 
-<header class="top">
-  <div class="top-inner">
-    <div class="brandmark">
-      <div class="stamp">GK</div>
-      <div class="brand-text">
-        <div class="t1">ZAG · Полевой офис Ташкент</div>
-        <div class="t2">Cigarette Naming Study — UZ</div>
-      </div>
+<div class="topbar">
+  <div class="topbar-inner">
+    <span class="kit-tag">CAPI · Field Kit</span>
+    <div class="topbar-title" id="uiTitle">
+      Интервью олувчилар учун қўлланма
+      <small id="uiSubtitle">HTP бренд номлари бўйича тадқиқот</small>
     </div>
-    <nav class="tabs">
-      <button class="active" data-tab="plan">План проекта</button>
-      <button data-tab="instr">Инструкция интервьюеру</button>
-    </nav>
+    <div class="stamps" role="group" aria-label="Til tanlash">
+      <span class="stamp-label" id="uiLangLabel">Тил</span>
+      <button class="stamp-btn" data-lang="uz-latn" title="O'zbekcha (lotin)">UZ</button>
+      <button class="stamp-btn" data-lang="uz-cyrl" title="Ўзбекча (кирилл)">ЎЗ</button>
+      <button class="stamp-btn" data-lang="ru" title="Русский">РУ</button>
+      <button class="stamp-btn" data-lang="ky" title="Кыргызча">КЫ</button>
+      <button class="stamp-btn" data-lang="tg" title="Тоҷикӣ">ТҶ</button>
+    </div>
   </div>
-</header>
+  <div class="progress-rail"><div class="progress-fill" id="progressFill"></div></div>
+</div>
 
-<main>
+<div class="layout">
+  <nav class="sidebar" aria-label="Bo'limlar">
+    <div class="side-hint" id="uiProgressLabel">Ўқилди</div>
+    <ul class="navlist" id="navList"></ul>
+  </nav>
 
-  <!-- ===================== TAB 1: PLAN ===================== -->
-  <section class="view plan active" id="view-plan">
+  <main id="mainContent">
+    <section class="hero">
+      <span class="hero-badge" id="heroBadge">CAPI · Дала тадқиқоти</span>
+      <h1 id="heroTitle">Интервью олувчилар учун қўлланма</h1>
+      <p id="heroSubtitle">HTP бренд номлари бўйича тадқиқот — Ўзбекистон · Тожикистон · Қирғизистон</p>
+      <div class="quickfacts" id="quickFacts"></div>
+    </section>
 
-    <div class="hero">
-      <div class="eyebrow">Внутренний документ · для руководства</div>
-      <h1>Опрос по оценке названий сигаретных брендов — Узбекистан</h1>
-      <p class="lead">Заказчик — Gallup Korea. Цель — проверить, насколько новые торговые марки приемлемы и корректно звучат на местных рынках до запуска: как респонденты произносят название и какие спонтанные ассоциации оно вызывает.</p>
-      <div class="meta-row">
-        <div class="meta-item"><div class="k">Страна</div><div class="v">Узбекистан</div></div>
-        <div class="meta-item"><div class="k">Метод</div><div class="v">CAPI / TAPI</div></div>
-        <div class="meta-item"><div class="k">Выборка</div><div class="v">100 интервью</div></div>
-        <div class="meta-item"><div class="k">Аудитория</div><div class="v">Курильщики 20–49 лет</div></div>
-        <div class="meta-item"><div class="k">Команда ZAG</div><div class="v">4 человека, Ташкент</div></div>
-      </div>
-    </div>
+    <div id="sections"></div>
 
-    <div class="block">
-      <h2><span class="idx">01</span> Кто за что отвечает</h2>
-      <p class="sub">Из ТЗ Gallup Korea. ZAG отвечает за всё, что происходит «на земле»: перевод, обучение, поле, контроль качества.</p>
-      <div class="card">
-        <table class="split-table">
-          <tr><th class="who">Кто</th><th>Задача</th></tr>
-          <tr><td class="who"><span class="pill gk">GK</span></td><td>Разработка анкет и перевод с английского на русский</td></tr>
-          <tr><td class="who"><span class="pill zag">ZAG</span></td><td>Корректура русского перевода + локализованный перевод на узбекский</td></tr>
-          <tr><td class="who"><span class="pill gk">GK</span></td><td>Веб-программирование CAPI/TAPI по готовым сценариям</td></tr>
-          <tr><td class="who"><span class="pill zag">ZAG</span></td><td>Тестирование ссылок и обратная связь по производительности сайта, включая проверку стабильности в локальной сети СНГ</td></tr>
-          <tr><td class="who"><span class="pill gk">GK</span></td><td>Разработка стимулов — карточки с названиями, визуальные концепции пачек</td></tr>
-          <tr><td class="who"><span class="pill zag">ZAG</span></td><td>Обучение интервьюеров и проведение полевых работ</td></tr>
-          <tr><td class="who"><span class="pill gk">GK</span></td><td>Сбор и хранение данных на стороне GK</td></tr>
-          <tr><td class="who"><span class="pill zag">ZAG</span></td><td>Контроль и проверка качества данных</td></tr>
-          <tr><td class="who"><span class="pill gk">GK</span></td><td>Обработка, табулирование и итоговый отчёт</td></tr>
-        </table>
-      </div>
-    </div>
-
-    <div class="block">
-      <h2><span class="idx">02</span> Команда в Ташкенте</h2>
-      <p class="sub">4 человека закрывают весь цикл ZAG — от обучения до сдачи проверенных данных.</p>
-      <div class="grid2">
-        <div class="team-card">
-          <span class="role-tag">Координатор</span>
-          <h3>Руководитель проекта на месте</h3>
-          <p>Связь с GK, распределение квот между интервьюерами, контроль сроков, эскалация проблем со стимулами и ссылками.</p>
-          <ul>
-            <li>Проводит обучение интервьюеров</li>
-            <li>Ежедневно сверяет закрытые квоты</li>
-            <li>Отвечает за тест ссылок CAPI/TAPI</li>
-          </ul>
-        </div>
-        <div class="team-card">
-          <span class="role-tag">Контроль качества</span>
-          <h3>Бэк-чекер</h3>
-          <p>Проверяет анкеты и перезванивает / навещает часть респондентов, чтобы подтвердить, что интервью реально состоялось и без искажений.</p>
-          <ul>
-            <li>Бэк-чек не менее 15% анкет</li>
-            <li>Проверка логики и заполненности</li>
-            <li>Отчёт по качеству — координатору</li>
-          </ul>
-        </div>
-        <div class="team-card">
-          <span class="role-tag">Полевой сотрудник</span>
-          <h3>Интервьюер № 1</h3>
-          <p>Скрининг, рекрутинг и проведение интервью на узбекском и русском языках среди курильщиков 20–49 лет.</p>
-        </div>
-        <div class="team-card">
-          <span class="role-tag">Полевой сотрудник</span>
-          <h3>Интервьюер № 2</h3>
-          <p>Работает в паре с интервьюером № 1, закрывает вторую половину квот по возрасту и языку интервью.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="block">
-      <h2><span class="idx">03</span> Целевая аудитория и квоты</h2>
-      <p class="sub">Курильщики обычных сигарет и пользователи IQOS/Glo, 20–49 лет. Гендерное распределение — 85–90% мужчины, 10–15% женщины. Ниже — рабочий счётчик квот по языку и возрасту: жмите «+» после каждого закрытого интервью, данные сохраняются в браузере.</p>
-
-      <div class="tally-wrap">
-        <div class="tally-head">
-          <div class="tally-total">Закрыто интервью: <b id="grand-total">0</b> / 100</div>
-          <div class="gender-note">Целевой гендерный сплит: 85–90% М · 10–15% Ж</div>
-        </div>
-        <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
-
-        <div class="tally-grid">
-          <div class="head"></div>
-          <div class="head" style="text-align:center;">20–34 года</div>
-          <div class="head" style="text-align:center;">35–49 лет</div>
-          <div class="head" style="text-align:center;">Всего</div>
-
-          <div class="lang-label">Узбекский язык</div>
-          <div class="cell" data-cell="uz-young" data-target="35"></div>
-          <div class="cell" data-cell="uz-old" data-target="35"></div>
-          <div class="total-cell" id="total-uz">0 / 70</div>
-
-          <div class="lang-label">Русский язык</div>
-          <div class="cell" data-cell="ru-young" data-target="15"></div>
-          <div class="cell" data-cell="ru-old" data-target="15"></div>
-          <div class="total-cell" id="total-ru">0 / 30</div>
-        </div>
-
-        <div class="tally-foot">
-          <span class="gender-note">Хранится локально на этом устройстве</span>
-          <button class="reset-link" id="reset-tally">обнулить счётчик</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="block">
-      <h2><span class="idx">04</span> Этапы и сроки</h2>
-      <p class="sub">Ориентировочный график для команды из 2 интервьюеров при плотности 8–10 интервью в день на человека.</p>
-      <div class="card">
-        <div class="timeline">
-          <div class="tl-item">
-            <div class="tl-day">День 1</div>
-            <div class="tl-title">Обучение и тест системы</div>
-            <div class="tl-desc">Разбор скрипта, отработка скрининга, тест ссылок CAPI/TAPI и стабильности сети, репетиция работы со стимулами.</div>
-          </div>
-          <div class="tl-item">
-            <div class="tl-day">Дни 2–6</div>
-            <div class="tl-title">Полевой сбор данных</div>
-            <div class="tl-desc">Параллельная работа 2 интервьюеров по квотам язык × возраст. Координатор ежедневно сверяет прогресс по счётчику квот.</div>
-          </div>
-          <div class="tl-item">
-            <div class="tl-day">Дни 6–7</div>
-            <div class="tl-title">Контроль качества</div>
-            <div class="tl-desc">Бэк-чек не менее 15% анкет, проверка логики ответов, устранение ошибок и добор при отбраковке.</div>
-          </div>
-          <div class="tl-item">
-            <div class="tl-day">День 7</div>
-            <div class="tl-title">Сдача данных</div>
-            <div class="tl-desc">Финальная выгрузка подтверждённых данных в базу GK, отчёт по квотам и качеству.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="block">
-      <h2><span class="idx">05</span> Риски, на которые стоит обратить внимание</h2>
-      <div class="card">
-        <div class="risk">
-          <div class="flag"></div>
-          <div>
-            <div class="rt">Узкая аудитория IQOS/Glo среди женщин</div>
-            <div class="rd">Квота 10–15% женщин может закрываться медленнее — заложить дополнительный день на добор.</div>
-          </div>
-        </div>
-        <div class="risk">
-          <div class="flag"></div>
-          <div>
-            <div class="rt">Стабильность сети в поле</div>
-            <div class="rd">CAPI/TAPI зависит от связи — интервьюерам заранее проверять покрытие в районах рекрутинга, иметь офлайн-режим как запасной план.</div>
-          </div>
-        </div>
-        <div class="risk">
-          <div class="flag"></div>
-          <div>
-            <div class="rt">Точность фиксации произношения</div>
-            <div class="rd">Ключевая ценность исследования — как респондент сам произносит название. Ошибки интервьюера на этом шаге обесценивают анкету целиком.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </section>
-
-  <!-- ===================== TAB 2: INSTRUCTIONS ===================== -->
-  <section class="view instr" id="view-instr">
-
-    <div class="hero">
-      <div class="eyebrow teal">Инструкция · для интервьюеров</div>
-      <h1>Как проводить интервью по названиям сигаретных брендов</h1>
-      <p class="lead">Прочитайте перед первым интервью и держите под рукой первую неделю в поле. Главное здесь — не просто дойти до конца анкеты, а честно зафиксировать первую реакцию респондента на название.</p>
-    </div>
-
-    <div class="block">
-      <h2><span class="idx">01</span> Кого мы опрашиваем</h2>
-      <div class="num-block">
-        <div class="n">A</div>
-        <div class="body">
-          <h3>Требования к респонденту</h3>
-          <ul>
-            <li><b>Возраст</b> — 20–49 лет, без исключений</li>
-            <li><b>Курит регулярно</b> — обычные сигареты <b>или</b> использует IQOS/Glo</li>
-            <li>Респондент говорит либо на узбекском, либо на русском — интервью проводится на том языке, который ему удобнее</li>
-          </ul>
-          <p>Если человек не курит и не пользуется IQOS/Glo — вежливо завершите скрининг, он не подходит для опроса.</p>
-        </div>
-      </div>
-      <div class="num-block">
-        <div class="n">B</div>
-        <div class="body">
-          <h3>Квоты, которые нужно закрыть</h3>
-          <p>Всего 100 анкет по Узбекистану, распределены так:</p>
-          <ul>
-            <li><b>Узбекский язык — 70</b> (35 в возрасте 20–34, 35 в возрасте 35–49)</li>
-            <li><b>Русский язык — 30</b> (15 в возрасте 20–34, 15 в возрасте 35–49)</li>
-            <li><b>Пол — 85–90% мужчины, 10–15% женщины</b> по каждой группе</li>
-          </ul>
-          <p>Сверяйте закрытые квоты с координатором ежедневно, не набирайте одну ячейку с запасом за счёт другой.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="block">
-      <h2><span class="idx">02</span> Работа с планшетом (CAPI/TAPI)</h2>
-      <div class="num-block">
-        <div class="n">C</div>
-        <div class="body">
-          <h3>Перед выходом в поле</h3>
-          <ul>
-            <li>Проверьте ссылку на анкету и соединение с интернетом — если сеть нестабильна в вашем районе, сообщите координатору <b>до</b> начала работы, а не после потерянных интервью</li>
-            <li>Планшет заряжен полностью, есть запасной пауэрбанк</li>
-            <li>Стимулы (карточки с названиями, визуалы пачек) — в порядке, ничего не помято и не подписано</li>
-          </ul>
-        </div>
-      </div>
-      <div class="num-block">
-        <div class="n">D</div>
-        <div class="body">
-          <h3>Во время интервью</h3>
-          <ul>
-            <li>Следуйте скрипту дословно — формулировки согласованы с заказчиком и переведены и вычитаны намеренно точно</li>
-            <li>Не пропускайте и не меняйте порядок вопросов, даже если кажется, что респондент уже ответил на следующий</li>
-            <li>Если ссылка зависла или сеть пропала — не досочиняйте ответы по памяти, зафиксируйте момент сбоя и сообщите координатору</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="block">
-      <h2><span class="idx">03</span> Самое важное: произношение и первая ассоциация</h2>
-      <div class="callout">
-        <b>Зачем вообще этот опрос:</b> заказчик проверяет, не будет ли новое название бренда звучать неудачно или странно на местном рынке — <b>до</b> запуска. Ваша задача — честно зафиксировать, как респондент произносит название сам, и что первое приходит ему в голову, а не подсказать «правильный» вариант.
-      </div>
-      <div class="num-block">
-        <div class="n">E</div>
-        <div class="body">
-          <h3>Как показывать название</h3>
-          <ul>
-            <li>Покажите карточку с названием молча и попросите респондента прочитать его вслух <b>первым</b>, до того как вы сами его произнесёте</li>
-            <li>Записывайте произношение так, как это прозвучало у респондента — не исправляйте и не переспрашивайте «а разве не так»</li>
-            <li>Дайте 2–3 секунды тишины перед вопросом об ассоциациях — первая реакция важнее развёрнутого ответа</li>
-          </ul>
-        </div>
-      </div>
-      <div class="dont-do" style="margin-top:8px;">
-        <div class="dd-col yes">
-          <h4>Так правильно</h4>
-          <ul>
-            <li>Респондент читает название вслух сам, до подсказок</li>
-            <li>Записываете первую спонтанную реакцию дословно</li>
-            <li>Нейтральный тон при показе любого названия</li>
-          </ul>
-        </div>
-        <div class="dd-col no">
-          <h4>Так нельзя</h4>
-          <ul>
-            <li>Произносить название за респондента до его ответа</li>
-            <li>Подсказывать «правильное» ударение или чтение</li>
-            <li>Комментировать реакцию или удивляться вслух</li>
-          </ul>
-        </div>
-      </div>
-      <div class="stimuli-strip">
-        <span class="stim">карточка с названием</span>
-        <span class="stim">визуальная концепция пачки</span>
-        <span class="stim">каждый стимул показывается по одному</span>
-      </div>
-    </div>
-
-    <div class="block">
-      <h2><span class="idx">04</span> Общение с респондентом</h2>
-      <div class="num-block">
-        <div class="n">F</div>
-        <div class="body">
-          <h3>Этика и тон разговора</h3>
-          <ul>
-            <li>Тема — табак и никотин, без оценочных комментариев по поводу курения</li>
-            <li>Конфиденциальность: объясните, что ответы используются только в обобщённом виде для исследования</li>
-            <li>Респондент вправе отказаться от продолжения в любой момент — это фиксируется, а не оспаривается</li>
-          </ul>
-        </div>
-      </div>
-      <div class="callout warn">
-        <b>Если сомневаетесь</b> — подходит ли респондент по квоте, зависла ли ссылка, корректно ли показывать стимул повторно — остановитесь и спросите координатора. Лучше уточнить, чем испортить анкету.
-      </div>
-    </div>
-
-    <div class="block">
-      <h2><span class="idx">05</span> Чек-лист интервьюера</h2>
-      <p class="sub">Отмечайте по ходу дня — статус сохраняется на этом устройстве.</p>
-      <div class="card">
-        <ul class="checklist" id="checklist">
-          <li><input type="checkbox" data-key="c1"><span>Планшет заряжен, ссылка на анкету открыта и работает</span></li>
-          <li><input type="checkbox" data-key="c2"><span>Стимулы (карточки, визуалы) в порядке, ничего не перепутано</span></li>
-          <li><input type="checkbox" data-key="c3"><span>Респондент прошёл скрининг: возраст 20–49, курит / IQOS/Glo</span></li>
-          <li><input type="checkbox" data-key="c4"><span>Язык интервью подтверждён и соответствует незакрытой квоте</span></li>
-          <li><input type="checkbox" data-key="c5"><span>Название показано молча, произношение зафиксировано дословно</span></li>
-          <li><input type="checkbox" data-key="c6"><span>Анкета отправлена, координатор уведомлён о закрытой ячейке квоты</span></li>
-        </ul>
-      </div>
-    </div>
-
-  </section>
-
-</main>
-
-<footer>
-  <span>Gallup Korea × ZAG — Узбекистан</span>
-  <span>Внутренний рабочий документ, не для внешнего распространения</span>
-</footer>
+    <div class="footer-note" id="footerNote"></div>
+  </main>
+</div>
 
 <script>
-  // ---- Tabs ----
-  const tabButtons = document.querySelectorAll('nav.tabs button');
-  const views = { plan: document.getElementById('view-plan'), instr: document.getElementById('view-instr') };
-  tabButtons.forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      tabButtons.forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
-      Object.values(views).forEach(v=>v.classList.remove('active'));
-      views[btn.dataset.tab].classList.add('active');
-      window.scrollTo({top:0, behavior:'smooth'});
+/* ============================================================
+   DATA — 5 languages: uz-latn, uz-cyrl, ru, ky, tg
+   ============================================================ */
+const T = {};
+
+T["uz-latn"] = {
+  meta:{
+    badge:"CAPI · Dala tadqiqoti",
+    title:"Intervyu oluvchilar uchun qoʻllanma",
+    subtitle:"HTP brend nomlari boʻyicha tadqiqot — Oʻzbekiston · Tojikiston · Qirgʻiziston",
+    quickFacts:[{value:"3",label:"davlat"},{value:"4",label:"til"},{value:"8",label:"nom"},{value:"~45",label:"daqiqa"}]
+  },
+  ui:{ langLabel:"Til", progressLabel:"Oʻqildi", warnLabel:"Diqqat", noteLabel:"Eslatma",
+    footer:"Savol boʻlsa, nazorat (SV) bilan bogʻlaning. Intervyuning sifati tadqiqot natijalarining ishonchliligini belgilaydi." },
+  sections:[
+    {title:"Tadqiqot haqida", blocks:[
+      {type:"table", headers:["Band","Maʼlumot"], rows:[
+        ["Davlatlar","Oʻzbekiston · Tojikiston · Qirgʻiziston"],
+        ["Usul","CAPI — planshet orqali yuzma-yuz intervyu (har bir davlatda kamida 50 respondent)"],
+        ["Tillar","Oʻzbek · Tojik · Qirgʻiz · Rus (respondent tanlaydi)"],
+        ["Baholanadigan nomlar","Jami 8 ta nom: 5 ta toʻplam (SET 1–5) + ESSE qoʻllab-quvvatlash moduli"],
+        ["Davomiyligi","Taxminan 40–50 daqiqa"],
+        ["Mahsulot toifasi","HTP — qizdiriladigan tamaki mahsuloti"]
+      ]}
+    ]},
+    {title:"Asosiy qoidalar", blocks:[
+      {type:"bullets", items:[
+        "Kompaniyani va soʻrov maqsadini taqdim eting; maʼlumotlar maxfiy saqlanishini tushuntiring.",
+        "Respondent haqidagi maʼmuriy maʼlumotlarni (ID, sana, til, davomiylik, SV) toʻliq toʻldiring.",
+        "Har bir savolni respondent tanlagan tilda toʻgʻri ayting.",
+        "Toʻgʻri yoki notoʻgʻri javob yoʻqligini va halol fikr muhimligini taʼkidlang.",
+        "Oʻz fikringizni bildirmang, savollarni neytral ohangda oʻqing."
+      ]},
+      {type:"warning", text:"Nomlarni bir-biri bilan solishtirmang — har bir nom mustaqil baholanadi (bundan tashqari toʻplam ichidagi yakuniy tanlov, masalan P13, S13, E6, E9)."}
+    ]},
+    {title:"Terminologiya", blocks:[
+      {type:"table", headers:["Til","HTP atamasi"], rows:[
+        ["Oʻzbek (UZ)","qizdiriladigan tamaki mahsuloti"],
+        ["Tojik (TJ)","маҳсулот аз тамокуи гармкардашуда"],
+        ["Qirgʻiz (KG)","ысытылган тамеки өнүмдөрү"],
+        ["Rus (RU)","нагреваемый табак (ИНТ)"]
+      ]},
+      {type:"note", text:"Agar respondent atama bilan tanish boʻlmasa, brend nomlarini aytmang. Tushuntiring: «Tamaki barglarini yondirmasdan, qizdirish orqali foydalaniladigan mahsulot»."}
+    ]},
+    {title:"Skrining (SQ0–SQ8)", blocks:[
+      {type:"bullets", items:[
+        "SQ0 — Intervyu tilini tanlash: davlatga mos tillarni koʻrsating, til kvotasiga rioya qiling.",
+        "SQ1 — Yashash mintaqasi: davlat/mintaqa kvotasi uchun.",
+        "SQ2 — Kasbiy soha: marketing, tamaki, OAV, sogʻliqni saqlash sohasida ishlasa (①–⑤) — SOʻROVNI YAKUNLANG.",
+        "SQ3 — Yosh: qonuniy yoshga mos kelmasa (19 va kichik yoki 50 va katta) — SOʻROVNI YAKUNLANG.",
+        "SQ4 — Jinsi: kvota uchun.",
+        "SQ5 — Hozir tamaki/nikotin isteʼmol qilmasa — SOʻROVNI YAKUNLANG.",
+        "SQ6 / SQ6-1 — isteʼmol qilinadigan mahsulot turlari va asosiysi.",
+        "SQ7 / SQ8 — faqat HTP isteʼmol qilmaydiganlarga: xabardorlik va foydalanish niyati."
+      ]},
+      {type:"warning", text:"SQ2, SQ3 yoki SQ5 da yakunlash sharti chiqsa, intervyuni davom ettirmang."}
+    ]},
+    {title:"Tuzilma va ketma-ketlik", blocks:[
+      {type:"table", headers:["Toʻplam","Davlatlar","Toifa","Nom(lar)","Baholash usuli"], rows:[
+        ["SET 1","UZ · TJ · KG","Bosh brend","FLEX","Monadik, ikki bosqichli"],
+        ["SET 2","TJ","P2 qurilmasi","FLEX BRYZ / MINGLE / WITHIX","Toʻplam ichida, ikki bosqichli"],
+        ["SET 3","TJ","P2 stiki","AIIV","Monadik, ikki bosqichli"],
+        ["SET 4","UZ · TJ · KG","P4 qurilmasi","FLEX ESSENZ / ORIGIN","Toʻplam ichida, ikki bosqichli"],
+        ["SET 5","UZ · TJ · KG","P4 stiki","FAIIM","Monadik, ikki bosqichli"],
+        ["E moduli","UZ · TJ · KG","ESSE qoʻllab-quvvatlash","ESSE + 4 variant","Barcha respondentlar, oxirida"]
+      ]},
+      {type:"subheading", text:"Har bir toʻplam ikki bosqichda oʻtkaziladi:"},
+      {type:"bullets", items:[
+        "① Faqat nomni baholash — faqat matnli kartochka: talaffuz va esda qolish qulayligi.",
+        "② Qadoq maketi koʻrsatilgandan keyin — assotsiatsiyalar, taqiqlar, obraz, jozibadorlik, farqlanish."
+      ]},
+      {type:"warning", text:"Nom toʻliq baholanmaguncha qadoq maketini hech qachon koʻrsatmang."},
+      {type:"warning", text:"Qadoq maketlarida ESSE yoki boshqa qoʻllab-quvvatlovchi brend elementi boʻlmasin."},
+      {type:"note", text:"E moduli barcha toʻplamlar tugagandan soʻng BARCHA respondentlar bilan bir marta oʻtkaziladi."},
+      {type:"note", text:"E5/E8 uchun rotatsiya: A guruhi 1→2→3→4; B guruhi 4→3→2→1. Har biriga ~50%."}
+    ]},
+    {title:"Davlatlar boʻyicha qamrov", blocks:[
+      {type:"subheading", text:"Tojikiston — barcha toʻplamlar"},
+      {type:"paragraph", text:"SET 1, 2, 3, 4, 5 va E moduli — hammasi beriladi."},
+      {type:"subheading", text:"Oʻzbekiston va Qirgʻiziston — faqat SET 1, 4, 5 va E moduli"},
+      {type:"warning", text:"SET 2 va SET 3 faqat Tojikistonda — boshqa ikki davlatda BERILMAYDI."}
+    ]},
+    {title:"Toʻplamni oʻtkazish protokoli", blocks:[
+      {type:"subheading", text:"Bitta nomli toʻplamlar (SET 1, 3, 5)"},
+      {type:"bullets", items:[
+        "Kartochkani koʻrsating, nomni 2–3 marta ovoz chiqarib aytishini soʻrang.",
+        "Talaffuz va esda qolish savollariga javob oling.",
+        "Qiyin boʻlsa — sabab savolini bering.",
+        "Qadoq maketini koʻrsatib, qolgan savollarni bering."
+      ]},
+      {type:"subheading", text:"Bir nechta variantli toʻplamlar (SET 2, 4)"},
+      {type:"bullets", items:[
+        "Har bir variantni rotatsiya tartibida koʻrsating.",
+        "Toʻliq shaklda ayting: «FLEX + qism» (masalan FLEX BRYZ).",
+        "Barcha variantlar ① bosqichda baholanmaguncha maket koʻrsatmang.",
+        "Yakunida eng afzal variantni tanlashini soʻrang (P13/S13)."
+      ]}
+    ]},
+    {title:"Taqiqlangan assotsiatsiyalar", blocks:[
+      {type:"note", text:"Bu savollar madaniy/diniy xavflarni aniqlash uchun majburiy. Toʻgʻri/notoʻgʻri javob yoʻqligini tushuntiring."},
+      {type:"bullets", items:[
+        "Avval: sleng/soʻkinish/diniy jihatdan noqulaymi? (Ha/Yoʻq)",
+        "«Ha» boʻlsa — aynan soʻz va taqiq turini aniqlang.",
+        "«Yoʻq» boʻlsa — keyingi boʻlimga oʻting."
+      ]}
+    ]},
+    {title:"E moduli — ESSE", blocks:[
+      {type:"bullets", items:[
+        "ESSE — mavjud oddiy sigareta brendi ekanligini tushuntiring, kartochkani koʻrsating.",
+        "Xabardorlik, assotsiatsiyalar, jozibadorlik va obrazni baholang.",
+        "[A] FLEX qurilma brendi qoʻllab-quvvatlashi — munosabat va sabab (ijobiy/salbiy).",
+        "E5/E6 — 4 variant rotatsiya boʻyicha baholanadi, soʻng eng afzali tanlanadi.",
+        "[B] FAIIM stik brendi uchun xuddi shunday (E7–E9)."
+      ]},
+      {type:"warning", text:"Rotatsiya guruhini (A/B) qatʼiy qoʻllang — har biriga taxminan yarmi toʻgʻri kelsin."}
+    ]},
+    {title:"Zarur materiallar", blocks:[
+      {type:"checklist", items:[
+        "Planshet kompyuter",
+        "Har bir nomning lotin/kirill kartochkalari — 1-bosqich",
+        "ESSE elementlarisiz qadoq maketi kartochkalari — 2-bosqich",
+        "ESSE va 4 variant kartochkalari — E moduli",
+        "Respondent roziligi shakli va mukofot"
+      ]}
+    ]},
+    {title:"Tez-tez uchraydigan xatolar", blocks:[
+      {type:"warninglist", items:[
+        "Qadoq maketini nom baholanmasdan koʻrsatish.",
+        "SET 2/3 ni Oʻzbekiston yoki Qirgʻizistonda oʻtkazish.",
+        "Rotatsiya guruhlariga rioya qilmaslik.",
+        "Nomlarni solishtirishga undash yoki fikr bildirish.",
+        "Yakunlash shartida intervyuni davom ettirish.",
+        "«Toʻgʻri/notoʻgʻri javob yoʻq» eslatmasini unutish.",
+        "E modulini toʻplamlar tugamasdan yoki qisman oʻtkazish."
+      ]}
+    ]}
+  ]
+};
+
+T["uz-cyrl"] = {
+  meta:{
+    badge:"CAPI · Дала тадқиқоти",
+    title:"Интервью олувчилар учун қўлланма",
+    subtitle:"HTP бренд номлари бўйича тадқиқот — Ўзбекистон · Тожикистон · Қирғизистон",
+    quickFacts:[{value:"3",label:"давлат"},{value:"4",label:"тил"},{value:"8",label:"ном"},{value:"~45",label:"дақиқа"}]
+  },
+  ui:{ langLabel:"Тил", progressLabel:"Ўқилди", warnLabel:"Диққат", noteLabel:"Эслатма",
+    footer:"Савол бўлса, назорат (SV) билан боғланинг. Интервьюнинг сифати тадқиқот натижаларининг ишончлилигини белгилайди." },
+  sections:[
+    {title:"Тадқиқот ҳақида", blocks:[
+      {type:"table", headers:["Банд","Маълумот"], rows:[
+        ["Давлатлар","Ўзбекистон · Тожикистон · Қирғизистон"],
+        ["Усул","CAPI — планшет орқали юзма-юз интервью (ҳар бир давлатда камида 50 респондент)"],
+        ["Тиллар","Ўзбек · Тожик · Қирғиз · Рус (респондент танлайди)"],
+        ["Баҳоланадиган номлар","Жами 8 та ном: 5 та тўплам (SET 1–5) + ESSE қўллаб-қувватлаш модули"],
+        ["Давомийлиги","Тахминан 40–50 дақиқа"],
+        ["Маҳсулот тоифаси","HTP — қиздириладиган тамаки маҳсулоти"]
+      ]}
+    ]},
+    {title:"Асосий қоидалар", blocks:[
+      {type:"bullets", items:[
+        "Компанияни ва сўров мақсадини тақдим этинг; маълумотлар махфий сақланишини тушунтиринг.",
+        "Респондент ҳақидаги маъмурий маълумотларни (ID, сана, тил, давомийлик, SV) тўлиқ тўлдиринг.",
+        "Ҳар бир саволни респондент танлаган тилда тўғри айтинг.",
+        "Тўғри ёки нотўғри жавоб йўқлигини ва ҳалол фикр муҳимлигини таъкидланг.",
+        "Ўз фикрингизни билдирманг, саволларни нейтрал оҳангда ўқинг."
+      ]},
+      {type:"warning", text:"Номларни бир-бири билан солиштирманг — ҳар бир ном мустақил баҳоланади (бундан ташқари тўплам ичидаги якуний танлов, масалан P13, S13, E6, E9)."}
+    ]},
+    {title:"Терминология", blocks:[
+      {type:"table", headers:["Тил","HTP атамаси"], rows:[
+        ["Ўзбек (UZ)","қиздириладиган тамаки маҳсулоти"],
+        ["Тожик (TJ)","маҳсулот аз тамокуи гармкардашуда"],
+        ["Қирғиз (KG)","ысытылган тамеки өнүмдөрү"],
+        ["Рус (RU)","нагреваемый табак (ИНТ)"]
+      ]},
+      {type:"note", text:"Агар респондент атама билан таниш бўлмаса, бренд номларини айтманг. Тушунтиринг: «Тамаки барглари ёндирилмасдан, қиздириш орқали фойдаланиладиган маҳсулот»."}
+    ]},
+    {title:"Скрининг (SQ0–SQ8)", blocks:[
+      {type:"bullets", items:[
+        "SQ0 — Интервью тилини танлаш: давлатга мос тилларни кўрсатинг, тил квотасига риоя қилинг.",
+        "SQ1 — Яшаш минтақаси: давлат/минтақа квотаси учун.",
+        "SQ2 — Касбий соҳа: маркетинг, тамаки, ОАВ, соғлиқни сақлаш соҳасида ишласа (①–⑤) — СЎРОВНИ ЯКУНЛАНГ.",
+        "SQ3 — Ёши: қонуний ёшга мос келмаса (19 ва кичик ёки 50 ва катта) — СЎРОВНИ ЯКУНЛАНГ.",
+        "SQ4 — Жинси: квота учун.",
+        "SQ5 — Ҳозир тамаки/никотин истеъмол қилмаса — СЎРОВНИ ЯКУНЛАНГ.",
+        "SQ6 / SQ6-1 — истеъмол қилинадиган маҳсулот турлари ва асосийси.",
+        "SQ7 / SQ8 — фақат HTP истеъмол қилмайдиганларга: хабардорлик ва фойдаланиш нияти."
+      ]},
+      {type:"warning", text:"SQ2, SQ3 ёки SQ5 да якунлаш шарти чиқса, интервьюни давом эттирманг."}
+    ]},
+    {title:"Тузилма ва кетма-кетлик", blocks:[
+      {type:"table", headers:["Тўплам","Давлатлар","Тоифа","Ном(лар)","Баҳолаш усули"], rows:[
+        ["SET 1","UZ · TJ · KG","Бош бренд","FLEX","Монадик, икки босқичли"],
+        ["SET 2","TJ","P2 қурилмаси","FLEX BRYZ / MINGLE / WITHIX","Тўплам ичида, икки босқичли"],
+        ["SET 3","TJ","P2 стики","AIIV","Монадик, икки босқичли"],
+        ["SET 4","UZ · TJ · KG","P4 қурилмаси","FLEX ESSENZ / ORIGIN","Тўплам ичида, икки босқичли"],
+        ["SET 5","UZ · TJ · KG","P4 стики","FAIIM","Монадик, икки босқичли"],
+        ["E модули","UZ · TJ · KG","ESSE қўллаб-қувватлаш","ESSE + 4 вариант","Барча респондентлар, охирида"]
+      ]},
+      {type:"subheading", text:"Ҳар бир тўплам икки босқичда ўтказилади:"},
+      {type:"bullets", items:[
+        "① Фақат номни баҳолаш — фақат матнли карточка: талаффуз ва эсда қолиш қулайлиги.",
+        "② Қадоқ макети кўрсатилгандан кейин — ассоциациялар, тақиқлар, образ, жозибадорлик, фарқланиш."
+      ]},
+      {type:"warning", text:"Ном тўлиқ баҳоланмагунча қадоқ макетини ҳеч қачон кўрсатманг."},
+      {type:"warning", text:"Қадоқ макетларида ESSE ёки бошқа қўллаб-қувватловчи бренд элементи бўлмасин."},
+      {type:"note", text:"E модули барча тўпламлар тугагандан сўнг БАРЧА респондентлар билан бир марта ўтказилади."},
+      {type:"note", text:"E5/E8 учун ротация: A гуруҳи 1→2→3→4; B гуруҳи 4→3→2→1. Ҳар бирига ~50%."}
+    ]},
+    {title:"Давлатлар бўйича қамров", blocks:[
+      {type:"subheading", text:"Тожикистон — барча тўпламлар"},
+      {type:"paragraph", text:"SET 1, 2, 3, 4, 5 ва E модули — ҳаммаси берилади."},
+      {type:"subheading", text:"Ўзбекистон ва Қирғизистон — фақат SET 1, 4, 5 ва E модули"},
+      {type:"warning", text:"SET 2 ва SET 3 фақат Тожикистонда — бошқа икки давлатда БЕРИЛМАЙДИ."}
+    ]},
+    {title:"Тўпламни ўтказиш протоколи", blocks:[
+      {type:"subheading", text:"Битта номли тўпламлар (SET 1, 3, 5)"},
+      {type:"bullets", items:[
+        "Карточкани кўрсатинг, номни 2–3 марта овоз чиқариб айтишини сўранг.",
+        "Талаффуз ва эсда қолиш саволларига жавоб олинг.",
+        "Қийин бўлса — сабаб саволини беринг.",
+        "Қадоқ макетини кўрсатиб, қолган саволларни беринг."
+      ]},
+      {type:"subheading", text:"Бир нечта вариантли тўпламлар (SET 2, 4)"},
+      {type:"bullets", items:[
+        "Ҳар бир вариантни ротация тартибида кўрсатинг.",
+        "Тўлиқ шаклда айтинг: «FLEX + қисм» (масалан FLEX BRYZ).",
+        "Барча вариантлар ① босқичда баҳоланмагунча макет кўрсатманг.",
+        "Якунида энг афзал вариантни танлашини сўранг (P13/S13)."
+      ]}
+    ]},
+    {title:"Тақиқланган ассоциациялар", blocks:[
+      {type:"note", text:"Бу саволлар маданий/диний хавфларни аниқлаш учун мажбурий. Тўғри/нотўғри жавоб йўқлигини тушунтиринг."},
+      {type:"bullets", items:[
+        "Аввал: сленг/сўкиниш/диний жиҳатдан ноқулайми? (Ҳа/Йўқ)",
+        "«Ҳа» бўлса — айнан сўз ва тақиқ турини аниқланг.",
+        "«Йўқ» бўлса — кейинги бўлимга ўтинг."
+      ]}
+    ]},
+    {title:"E модули — ESSE", blocks:[
+      {type:"bullets", items:[
+        "ESSE — мавжуд оддий сигарета бренди эканлигини тушунтиринг, карточкани кўрсатинг.",
+        "Хабардорлик, ассоциациялар, жозибадорлик ва образни баҳоланг.",
+        "[A] FLEX қурилма бренди қўллаб-қувватлаши — муносабат ва сабаб (ижобий/салбий).",
+        "E5/E6 — 4 вариант ротация бўйича баҳоланади, сўнг энг афзали танланади.",
+        "[B] FAIIM стик бренди учун худди шундай (E7–E9)."
+      ]},
+      {type:"warning", text:"Ротация гуруҳини (A/B) қатъий қўлланг — ҳар бирига тахминан ярми тўғри келсин."}
+    ]},
+    {title:"Зарур материаллар", blocks:[
+      {type:"checklist", items:[
+        "Планшет компьютер",
+        "Ҳар бир номнинг лотин/кирилл карточкалари — 1-босқич",
+        "ESSE элементларисиз қадоқ макети карточкалари — 2-босқич",
+        "ESSE ва 4 вариант карточкалари — E модули",
+        "Респондент розилиги шакли ва мукофот"
+      ]}
+    ]},
+    {title:"Тез-тез учрайдиган хатолар", blocks:[
+      {type:"warninglist", items:[
+        "Қадоқ макетини ном баҳоланмасдан кўрсатиш.",
+        "SET 2/3 ни Ўзбекистон ёки Қирғизистонда ўтказиш.",
+        "Ротация гуруҳларига риоя қилмаслик.",
+        "Номларни солиштиришга ундаш ёки фикр билдириш.",
+        "Якунлаш шартида интервьюни давом эттириш.",
+        "«Тўғри/нотўғри жавоб йўқ» эслатмасини унутиш.",
+        "E модулини тўпламлар тугамасдан ёки қисман ўтказиш."
+      ]}
+    ]}
+  ]
+};
+
+T["ru"] = {
+  meta:{
+    badge:"CAPI · Полевое исследование",
+    title:"Руководство для интервьюеров",
+    subtitle:"Исследование названий брендов HTP — Узбекистан · Таджикистан · Кыргызстан",
+    quickFacts:[{value:"3",label:"страны"},{value:"4",label:"языка"},{value:"8",label:"названий"},{value:"~45",label:"минут"}]
+  },
+  ui:{ langLabel:"Язык", progressLabel:"Прочитано", warnLabel:"Внимание", noteLabel:"Примечание",
+    footer:"По вопросам обращайтесь к супервайзеру (SV). От качества интервью зависит достоверность результатов исследования." },
+  sections:[
+    {title:"О исследовании", blocks:[
+      {type:"table", headers:["Пункт","Информация"], rows:[
+        ["Страны","Узбекистан · Таджикистан · Кыргызстан"],
+        ["Метод","CAPI — личное интервью с планшетом (не менее 50 респондентов в каждой стране)"],
+        ["Языки","Узбекский · Таджикский · Кыргызский · Русский (по выбору респондента)"],
+        ["Оцениваемые названия","Всего 8 названий: 5 блоков (SET 1–5) + модуль поддержки бренда ESSE"],
+        ["Длительность","Примерно 40–50 минут"],
+        ["Категория продукта","HTP — табачное изделие с нагреванием"]
+      ]}
+    ]},
+    {title:"Основные правила", blocks:[
+      {type:"bullets", items:[
+        "Представьте компанию и цель опроса; объясните, что данные конфиденциальны.",
+        "Полностью заполните административные данные о респонденте (ID, дата, язык, длительность, SV).",
+        "Задавайте каждый вопрос на языке, выбранном респондентом.",
+        "Подчеркните, что правильных или неправильных ответов нет — важно честное мнение.",
+        "Не выражайте своё мнение, читайте вопросы нейтральным тоном."
+      ]},
+      {type:"warning", text:"Никогда не сравнивайте названия между собой — каждое название оценивается независимо (кроме итогового выбора внутри блока, например P13, S13, E6, E9)."}
+    ]},
+    {title:"Терминология", blocks:[
+      {type:"table", headers:["Язык","Термин HTP"], rows:[
+        ["Узбекский (UZ)","qizdiriladigan tamaki mahsuloti"],
+        ["Таджикский (TJ)","маҳсулот аз тамокуи гармкардашуда"],
+        ["Кыргызский (KG)","ысытылган тамеки өнүмдөрү"],
+        ["Русский (RU)","нагреваемый табак (ИНТ)"]
+      ]},
+      {type:"note", text:"Если респондент не знаком с термином, не называйте конкретные бренды. Объясните: «Изделие, которое используется путём нагревания табачных листьев, а не их сжигания»."}
+    ]},
+    {title:"Скрининг (SQ0–SQ8)", blocks:[
+      {type:"bullets", items:[
+        "SQ0 — выбор языка интервью: покажите языки, соответствующие стране, соблюдайте языковые квоты.",
+        "SQ1 — регион проживания: для квот по стране/региону.",
+        "SQ2 — сфера деятельности: если работает в маркетинге, табачной отрасли, СМИ, здравоохранении (①–⑤) — ЗАВЕРШИТЕ ОПРОС.",
+        "SQ3 — возраст: если не соответствует законному возрасту (19 и младше или 50 и старше) — ЗАВЕРШИТЕ ОПРОС.",
+        "SQ4 — пол: для квоты.",
+        "SQ5 — если сейчас не употребляет табак/никотин — ЗАВЕРШИТЕ ОПРОС.",
+        "SQ6 / SQ6-1 — виды употребляемой продукции и основной вид.",
+        "SQ7 / SQ8 — только для тех, кто не употребляет HTP: осведомлённость и намерение использовать."
+      ]},
+      {type:"warning", text:"Если возникло условие завершения на SQ2, SQ3 или SQ5 — не продолжайте интервью."}
+    ]},
+    {title:"Структура и порядок", blocks:[
+      {type:"table", headers:["Блок","Страны","Категория","Название(я)","Метод оценки"], rows:[
+        ["SET 1","UZ · TJ · KG","Основной бренд","FLEX","Монадический, два этапа"],
+        ["SET 2","TJ","Устройство P2","FLEX BRYZ / MINGLE / WITHIX","Внутри блока, два этапа"],
+        ["SET 3","TJ","Стик P2","AIIV","Монадический, два этапа"],
+        ["SET 4","UZ · TJ · KG","Устройство P4","FLEX ESSENZ / ORIGIN","Внутри блока, два этапа"],
+        ["SET 5","UZ · TJ · KG","Стик P4","FAIIM","Монадический, два этапа"],
+        ["Модуль E","UZ · TJ · KG","Поддержка ESSE","ESSE + 4 варианта","Все респонденты, в конце"]
+      ]},
+      {type:"subheading", text:"Каждый блок проводится в два этапа:"},
+      {type:"bullets", items:[
+        "① Только название — только текстовая карточка: удобство произношения и запоминания.",
+        "② После показа макета упаковки — ассоциации, запреты, образ, привлекательность, отличие."
+      ]},
+      {type:"warning", text:"Никогда не показывайте макет упаковки, пока название не оценено полностью."},
+      {type:"warning", text:"На макетах упаковки не должно быть ESSE или других элементов поддерживающего бренда."},
+      {type:"note", text:"Модуль E проводится один раз со ВСЕМИ респондентами после завершения всех блоков."},
+      {type:"note", text:"Для E5/E8 ротация: группа A — 1→2→3→4; группа B — 4→3→2→1. По ~50% в каждую группу."}
+    ]},
+    {title:"Охват по странам", blocks:[
+      {type:"subheading", text:"Таджикистан — все блоки"},
+      {type:"paragraph", text:"SET 1, 2, 3, 4, 5 и модуль E — предоставляются все."},
+      {type:"subheading", text:"Узбекистан и Кыргызстан — только SET 1, 4, 5 и модуль E"},
+      {type:"warning", text:"SET 2 и SET 3 проводятся только в Таджикистане — в двух других странах НЕ ПРОВОДЯТСЯ."}
+    ]},
+    {title:"Проведение блока", blocks:[
+      {type:"subheading", text:"Блоки с одним названием (SET 1, 3, 5)"},
+      {type:"bullets", items:[
+        "Покажите карточку, попросите произнести название вслух 2–3 раза.",
+        "Задайте вопросы о произношении и запоминаемости.",
+        "Если сложно — задайте вопрос о причинах.",
+        "Покажите макет упаковки и задайте оставшиеся вопросы."
+      ]},
+      {type:"subheading", text:"Блоки с несколькими вариантами (SET 2, 4)"},
+      {type:"bullets", items:[
+        "Показывайте каждый вариант по порядку ротации.",
+        "Произносите полную форму: «FLEX + часть» (например, FLEX BRYZ).",
+        "Не показывайте макеты, пока все варианты не оценены на этапе ①.",
+        "В конце спросите, какой вариант понравился больше всего (P13/S13)."
+      ]}
+    ]},
+    {title:"Запрещённые ассоциации", blocks:[
+      {type:"note", text:"Эти вопросы обязательны для выявления культурных и религиозных рисков. Объясните, что правильных или неправильных ответов нет."},
+      {type:"bullets", items:[
+        "Сначала: напоминает ли сленг/ругательство/что-то неудобное с религиозной точки зрения? (Да/Нет)",
+        "Если «Да» — уточните конкретное слово и тип запрета.",
+        "Если «Нет» — переходите к следующему разделу."
+      ]}
+    ]},
+    {title:"Модуль E — ESSE", blocks:[
+      {type:"bullets", items:[
+        "Объясните, что ESSE — существующий бренд обычных сигарет, покажите карточку.",
+        "Оцените осведомлённость, ассоциации, привлекательность и образ.",
+        "[A] Поддержка бренда устройства FLEX — отношение и причина (положительная/отрицательная).",
+        "E5/E6 — 4 варианта оцениваются по ротации, затем выбирается наиболее предпочтительный.",
+        "[B] Аналогично для стик-бренда FAIIM (E7–E9)."
+      ]},
+      {type:"warning", text:"Строго соблюдайте группу ротации (A/B) — в каждую группу должно попасть примерно по 50% респондентов."}
+    ]},
+    {title:"Необходимые материалы", blocks:[
+      {type:"checklist", items:[
+        "Планшетный компьютер",
+        "Карточки каждого названия латиницей и кириллицей — для этапа 1",
+        "Карточки макетов упаковки без элементов ESSE — для этапа 2",
+        "Карточка ESSE и 4 варианта поддержки — для модуля E",
+        "Форма согласия респондента и вознаграждение за участие"
+      ]}
+    ]},
+    {title:"Частые ошибки", blocks:[
+      {type:"warninglist", items:[
+        "Показ макета упаковки до полной оценки названия.",
+        "Проведение SET 2/3 в Узбекистане или Кыргызстане.",
+        "Несоблюдение групп ротации.",
+        "Побуждение сравнивать названия или выражение собственного мнения.",
+        "Продолжение интервью при наличии условия завершения.",
+        "Забыть напомнить, что правильных/неправильных ответов нет.",
+        "Проведение модуля E до завершения всех блоков или только с частью респондентов."
+      ]}
+    ]}
+  ]
+};
+
+T["ky"] = {
+  meta:{
+    badge:"CAPI · Талаа изилдөөсү",
+    title:"Интервью алуучулар үчүн колдонмо",
+    subtitle:"HTP бренд аталыштары боюнча изилдөө — Өзбекстан · Тажикстан · Кыргызстан",
+    quickFacts:[{value:"3",label:"өлкө"},{value:"4",label:"тил"},{value:"8",label:"аталыш"},{value:"~45",label:"мүнөт"}]
+  },
+  ui:{ langLabel:"Тил", progressLabel:"Окулду", warnLabel:"Көңүл буруңуз", noteLabel:"Эскертүү",
+    footer:"Суроолор болсо, көзөмөлчү (SV) менен байланышыңыз. Интервьюнун сапаты изилдөө натыйжаларынын ишенимдүүлүгүн аныктайт." },
+  sections:[
+    {title:"Изилдөө жөнүндө", blocks:[
+      {type:"table", headers:["Пункт","Маалымат"], rows:[
+        ["Өлкөлөр","Өзбекстан · Тажикстан · Кыргызстан"],
+        ["Ыкма","CAPI — планшет аркылуу жүзмө-жүз интервью (ар бир өлкөдө кеминде 50 респондент)"],
+        ["Тилдер","Өзбек · Тажик · Кыргыз · Орус (респондент тандайт)"],
+        ["Бааланган аталыштар","Жалпы 8 аталыш: 5 топтом (SET 1–5) + ESSE колдоо модулу"],
+        ["Узактыгы","Болжол менен 40–50 мүнөт"],
+        ["Продукт категориясы","HTP — ысытылган тамеки өнүмү"]
+      ]}
+    ]},
+    {title:"Негизги эрежелер", blocks:[
+      {type:"bullets", items:[
+        "Компанияны жана изилдөөнүн максатын тааныштырыңыз; маалыматтар купуя сакталарын түшүндүрүңүз.",
+        "Респондент жөнүндөгү административдик маалыматтарды (ID, күн, тил, узактык, SV) толук толтуруңуз.",
+        "Ар бир суроону респондент тандаган тилде туура бериңиз.",
+        "Туура же туура эмес жооп жок экенин жана чынчыл пикир маанилүү экенин белгилеңиз.",
+        "Өз пикириңизди билдирбеңиз, суроолорду нейтралдуу үн менен окуңуз."
+      ]},
+      {type:"warning", text:"Аталыштарды бири-бири менен салыштырбаңыз — ар бир аталыш өз алдынча бааланат (топтом ичиндеги жыйынтык тандоодон тышкары, мисалы P13, S13, E6, E9)."}
+    ]},
+    {title:"Терминология", blocks:[
+      {type:"table", headers:["Тил","HTP термини"], rows:[
+        ["Өзбек (UZ)","qizdiriladigan tamaki mahsuloti"],
+        ["Тажик (TJ)","маҳсулот аз тамокуи гармкардашуда"],
+        ["Кыргыз (KG)","ысытылган тамеки өнүмдөрү"],
+        ["Орус (RU)","нагреваемый табак (ИНТ)"]
+      ]},
+      {type:"note", text:"Эгер респондент термин менен тааныш болбосо, конкреттүү бренд аталыштарын айтпаңыз. Мындай түшүндүрүңүз: «Тамеки жалбырактарын өрттөбөстөн, ысытуу аркылуу колдонулуучу өнүм»."}
+    ]},
+    {title:"Скрининг (SQ0–SQ8)", blocks:[
+      {type:"bullets", items:[
+        "SQ0 — интервью тилин тандоо: өлкөгө ылайык тилдерди көрсөтүңүз, тил квотасын сактаңыз.",
+        "SQ1 — жашаган аймагы: өлкө/аймак квотасы үчүн.",
+        "SQ2 — кесиптик тармак: маркетинг, тамеки, ММК, ден соолук сактоо тармагында иштесе (①–⑤) — СУРОО-ЖООПТУ АЯКТАҢЫЗ.",
+        "SQ3 — жашы: мыйзамдуу жашка дал келбесе (19 жана андан кичине же 50 жана андан улуу) — СУРОО-ЖООПТУ АЯКТАҢЫЗ.",
+        "SQ4 — жынысы: квота үчүн.",
+        "SQ5 — азыр тамеки/никотин колдонбосо — СУРОО-ЖООПТУ АЯКТАҢЫЗ.",
+        "SQ6 / SQ6-1 — колдонулуучу продукттардын түрлөрү жана негизгиси.",
+        "SQ7 / SQ8 — HTP колдонбогондорго гана: кабардар болуу жана колдонуу ниети."
+      ]},
+      {type:"warning", text:"SQ2, SQ3 же SQ5до аяктоо шарты чыкса, интервьюну улантпаңыз."}
+    ]},
+    {title:"Түзүлүш жана ирети", blocks:[
+      {type:"table", headers:["Топтом","Өлкөлөр","Категория","Аталыш(тар)","Баалоо ыкмасы"], rows:[
+        ["SET 1","UZ · TJ · KG","Башкы бренд","FLEX","Монадикалык, эки этап"],
+        ["SET 2","TJ","P2 түзмөгү","FLEX BRYZ / MINGLE / WITHIX","Топтом ичинде, эки этап"],
+        ["SET 3","TJ","P2 стиги","AIIV","Монадикалык, эки этап"],
+        ["SET 4","UZ · TJ · KG","P4 түзмөгү","FLEX ESSENZ / ORIGIN","Топтом ичинде, эки этап"],
+        ["SET 5","UZ · TJ · KG","P4 стиги","FAIIM","Монадикалык, эки этап"],
+        ["E модулу","UZ · TJ · KG","ESSE колдоо","ESSE + 4 вариант","Бардык респонденттер, аягында"]
+      ]},
+      {type:"subheading", text:"Ар бир топтом эки этапта өткөрүлөт:"},
+      {type:"bullets", items:[
+        "① Аталышты гана баалоо — текст карточкасы гана: айтуу жана эсте калуу ыңгайлуулугу.",
+        "② Кап-салма макети көрсөтүлгөндөн кийин — ассоциациялар, тыюулар, образ, тартымдуулук, айырмалануу."
+      ]},
+      {type:"warning", text:"Аталыш толук бааланмайынча кап-салма макетин эч качан көрсөтпөңүз."},
+      {type:"warning", text:"Кап-салма макеттеринде ESSE же башка колдоочу бренд элементи болбошу керек."},
+      {type:"note", text:"E модулу бардык топтомдор аяктагандан кийин БАРДЫК респонденттер менен бир жолу өткөрүлөт."},
+      {type:"note", text:"E5/E8 үчүн ротация: A тобу 1→2→3→4; B тобу 4→3→2→1. Ар бирине ~50%."}
+    ]},
+    {title:"Өлкөлөр боюнча камтуу", blocks:[
+      {type:"subheading", text:"Тажикстан — бардык топтомдор"},
+      {type:"paragraph", text:"SET 1, 2, 3, 4, 5 жана E модулу — баары берилет."},
+      {type:"subheading", text:"Өзбекстан жана Кыргызстан — SET 1, 4, 5 жана E модулу гана"},
+      {type:"warning", text:"SET 2 жана SET 3 Тажикстанда гана — башка эки өлкөдө БЕРИЛБЕЙТ."}
+    ]},
+    {title:"Топтомду өткөрүү тартиби", blocks:[
+      {type:"subheading", text:"Бир аталыштуу топтомдор (SET 1, 3, 5)"},
+      {type:"bullets", items:[
+        "Карточканы көрсөтүңүз, аталышты 2–3 жолу үн чыгарып айтууну сураңыз.",
+        "Айтуу жана эсте калуу суроолоруна жооп алыңыз.",
+        "Кыйын болсо — себеп суроосун бериңиз.",
+        "Кап-салма макетин көрсөтүп, калган суроолорду бериңиз."
+      ]},
+      {type:"subheading", text:"Бир нече варианттуу топтомдор (SET 2, 4)"},
+      {type:"bullets", items:[
+        "Ар бир вариантты ротация тартибинде көрсөтүңүз.",
+        "Толук формада айтыңыз: «FLEX + бөлүк» (мисалы FLEX BRYZ).",
+        "Бардык варианттар ① этабында бааланмайынча макет көрсөтпөңүз.",
+        "Аягында эң жаккан вариантты тандоону сураңыз (P13/S13)."
+      ]}
+    ]},
+    {title:"Тыюу салынган ассоциациялар", blocks:[
+      {type:"note", text:"Бул суроолор маданий/диний тобокелдиктерди аныктоо үчүн милдеттүү. Туура/туура эмес жооп жок экенин түшүндүрүңүз."},
+      {type:"bullets", items:[
+        "Алгач: сленг/сөгүнүү/диний жактан ыңгайсыз нерсени эске салабы? (Ооба/Жок)",
+        "«Ооба» болсо — так сөздү жана тыюу түрүн аныктаңыз.",
+        "«Жок» болсо — кийинки бөлүккө өтүңүз."
+      ]}
+    ]},
+    {title:"E модулу — ESSE", blocks:[
+      {type:"bullets", items:[
+        "ESSE — учурдагы жөнөкөй тамеки бренди экенин түшүндүрүңүз, карточканы көрсөтүңүз.",
+        "Кабардар болуу, ассоциациялар, тартымдуулук жана образды баалаңыз.",
+        "[A] FLEX түзмөк брендин колдоо — мамиле жана себеп (оң/терс).",
+        "E5/E6 — 4 вариант ротация боюнча бааланат, андан кийин эң жакканы тандалат.",
+        "[B] FAIIM стик бренди үчүн да ушундай (E7–E9)."
+      ]},
+      {type:"warning", text:"Ротация тобун (A/B) катуу сактаңыз — ар бир топко болжол менен 50% туура келсин."}
+    ]},
+    {title:"Керектүү материалдар", blocks:[
+      {type:"checklist", items:[
+        "Планшет компьютер",
+        "Ар бир аталыштын латын/кирилл карточкалары — 1-этап үчүн",
+        "ESSE элементтерисиз кап-салма макети карточкалары — 2-этап үчүн",
+        "ESSE жана 4 вариант карточкалары — E модулу үчүн",
+        "Респонденттин макулдук формасы жана сыйлык"
+      ]}
+    ]},
+    {title:"Көп кездешкен каталар", blocks:[
+      {type:"warninglist", items:[
+        "Кап-салма макетин аталыш бааланганга чейин көрсөтүү.",
+        "SET 2/3ту Өзбекстанда же Кыргызстанда өткөрүү.",
+        "Ротация топторун сактабоо.",
+        "Аталыштарды салыштырууга түртүү же өз пикирин билдирүү.",
+        "Аяктоо шарты болгондо интервьюну улантуу.",
+        "«Туура/туура эмес жооп жок» эскертүүсүн унутуу.",
+        "E модулун топтомдор аякталганга чейин же жарым-жартылай өткөрүү."
+      ]}
+    ]}
+  ]
+};
+
+T["tg"] = {
+  meta:{
+    badge:"CAPI · Тадқиқоти саҳроӣ",
+    title:"Дастури интервюгирандагон",
+    subtitle:"Тадқиқоти номҳои бренди HTP — Ӯзбекистон · Тоҷикистон · Қирғизистон",
+    quickFacts:[{value:"3",label:"кишвар"},{value:"4",label:"забон"},{value:"8",label:"ном"},{value:"~45",label:"дақиқа"}]
+  },
+  ui:{ langLabel:"Забон", progressLabel:"Хонда шуд", warnLabel:"Диққат", noteLabel:"Тавзеҳ",
+    footer:"Дар сурати саволҳо бо назоратчӣ (SV) тамос гиред. Сифати мусоҳиба эътимоднокии натиҷаҳои тадқиқотро муайян мекунад." },
+  sections:[
+    {title:"Дар бораи тадқиқот", blocks:[
+      {type:"table", headers:["Банд","Маълумот"], rows:[
+        ["Кишварҳо","Ӯзбекистон · Тоҷикистон · Қирғизистон"],
+        ["Усул","CAPI — мусоҳибаи рӯ ба рӯ бо планшет (на камтар аз 50 нафар дар ҳар кишвар)"],
+        ["Забонҳо","Ӯзбекӣ · Тоҷикӣ · Қирғизӣ · Русӣ (интихоби респондент)"],
+        ["Номҳои арзёбишаванда","Ҳамагӣ 8 ном: 5 маҷмӯа (SET 1–5) + модули дастгирии бренди ESSE"],
+        ["Давомнокӣ","Тахминан 40–50 дақиқа"],
+        ["Категорияи маҳсулот","HTP — маҳсулоти тамокуи гармкардашуда"]
+      ]}
+    ]},
+    {title:"Қоидаҳои асосӣ", blocks:[
+      {type:"bullets", items:[
+        "Ширкат ва ҳадафи пурсишро муаррифӣ кунед; тавзеҳ диҳед, ки маълумот махфӣ нигоҳ дошта мешавад.",
+        "Маълумоти маъмурии респондентро (ID, сана, забон, давомнокӣ, SV) пурра пур кунед.",
+        "Ҳар саволро бо забони интихобкардаи респондент дуруст диҳед.",
+        "Таъкид кунед, ки ҷавоби дуруст ё нодуруст вуҷуд надорад ва фикри самимӣ муҳим аст.",
+        "Фикри худро изҳор накунед, саволҳоро бо оҳанги бетараф хонед."
+      ]},
+      {type:"warning", text:"Ҳеҷ гоҳ номҳоро бо якдигар муқоиса накунед — ҳар ном мустақилона арзёбӣ мешавад (ба ғайр аз интихоби ниҳоӣ дар дохили маҷмӯа, масалан P13, S13, E6, E9)."}
+    ]},
+    {title:"Терминология", blocks:[
+      {type:"table", headers:["Забон","Истилоҳи HTP"], rows:[
+        ["Ӯзбекӣ (UZ)","qizdiriladigan tamaki mahsuloti"],
+        ["Тоҷикӣ (TJ)","маҳсулот аз тамокуи гармкардашуда"],
+        ["Қирғизӣ (KG)","ысытылган тамеки өнүмдөрү"],
+        ["Русӣ (RU)","нагреваемый табак (ИНТ)"]
+      ]},
+      {type:"note", text:"Агар респондент бо истилоҳ ошно набошад, номҳои мушаххаси брендро нагӯед. Инро тавзеҳ диҳед: «Маҳсулоте, ки на бо сӯзондан, балки бо гарм кардани баргҳои тамоку истифода мешавад»."}
+    ]},
+    {title:"Скрининг (SQ0–SQ8)", blocks:[
+      {type:"bullets", items:[
+        "SQ0 — интихоби забони мусоҳиба: забонҳои мувофиқи кишварро нишон диҳед, квотаи забониро риоя кунед.",
+        "SQ1 — минтақаи истиқомат: барои квотаи кишвар/минтақа.",
+        "SQ2 — соҳаи фаъолият: агар дар маркетинг, саноати тамоку, ВАО ё соҳаи тандурустӣ кор кунад (①–⑤) — ПУРСИШРО ХОТИМА ДИҲЕД.",
+        "SQ3 — синну сол: агар ба синну соли қонунӣ мувофиқат накунад (19 ва хурдтар ё 50 ва калонтар) — ПУРСИШРО ХОТИМА ДИҲЕД.",
+        "SQ4 — ҷинс: барои квота.",
+        "SQ5 — агар ҳоло тамоку/никотин истеъмол накунад — ПУРСИШРО ХОТИМА ДИҲЕД.",
+        "SQ6 / SQ6-1 — намудҳои маҳсулоти истеъмолшаванда ва асосӣ.",
+        "SQ7 / SQ8 — танҳо барои онҳое, ки HTP истифода намекунанд: огоҳӣ ва нияти истифода."
+      ]},
+      {type:"warning", text:"Агар дар SQ2, SQ3 ё SQ5 шарти хотимавӣ пайдо шавад, мусоҳибаро идома надиҳед."}
+    ]},
+    {title:"Сохтор ва тартиб", blocks:[
+      {type:"table", headers:["Маҷмӯа","Кишварҳо","Категория","Ном(ҳо)","Усули арзёбӣ"], rows:[
+        ["SET 1","UZ · TJ · KG","Бренди асосӣ","FLEX","Монадикӣ, ду марҳила"],
+        ["SET 2","TJ","Дастгоҳи P2","FLEX BRYZ / MINGLE / WITHIX","Дохили маҷмӯа, ду марҳила"],
+        ["SET 3","TJ","Стики P2","AIIV","Монадикӣ, ду марҳила"],
+        ["SET 4","UZ · TJ · KG","Дастгоҳи P4","FLEX ESSENZ / ORIGIN","Дохили маҷмӯа, ду марҳила"],
+        ["SET 5","UZ · TJ · KG","Стики P4","FAIIM","Монадикӣ, ду марҳила"],
+        ["Модули E","UZ · TJ · KG","Дастгирии ESSE","ESSE + 4 вариант","Ҳама респондентҳо, дар охир"]
+      ]},
+      {type:"subheading", text:"Ҳар маҷмӯа дар ду марҳила гузаронида мешавад:"},
+      {type:"bullets", items:[
+        "① Танҳо арзёбии ном — танҳо корти матнӣ: осонии талаффуз ва дар хотир мондан.",
+        "② Пас аз намоиши макети бастабандӣ — ассотсиатсияҳо, манъиятҳо, тасвир, ҷолибият, фарқият."
+      ]},
+      {type:"warning", text:"То арзёбии пурраи ном ҳеҷ гоҳ макети бастабандиро нишон надиҳед."},
+      {type:"warning", text:"Дар макетҳои бастабандӣ набояд ESSE ё дигар унсури бренди дастгиркунанда бошад."},
+      {type:"note", text:"Модули E пас аз анҷоми ҳамаи маҷмӯаҳо бо ҳамаи респондентҳо як бор гузаронида мешавад."},
+      {type:"note", text:"Барои E5/E8 ротатсия: гурӯҳи A 1→2→3→4; гурӯҳи B 4→3→2→1. Ба ҳар кадом ~50%."}
+    ]},
+    {title:"Фарогирии кишварҳо", blocks:[
+      {type:"subheading", text:"Тоҷикистон — ҳамаи маҷмӯаҳо"},
+      {type:"paragraph", text:"SET 1, 2, 3, 4, 5 ва модули E — ҳама пешниҳод мешаванд."},
+      {type:"subheading", text:"Ӯзбекистон ва Қирғизистон — танҳо SET 1, 4, 5 ва модули E"},
+      {type:"warning", text:"SET 2 ва SET 3 танҳо дар Тоҷикистон — дар ду кишвари дигар ГУЗАРОНИДА НАМЕШАВАНД."}
+    ]},
+    {title:"Тартиби гузаронидани маҷмӯа", blocks:[
+      {type:"subheading", text:"Маҷмӯаҳои якномагӣ (SET 1, 3, 5)"},
+      {type:"bullets", items:[
+        "Кортро нишон диҳед, аз респондент хоҳиш кунед номро 2–3 бор бо овоз баланд гӯяд.",
+        "Ба саволҳои талаффуз ва дар хотир мондан ҷавоб гиред.",
+        "Агар душвор бошад — саволи сабабро диҳед.",
+        "Макети бастабандиро нишон дода, саволҳои боқимондаро диҳед."
+      ]},
+      {type:"subheading", text:"Маҷмӯаҳои бисёрвариантӣ (SET 2, 4)"},
+      {type:"bullets", items:[
+        "Ҳар вариантро мувофиқи тартиби ротатсия нишон диҳед.",
+        "Дар шакли пурра гӯед: «FLEX + қисм» (масалан FLEX BRYZ).",
+        "То арзёбии ҳамаи вариантҳо дар марҳилаи ① макетро нишон надиҳед.",
+        "Дар охир хоҳиш кунед, ки вариант бештар писандидаро интихоб кунад (P13/S13)."
+      ]}
+    ]},
+    {title:"Ассотсиатсияҳои манъшуда", blocks:[
+      {type:"note", text:"Ин саволҳо барои муайян кардани хатарҳои фарҳангӣ/динӣ ҳатмист. Тавзеҳ диҳед, ки ҷавоби дуруст ё нодуруст вуҷуд надорад."},
+      {type:"bullets", items:[
+        "Аввал: оё сленг/дашном/чизи аз назари динӣ ноҷурро ба ёд меорад? (Ҳа/Не)",
+        "Агар «Ҳа» бошад — калима ва навъи манъиятро дақиқ кунед.",
+        "Агар «Не» бошад — ба бахши навбатӣ гузаред."
+      ]}
+    ]},
+    {title:"Модули E — ESSE", blocks:[
+      {type:"bullets", items:[
+        "Тавзеҳ диҳед, ки ESSE бренди мавҷудаи сигаретҳои оддист, кортро нишон диҳед.",
+        "Огоҳӣ, ассотсиатсияҳо, ҷолибият ва тасвирро арзёбӣ кунед.",
+        "[A] Дастгирии бренди дастгоҳи FLEX — муносибат ва сабаб (мусбат/манфӣ).",
+        "E5/E6 — 4 вариант мувофиқи ротатсия арзёбӣ мешаванд, сипас беҳтаринаш интихоб мешавад.",
+        "[B] Барои бренди стики FAIIM низ ҳамин тавр (E7–E9)."
+      ]},
+      {type:"warning", text:"Гурӯҳи ротатсияро (A/B) қатъиян риоя кунед — ба ҳар гурӯҳ тахминан 50% рост ояд."}
+    ]},
+    {title:"Маводи зарурӣ", blocks:[
+      {type:"checklist", items:[
+        "Планшети компютерӣ",
+        "Кортҳои ҳар ном бо алифбои лотинӣ/кириллӣ — барои марҳилаи 1",
+        "Кортҳои макети бастабандӣ бе унсурҳои ESSE — барои марҳилаи 2",
+        "Корти ESSE ва 4 вариант — барои модули E",
+        "Шакли розигии респондент ва мукофот"
+      ]}
+    ]},
+    {title:"Хатогиҳои маъмул", blocks:[
+      {type:"warninglist", items:[
+        "Нишон додани макети бастабандӣ пеш аз арзёбии пурраи ном.",
+        "Гузаронидани SET 2/3 дар Ӯзбекистон ё Қирғизистон.",
+        "Риоя накардани гурӯҳҳои ротатсия.",
+        "Ташвиқ ба муқоисаи номҳо ё изҳори фикри худ.",
+        "Идома додани мусоҳиба ҳангоми мавҷуд будани шарти хотима.",
+        "Фаромӯш кардани тавзеҳи «ҷавоби дуруст/нодуруст вуҷуд надорад».",
+        "Гузаронидани модули E пеш аз анҷоми маҷмӯаҳо ё танҳо бо қисме аз респондентҳо."
+      ]}
+    ]}
+  ]
+};
+
+/* ============================================================
+   RENDER LOGIC
+   ============================================================ */
+let currentLang = "uz-cyrl";
+const CHECK_SVG = '<svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 8.5L6 12.5L14 3.5" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const checkedState = {}; // persists across language switches, keyed by section+index
+
+function esc(s){ return s; }
+
+function renderBlock(block, secIdx){
+  if(block.type === "table"){
+    let thead = "<thead><tr>" + block.headers.map(h=>`<th>${h}</th>`).join("") + "</tr></thead>";
+    let tbody = "<tbody>" + block.rows.map(r=>"<tr>"+r.map(c=>`<td>${c}</td>`).join("")+"</tr>").join("") + "</tbody>";
+    return `<div class="table-wrap"><table>${thead}${tbody}</table></div>`;
+  }
+  if(block.type === "bullets"){
+    return `<ul class="bullets">${block.items.map(i=>`<li>${i}</li>`).join("")}</ul>`;
+  }
+  if(block.type === "warning"){
+    return `<div class="callout warn"><span class="tag">${T[currentLang].ui.warnLabel}</span><div>${block.text}</div></div>`;
+  }
+  if(block.type === "warninglist"){
+    return block.items.map(i=>`<div class="callout warn"><span class="tag">${T[currentLang].ui.warnLabel}</span><div>${i}</div></div>`).join("");
+  }
+  if(block.type === "note"){
+    return `<div class="callout note"><span class="tag">${T[currentLang].ui.noteLabel}</span><div>${block.text}</div></div>`;
+  }
+  if(block.type === "subheading"){
+    return `<h3>${block.text}</h3>`;
+  }
+  if(block.type === "paragraph"){
+    return `<p>${block.text}</p>`;
+  }
+  if(block.type === "checklist"){
+    let items = block.items.map((i,idx)=>{
+      const key = secIdx+"-"+idx;
+      const checked = checkedState[key] ? "checked" : "";
+      return `<li class="${checked}" data-key="${key}"><span class="box">${CHECK_SVG}</span><span class="txt">${i}</span></li>`;
+    }).join("");
+    return `<ul class="checklist">${items}</ul><div class="checklist-progress" id="checkProgress"></div>`;
+  }
+  return "";
+}
+
+function render(){
+  const data = T[currentLang];
+  document.documentElement.lang = currentLang.split("-")[0];
+
+  // header
+  document.getElementById("uiTitle").childNodes[0].textContent = data.meta.title + " ";
+  document.getElementById("uiSubtitle").textContent = data.meta.subtitle;
+  document.getElementById("uiLangLabel").textContent = data.ui.langLabel;
+  document.getElementById("uiProgressLabel").textContent = data.ui.progressLabel;
+
+  // hero
+  document.getElementById("heroBadge").textContent = data.meta.badge;
+  document.getElementById("heroTitle").textContent = data.meta.title;
+  document.getElementById("heroSubtitle").textContent = data.meta.subtitle;
+  document.getElementById("quickFacts").innerHTML = data.meta.quickFacts.map(f=>
+    `<div class="qf"><b>${f.value}</b><span>${f.label}</span></div>`).join("");
+
+  // nav
+  const navList = document.getElementById("navList");
+  navList.innerHTML = data.sections.map((s,i)=>
+    `<li><a class="navlink" href="#sec-${i}" data-idx="${i}"><span class="num">${i+1}</span><span>${s.title}</span></a></li>`
+  ).join("");
+
+  // sections
+  const wrap = document.getElementById("sections");
+  wrap.innerHTML = data.sections.map((s,i)=>{
+    const blocksHtml = s.blocks.map(b=>renderBlock(b,i)).join("");
+    return `<section class="section-card" id="sec-${i}">
+      <div class="section-head"><div class="section-num">${String(i+1).padStart(2,"0")}</div><h2>${s.title}</h2></div>
+      ${blocksHtml}
+    </section>`;
+  }).join("");
+
+  document.getElementById("footerNote").textContent = data.ui.footer;
+
+  updateChecklistProgress();
+  bindChecklist();
+  setupScrollSpy();
+
+  // active stamp
+  document.querySelectorAll(".stamp-btn").forEach(b=>{
+    b.classList.toggle("active", b.dataset.lang === currentLang);
+  });
+}
+
+function updateChecklistProgress(){
+  const el = document.getElementById("checkProgress");
+  if(!el) return;
+  const total = Object.keys(checkedState).length ? document.querySelectorAll(".checklist li").length : document.querySelectorAll(".checklist li").length;
+  const totalItems = document.querySelectorAll(".checklist li").length;
+  const done = document.querySelectorAll(".checklist li.checked").length;
+  const label = T[currentLang].ui.progressLabel;
+  el.textContent = `${label}: ${done} / ${totalItems}`;
+}
+
+function bindChecklist(){
+  document.querySelectorAll(".checklist li").forEach(li=>{
+    li.addEventListener("click", ()=>{
+      const key = li.dataset.key;
+      checkedState[key] = !checkedState[key];
+      li.classList.toggle("checked", !!checkedState[key]);
+      updateChecklistProgress();
     });
   });
+}
 
-  // ---- Quota tally ----
-  const CELLS = ['uz-young','uz-old','ru-young','ru-old'];
-  const STORAGE_KEY = 'gallup_uz_quota_v1';
+/* scrollspy + top progress bar */
+let observer;
+function setupScrollSpy(){
+  const sections = document.querySelectorAll(".section-card");
+  const navlinks = document.querySelectorAll(".navlink");
+  if(observer) observer.disconnect();
+  const seen = new Set();
 
-  function loadTally(){
-    try{
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if(raw) return JSON.parse(raw);
-    }catch(e){}
-    return {'uz-young':0,'uz-old':0,'ru-young':0,'ru-old':0};
-  }
-  function saveTally(data){
-    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }catch(e){}
-  }
-
-  let tally = loadTally();
-
-  function buildCell(container){
-    const key = container.dataset.cell;
-    const target = container.dataset.target;
-    container.innerHTML = `
-      <div class="count" data-count="${key}">0</div>
-      <div class="target">из ${target}</div>
-      <div class="btns">
-        <button data-action="minus" data-key="${key}">−</button>
-        <button data-action="plus" data-key="${key}">+</button>
-      </div>
-    `;
-  }
-  document.querySelectorAll('.cell').forEach(buildCell);
-
-  function render(){
-    let grand = 0;
-    CELLS.forEach(k=>{
-      const val = tally[k] || 0;
-      grand += val;
-      const el = document.querySelector(`[data-count="${k}"]`);
-      if(el) el.textContent = val;
+  observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      const idx = entry.target.id.split("-")[1];
+      if(entry.isIntersecting){
+        seen.add(idx);
+        navlinks.forEach(l=>l.classList.remove("active"));
+        const link = document.querySelector(`.navlink[data-idx="${idx}"]`);
+        if(link) link.classList.add("active");
+      }
     });
-    document.getElementById('total-uz').textContent = `${(tally['uz-young']||0)+(tally['uz-old']||0)} / 70`;
-    document.getElementById('total-ru').textContent = `${(tally['ru-young']||0)+(tally['ru-old']||0)} / 30`;
-    document.getElementById('grand-total').textContent = grand;
-    document.getElementById('progress-fill').style.width = Math.min(100, grand) + '%';
-  }
+    navlinks.forEach(l=>{
+      if(seen.has(l.dataset.idx)) l.classList.add("done");
+    });
+    const fill = document.getElementById("progressFill");
+    if(fill) fill.style.width = (seen.size / sections.length * 100) + "%";
+  }, { rootMargin: "-15% 0px -70% 0px", threshold: 0 });
 
-  document.querySelector('.tally-grid').addEventListener('click', (e)=>{
-    const btn = e.target.closest('button[data-action]');
-    if(!btn) return;
-    const key = btn.dataset.key;
-    const delta = btn.dataset.action === 'plus' ? 1 : -1;
-    tally[key] = Math.max(0, (tally[key]||0) + delta);
-    saveTally(tally);
+  sections.forEach(s=>observer.observe(s));
+}
+
+/* language switch buttons */
+document.querySelectorAll(".stamp-btn").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    currentLang = btn.dataset.lang;
     render();
+    window.scrollTo({top:0, behavior:"smooth"});
   });
+});
 
-  document.getElementById('reset-tally').addEventListener('click', ()=>{
-    if(confirm('Обнулить счётчик закрытых квот?')){
-      tally = {'uz-young':0,'uz-old':0,'ru-young':0,'ru-old':0};
-      saveTally(tally);
-      render();
-    }
-  });
-
-  render();
-
-  // ---- Checklist ----
-  const CL_KEY = 'gallup_uz_checklist_v1';
-  function loadCL(){
-    try{
-      const raw = localStorage.getItem(CL_KEY);
-      if(raw) return JSON.parse(raw);
-    }catch(e){}
-    return {};
-  }
-  function saveCL(data){
-    try{ localStorage.setItem(CL_KEY, JSON.stringify(data)); }catch(e){}
-  }
-  let clState = loadCL();
-  document.querySelectorAll('#checklist input').forEach(input=>{
-    const key = input.dataset.key;
-    input.checked = !!clState[key];
-    if(input.checked) input.closest('li').classList.add('done');
-    input.addEventListener('change', ()=>{
-      clState[key] = input.checked;
-      saveCL(clState);
-      input.closest('li').classList.toggle('done', input.checked);
-    });
-  });
+render();
 </script>
-
 </body>
 </html>

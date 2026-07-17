@@ -1,1128 +1,1970 @@
-<!doctype html>
-<html lang="uz">
+<!DOCTYPE html>
+<html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Интервью олувчилар учун қўлланма · HTP naming study</title>
+<title>Инструкция для интервьюеров · Нейминг бренда ИНТ</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=PT+Sans:wght@400;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --navy:#16233F;
-  --navy2:#223760;
-  --navy3:#2E4A82;
-  --accent:#2F7A6B;
-  --accent-soft:#E4F0EC;
-  --stamp:#B3652E;
-  --warn-bg:#FBEAE6;
-  --warn-border:#B3432B;
-  --warn-text:#7A2E1D;
-  --note-bg:#EAF1F7;
-  --note-border:#2F5C8A;
-  --note-text:#1F3B57;
-  --paper:#F6F4EE;
-  --card:#FFFFFF;
-  --ink:#1B2130;
-  --muted:#666C78;
-  --border:#E3DFD2;
-  --sidebar-w:290px;
+  --bg:#12181f;
+  --panel:#1a222b;
+  --panel-2:#20293380;
+  --line:#2b3542;
+  --ink:#eae6db;
+  --ink-dim:#a2acb8;
+  --ink-mute:#6c7686;
+  --amber:#d4a24c;
+  --amber-dim:#8a6a34;
+  --teal:#4a9d96;
+  --teal-dim:#2f5f5b;
+  --red:#c0605a;
+  --card-radius:10px;
 }
 *{box-sizing:border-box;}
-html{scroll-behavior:smooth;}
+html,body{margin:0;padding:0;}
 body{
-  margin:0;
-  background:var(--paper);
+  background:var(--bg);
   color:var(--ink);
-  font-family:'PT Sans', 'Segoe UI', sans-serif;
+  font-family:'PT Sans',Arial,sans-serif;
   font-size:16px;
   line-height:1.55;
+  -webkit-font-smoothing:antialiased;
 }
-h1,h2,h3,.disp{font-family:'Manrope', sans-serif;}
-.mono{font-family:'JetBrains Mono', monospace;}
-a{color:inherit;}
-::selection{background:var(--accent-soft);}
+h1,h2,h3,h4{font-family:'PT Serif',Georgia,serif;font-weight:700;margin:0;color:var(--ink);}
+::selection{background:var(--amber-dim);color:#fff;}
+a{color:var(--amber);}
 
-/* ===== HEADER ===== */
-.topbar{
-  position:sticky; top:0; z-index:50;
-  background:var(--navy);
-  color:#fff;
-  border-bottom:3px solid var(--stamp);
-}
-.topbar-inner{
-  max-width:1280px; margin:0 auto;
-  padding:14px 22px;
-  display:flex; align-items:center; gap:18px; flex-wrap:wrap;
-}
-.kit-tag{
-  font-family:'JetBrains Mono', monospace;
-  font-size:11px; letter-spacing:.12em;
-  background:var(--stamp); color:#fff;
-  padding:4px 9px; border-radius:3px;
-  white-space:nowrap;
-  text-transform:uppercase;
-}
-.topbar-title{
-  font-weight:800; font-size:17px; letter-spacing:.01em;
-  flex:1 1 auto; min-width:180px;
-}
-.topbar-title small{
-  display:block; font-family:'PT Sans',sans-serif;
-  font-weight:400; font-size:12.5px; color:#C6D0E4; margin-top:2px;
-}
-
-/* language stamps */
-.stamps{display:flex; gap:8px; align-items:center; flex-wrap:wrap;}
-.stamp-label{font-size:11px; color:#9FB0CC; font-family:'JetBrains Mono',monospace; letter-spacing:.1em; margin-right:2px; text-transform:uppercase;}
-.stamp-btn{
-  position:relative;
-  width:46px; height:46px;
-  border-radius:50%;
-  border:2px dashed #6C7FA4;
-  background:transparent;
-  color:#D7DEEC;
-  font-family:'JetBrains Mono',monospace;
-  font-weight:700; font-size:12.5px;
-  cursor:pointer;
-  display:flex; align-items:center; justify-content:center;
-  transition:transform .18s ease, background .18s ease, border-color .18s ease, color .18s ease;
-}
-.stamp-btn:hover{border-color:#fff; color:#fff;}
-.stamp-btn.active{
-  background:var(--stamp);
-  border:2px solid var(--stamp);
-  border-style:solid;
-  color:#fff;
-  transform:rotate(-6deg) scale(1.08);
-  box-shadow:0 3px 10px rgba(0,0,0,.35);
-}
-.stamp-btn:focus-visible{outline:2px solid #fff; outline-offset:2px;}
-
-/* progress rail */
-.progress-rail{height:4px; background:#0F1930;}
-.progress-fill{height:100%; width:0%; background:var(--accent); transition:width .25s ease;}
-
-/* ===== LAYOUT ===== */
-.layout{
-  max-width:1280px; margin:0 auto;
-  display:grid;
-  grid-template-columns:var(--sidebar-w) 1fr;
-  gap:0;
-  align-items:start;
-}
+/* ---------- layout shell ---------- */
+.app{display:flex;min-height:100vh;}
 .sidebar{
-  position:sticky; top:57px;
-  height:calc(100vh - 57px);
-  overflow-y:auto;
-  padding:26px 14px 40px 22px;
-  border-right:1px solid var(--border);
+  width:280px;flex:none;
+  background:linear-gradient(180deg,#151c24,#0f151b);
+  border-right:1px solid var(--line);
+  position:sticky;top:0;height:100vh;
+  display:flex;flex-direction:column;
+  z-index:20;
 }
-.side-hint{
-  font-size:12px; color:var(--muted); font-family:'JetBrains Mono',monospace;
-  text-transform:uppercase; letter-spacing:.08em; margin:4px 0 12px;
+.sidebar-head{padding:22px 20px 14px;border-bottom:1px solid var(--line);}
+.brand-eyebrow{
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--amber);font-weight:700;margin-bottom:6px;
 }
-.navlist{list-style:none; margin:0; padding:0;}
-.navlist li{margin-bottom:2px;}
-.navlink{
-  display:flex; align-items:center; gap:10px;
-  padding:9px 10px; border-radius:8px;
-  text-decoration:none; color:var(--ink);
-  font-size:14px; font-weight:700;
-  border-left:3px solid transparent;
-  transition:background .15s ease, border-color .15s ease, color .15s ease;
-}
-.navlink .num{
-  font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700;
-  width:22px; height:22px; border-radius:4px;
-  display:flex; align-items:center; justify-content:center;
-  border:1.5px dashed #B7BFCF; color:var(--muted); flex:0 0 auto;
-}
-.navlink:hover{background:#EFEAdd;}
-.navlink.done .num{border-style:solid; border-color:var(--accent); color:var(--accent); background:var(--accent-soft);}
-.navlink.active{background:var(--navy); color:#fff; border-left-color:var(--stamp);}
-.navlink.active .num{border-color:#fff; color:#fff; background:transparent;}
+.brand-title{font-size:19px;line-height:1.25;}
+.brand-sub{font-size:12.5px;color:var(--ink-mute);margin-top:6px;}
 
-/* ===== MAIN ===== */
-main{padding:30px 26px 90px; min-width:0;}
-
-.hero{
-  background:linear-gradient(135deg, var(--navy) 0%, var(--navy3) 100%);
-  color:#fff; border-radius:14px; padding:30px 28px;
-  margin-bottom:30px; position:relative; overflow:hidden;
+.lang-switch{
+  display:grid;grid-template-columns:1fr 1fr;gap:6px;
+  padding:14px 16px;border-bottom:1px solid var(--line);
 }
-.hero::after{
-  content:""; position:absolute; right:-40px; top:-40px; width:220px; height:220px;
-  border:2px dashed rgba(255,255,255,.18); border-radius:50%;
+.lang-btn{
+  border:1px solid var(--line);background:#151c24;color:var(--ink-dim);
+  border-radius:7px;padding:8px 6px;font-family:'PT Sans',sans-serif;
+  font-size:12.5px;font-weight:700;cursor:pointer;letter-spacing:.02em;
+  transition:all .15s ease;text-align:center;
 }
-.hero-badge{
-  display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11.5px;
-  letter-spacing:.1em; text-transform:uppercase; background:rgba(255,255,255,.12);
-  padding:5px 10px; border-radius:20px; margin-bottom:14px;
-}
-.hero h1{font-size:clamp(24px,3.4vw,34px); margin:0 0 10px; font-weight:800; letter-spacing:-.01em;}
-.hero p{margin:0; font-size:15.5px; color:#D6DEEE; max-width:640px;}
-.quickfacts{display:flex; gap:26px; margin-top:22px; flex-wrap:wrap; position:relative; z-index:1;}
-.qf{min-width:70px;}
-.qf b{display:block; font-family:'Manrope',sans-serif; font-size:26px; font-weight:800;}
-.qf span{font-size:12px; color:#B9C4DC; text-transform:uppercase; letter-spacing:.06em;}
-
-.section-card{
-  background:var(--card); border:1px solid var(--border); border-radius:12px;
-  padding:26px 26px 22px; margin-bottom:22px; scroll-margin-top:72px;
-}
-.section-head{display:flex; align-items:center; gap:14px; margin-bottom:16px;}
-.section-num{
-  font-family:'JetBrains Mono',monospace; font-weight:700; font-size:15px;
-  width:42px; height:42px; flex:0 0 auto; border-radius:8px;
-  border:2px dashed var(--stamp); color:var(--stamp);
-  display:flex; align-items:center; justify-content:center;
-}
-.section-head h2{margin:0; font-size:19.5px; font-weight:800; color:var(--navy); letter-spacing:-.005em;}
-
-.section-card h3{font-size:15px; color:var(--navy2); margin:18px 0 8px; font-weight:700;}
-.section-card p{margin:0 0 12px; color:#333947;}
-
-ul.bullets{margin:0 0 6px; padding-left:0; list-style:none;}
-ul.bullets li{
-  position:relative; padding:6px 0 6px 24px; font-size:15px; color:#2A2F3A;
-  border-bottom:1px dashed #ECE8DB;
-}
-ul.bullets li:last-child{border-bottom:none;}
-ul.bullets li::before{
-  content:"›"; position:absolute; left:2px; top:5px; color:var(--stamp); font-weight:700; font-size:16px;
+.lang-btn:hover{border-color:var(--amber-dim);color:var(--ink);}
+.lang-btn.active{
+  background:var(--amber);border-color:var(--amber);color:#1a140a;
 }
 
-.callout{
-  border-radius:8px; padding:12px 14px; margin:12px 0; font-size:14.5px;
-  display:flex; gap:10px; align-items:flex-start; border:1px solid;
+.navlist{flex:1;overflow-y:auto;padding:10px 10px 20px;}
+.nav-group-label{
+  font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-mute);padding:14px 10px 6px;
 }
-.callout .tag{
-  font-family:'JetBrains Mono',monospace; font-size:10.5px; font-weight:700; letter-spacing:.08em;
-  text-transform:uppercase; padding:2px 7px; border-radius:4px; flex:0 0 auto; margin-top:1px;
+.nav-item{
+  display:flex;align-items:center;gap:10px;
+  width:100%;text-align:left;background:transparent;border:none;
+  color:var(--ink-dim);padding:10px 10px;border-radius:8px;
+  font-family:'PT Sans',sans-serif;font-size:14.5px;cursor:pointer;
+  margin-bottom:2px;
 }
-.callout.warn{background:var(--warn-bg); border-color:#F0C6BC; color:var(--warn-text);}
-.callout.warn .tag{background:var(--warn-border); color:#fff;}
-.callout.note{background:var(--note-bg); border-color:#C4D7E8; color:var(--note-text);}
-.callout.note .tag{background:var(--note-border); color:#fff;}
+.nav-item .num{
+  flex:none;width:24px;height:24px;border-radius:6px;
+  background:#232d38;color:var(--ink-mute);font-size:11.5px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'PT Serif',serif;
+}
+.nav-item:hover{background:#1e2732;color:var(--ink);}
+.nav-item.active{background:#26313d;color:var(--ink);}
+.nav-item.active .num{background:var(--amber);color:#1a140a;}
 
-table{width:100%; border-collapse:collapse; font-size:14.5px;}
-.table-wrap{overflow-x:auto; border:1px solid var(--border); border-radius:8px; margin-bottom:8px;}
-table thead th{
-  background:var(--navy); color:#fff; text-align:left; padding:10px 12px;
-  font-family:'Manrope',sans-serif; font-weight:700; font-size:13px; white-space:nowrap;
+/* ---------- main ---------- */
+.main{flex:1;min-width:0;}
+.topbar{
+  position:sticky;top:0;z-index:15;
+  background:rgba(18,24,31,.9);backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);
+  padding:14px 40px;display:none;
+  align-items:center;justify-content:space-between;
 }
-table tbody td{padding:10px 12px; border-top:1px solid var(--border); vertical-align:top;}
-table tbody tr:nth-child(even){background:#FAF8F2;}
-table tbody td:first-child{font-weight:700; color:var(--navy2); white-space:nowrap;}
+.mobile-menu-btn{
+  display:none;border:1px solid var(--line);background:#1a222b;color:var(--ink);
+  border-radius:7px;padding:8px 12px;font-size:14px;cursor:pointer;
+}
+.content{max-width:880px;margin:0 auto;padding:56px 44px 120px;}
 
-.checklist{list-style:none; margin:0; padding:0;}
+.page-title-block{margin-bottom:34px;}
+.eyebrow{
+  font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--amber);font-weight:700;margin-bottom:10px;
+}
+.page-title{font-size:32px;line-height:1.2;}
+.page-lede{color:var(--ink-dim);font-size:16px;margin-top:12px;max-width:640px;}
+
+/* meta grid for each set */
+.meta-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);
+  border-radius:var(--card-radius);overflow:hidden;margin:26px 0 30px;
+}
+.meta-cell{background:var(--panel);padding:14px 16px;}
+.meta-label{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:5px;}
+.meta-value{font-size:14.5px;color:var(--ink);font-weight:700;}
+
+.section-h{
+  display:flex;align-items:baseline;gap:10px;
+  margin:44px 0 16px;
+}
+.section-h h3{font-size:20px;color:var(--ink);}
+.section-h .tag{
+  font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  padding:3px 9px;border-radius:20px;
+}
+.tag.amber{background:#3a2f1c;color:var(--amber);border:1px solid var(--amber-dim);}
+.tag.teal{background:#1c3230;color:var(--teal);border:1px solid var(--teal-dim);}
+
+.materials{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--card-radius);
+  padding:16px 20px;margin-bottom:8px;
+}
+.materials-title{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-mute);margin-bottom:8px;}
+.materials ul{margin:0;padding-left:18px;}
+.materials li{color:var(--ink-dim);font-size:14.5px;margin-bottom:4px;}
+
+/* stage visual */
+.stage-track{
+  display:flex;align-items:stretch;gap:0;margin:18px 0 8px;
+  border-radius:var(--card-radius);overflow:hidden;border:1px solid var(--line);
+}
+.stage-block{flex:1;padding:16px 18px;background:var(--panel);position:relative;}
+.stage-block.s1{border-right:1px dashed var(--line);}
+.stage-block .stage-kicker{
+  font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;margin-bottom:4px;
+}
+.stage-block.s1 .stage-kicker{color:var(--amber);}
+.stage-block.s2 .stage-kicker{color:var(--teal);}
+.stage-block .stage-desc{font-size:13.5px;color:var(--ink-dim);}
+.stage-arrow{
+  flex:none;width:34px;display:flex;align-items:center;justify-content:center;
+  background:var(--panel);color:var(--ink-mute);font-size:18px;
+}
+
+/* steps */
+.steps{list-style:none;margin:0 0 6px;padding:0;counter-reset:step;}
+.step{
+  counter-increment:step;
+  display:grid;grid-template-columns:34px 1fr;gap:14px;
+  padding:12px 0;border-bottom:1px solid var(--line);
+}
+.step:last-child{border-bottom:none;}
+.step::before{
+  content:counter(step);
+  width:26px;height:26px;border-radius:50%;
+  background:#232d38;color:var(--ink-dim);
+  font-family:'PT Serif',serif;font-weight:700;font-size:12.5px;
+  display:flex;align-items:center;justify-content:center;
+  align-self:start;margin-top:1px;
+}
+.steps.stage1 .step::before{background:#3a2f1c;color:var(--amber);}
+.steps.stage2 .step::before{background:#1c3230;color:var(--teal);}
+.step-body{font-size:15px;color:var(--ink);padding-top:2px;}
+.step-body .code{
+  display:inline-block;background:#232d38;color:var(--ink-dim);
+  font-family:'PT Serif',serif;font-size:12.5px;font-weight:700;
+  padding:1px 7px;border-radius:5px;margin-right:7px;
+}
+.step-body .cond{
+  display:block;margin-top:5px;font-size:13.5px;color:var(--ink-mute);
+  border-left:2px solid var(--line);padding-left:10px;
+}
+
+/* transition phrase callout */
+.phrase-box{
+  background:linear-gradient(135deg,#241c10,#1a222b);
+  border:1px solid var(--amber-dim);border-radius:var(--card-radius);
+  padding:20px 22px;margin:16px 0 30px;position:relative;
+}
+.phrase-box::before{
+  content:"“";font-family:'PT Serif',serif;font-size:64px;color:var(--amber-dim);
+  position:absolute;top:-6px;left:14px;line-height:1;opacity:.5;
+}
+.phrase-label{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--amber);font-weight:700;margin-bottom:10px;}
+.phrase-text{font-family:'PT Serif',serif;font-size:17px;line-height:1.6;color:var(--ink);position:relative;padding-left:8px;}
+
+/* golden rule / warning box */
+.rule-box{
+  background:#241a1a;border:1px solid #5a3a38;border-radius:var(--card-radius);
+  padding:18px 20px;margin:22px 0;display:flex;gap:14px;align-items:flex-start;
+}
+.rule-box .icon{flex:none;font-size:20px;line-height:1;margin-top:1px;}
+.rule-box .rule-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--red);margin-bottom:4px;}
+.rule-box p{margin:0;color:var(--ink-dim);font-size:14.5px;}
+
+.note-box{
+  background:#1c2a20;border:1px solid #3a5a44;border-radius:var(--card-radius);
+  padding:18px 20px;margin:22px 0;
+}
+.note-box .note-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#7fbf8f;margin-bottom:8px;}
+.note-box ul{margin:0;padding-left:18px;}
+.note-box li{color:var(--ink-dim);font-size:14.5px;margin-bottom:5px;}
+
+.mistake-box{
+  background:#231c14;border:1px solid #6b4a2e;border-radius:var(--card-radius);
+  padding:18px 20px;margin:22px 0;
+}
+.mistake-box .mistake-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--amber);margin-bottom:8px;}
+.mistake-box p{margin:0;color:var(--ink-dim);font-size:14.5px;}
+
+.timing-pill{
+  display:inline-flex;align-items:center;gap:7px;
+  background:#20293b;border:1px solid var(--line);border-radius:20px;
+  padding:6px 14px;font-size:13.5px;color:var(--ink-dim);margin-top:6px;
+}
+.timing-pill b{color:var(--ink);}
+
+/* summary table */
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--card-radius);margin:16px 0 30px;}
+table.summary{width:100%;border-collapse:collapse;min-width:640px;}
+table.summary th{
+  text-align:left;font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--ink-mute);padding:12px 14px;background:#182028;border-bottom:1px solid var(--line);
+}
+table.summary td{
+  padding:13px 14px;border-bottom:1px solid var(--line);font-size:14px;color:var(--ink-dim);
+}
+table.summary tr:last-child td{border-bottom:none;}
+table.summary td.setname{color:var(--ink);font-weight:700;}
+table.summary tbody tr:hover{background:#1c2530;}
+
+/* checklist */
+.checklist{list-style:none;margin:0;padding:0;}
 .checklist li{
-  display:flex; align-items:center; gap:12px; padding:10px 6px;
-  border-bottom:1px dashed #ECE8DB; cursor:pointer; user-select:none;
+  display:flex;gap:12px;align-items:flex-start;
+  padding:11px 0;border-bottom:1px solid var(--line);font-size:14.5px;color:var(--ink-dim);
 }
 .checklist li:last-child{border-bottom:none;}
 .checklist .box{
-  width:22px; height:22px; border-radius:5px; border:2px solid #B7BFCF; flex:0 0 auto;
-  display:flex; align-items:center; justify-content:center; transition:all .15s ease;
-}
-.checklist .box svg{width:13px; height:13px; opacity:0; transition:opacity .15s;}
-.checklist li.checked .box{background:var(--accent); border-color:var(--accent);}
-.checklist li.checked .box svg{opacity:1;}
-.checklist li.checked .txt{color:var(--muted); text-decoration:line-through;}
-.checklist-progress{font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--muted); margin-top:10px;}
-
-.footer-note{
-  text-align:center; color:var(--muted); font-size:13px; padding:34px 20px 10px;
-  border-top:1px solid var(--border); margin-top:10px;
+  flex:none;width:18px;height:18px;border:1.5px solid var(--amber-dim);border-radius:4px;margin-top:2px;
 }
 
-/* mobile nav toggle */
-.nav-toggle{display:none;}
-
-@media (max-width: 900px){
-  .layout{grid-template-columns:1fr;}
-  .sidebar{
-    position:static; height:auto; border-right:none; border-bottom:1px solid var(--border);
-    padding:14px 16px;
-  }
-  .navlist{display:flex; overflow-x:auto; gap:6px; padding-bottom:6px;}
-  .navlist li{margin:0;}
-  .navlink{white-space:nowrap;}
-  .side-hint{display:none;}
-  main{padding:20px 16px 70px;}
-  .stamp-btn{width:38px; height:38px; font-size:11px;}
-  .quickfacts{gap:16px;}
+/* two-stage overview diagram */
+.diagram{
+  display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch;
+  margin:22px 0 8px;
 }
-@media (prefers-reduced-motion: reduce){
-  html{scroll-behavior:auto;}
-  *{transition:none !important;}
+.diagram .dblock{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--card-radius);
+  padding:20px;
+}
+.diagram .dblock.stage1{border-top:3px solid var(--amber);}
+.diagram .dblock.stage2{border-top:3px solid var(--teal);}
+.diagram .dmid{display:flex;align-items:center;justify-content:center;padding:0 16px;color:var(--ink-mute);font-size:22px;}
+.diagram .dkicker{font-size:11px;text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:8px;}
+.diagram .dblock.stage1 .dkicker{color:var(--amber);}
+.diagram .dblock.stage2 .dkicker{color:var(--teal);}
+.diagram .dtitle{font-family:'PT Serif',serif;font-size:16.5px;margin-bottom:6px;}
+.diagram .ddesc{font-size:13.5px;color:var(--ink-dim);}
+
+.footer-nav{
+  display:flex;justify-content:space-between;margin-top:60px;padding-top:24px;border-top:1px solid var(--line);
+  gap:16px;
+}
+.footer-nav .fbtn{
+  border:1px solid var(--line);background:var(--panel);color:var(--ink-dim);
+  border-radius:8px;padding:12px 18px;font-size:14px;cursor:pointer;font-family:'PT Sans',sans-serif;
+  display:flex;flex-direction:column;gap:2px;max-width:48%;
+}
+.footer-nav .fbtn .flabel{font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-mute);}
+.footer-nav .fbtn .ftitle{color:var(--ink);font-weight:700;}
+.footer-nav .fbtn:hover{border-color:var(--amber-dim);}
+.footer-nav .fbtn.next{text-align:right;align-items:flex-end;margin-left:auto;}
+
+.overlay{display:none;}
+@media (max-width:960px){
+  .sidebar{position:fixed;left:0;top:0;transform:translateX(-100%);transition:transform .25s ease;box-shadow:0 0 40px rgba(0,0,0,.5);}
+  .sidebar.open{transform:translateX(0);}
+  .topbar{display:flex;}
+  .mobile-menu-btn{display:inline-block;}
+  .content{padding:36px 20px 100px;}
+  .page-title{font-size:26px;}
+  .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:19;}
+  .overlay.show{display:block;}
+  .diagram{grid-template-columns:1fr;}
+  .diagram .dmid{padding:8px 0;transform:rotate(90deg);}
 }
 </style>
 </head>
 <body>
 
-<div class="topbar">
-  <div class="topbar-inner">
-    <span class="kit-tag">CAPI · Field Kit</span>
-    <div class="topbar-title" id="uiTitle">
-      Интервью олувчилар учун қўлланма
-      <small id="uiSubtitle">HTP бренд номлари бўйича тадқиқот</small>
+<div class="app">
+  <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-head">
+      <div class="brand-eyebrow" data-i18n="eyebrow"></div>
+      <div class="brand-title" data-i18n="brandTitle"></div>
+      <div class="brand-sub" data-i18n="brandSub"></div>
     </div>
-    <div class="stamps" role="group" aria-label="Til tanlash">
-      <span class="stamp-label" id="uiLangLabel">Тил</span>
-      <button class="stamp-btn" data-lang="uz-latn" title="O'zbekcha (lotin)">UZ</button>
-      <button class="stamp-btn" data-lang="uz-cyrl" title="Ўзбекча (кирилл)">ЎЗ</button>
-      <button class="stamp-btn" data-lang="ru" title="Русский">РУ</button>
-      <button class="stamp-btn" data-lang="ky" title="Кыргызча">КЫ</button>
-      <button class="stamp-btn" data-lang="tg" title="Тоҷикӣ">ТҶ</button>
+    <div class="lang-switch">
+      <button class="lang-btn" data-lang="ru" onclick="setLang('ru')">Русский</button>
+      <button class="lang-btn" data-lang="uz" onclick="setLang('uz')">Ўзбекча</button>
+      <button class="lang-btn" data-lang="tg" onclick="setLang('tg')">Тоҷикӣ</button>
+      <button class="lang-btn" data-lang="ky" onclick="setLang('ky')">Кыргызча</button>
     </div>
+    <nav class="navlist" id="navlist"></nav>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <button class="mobile-menu-btn" onclick="openSidebar()">☰ <span data-i18n="menu"></span></button>
+    </div>
+    <div class="content" id="content"></div>
   </div>
-  <div class="progress-rail"><div class="progress-fill" id="progressFill"></div></div>
-</div>
-
-<div class="layout">
-  <nav class="sidebar" aria-label="Bo'limlar">
-    <div class="side-hint" id="uiProgressLabel">Ўқилди</div>
-    <ul class="navlist" id="navList"></ul>
-  </nav>
-
-  <main id="mainContent">
-    <section class="hero">
-      <span class="hero-badge" id="heroBadge">CAPI · Дала тадқиқоти</span>
-      <h1 id="heroTitle">Интервью олувчилар учун қўлланма</h1>
-      <p id="heroSubtitle">HTP бренд номлари бўйича тадқиқот — Ўзбекистон · Тожикистон · Қирғизистон</p>
-      <div class="quickfacts" id="quickFacts"></div>
-    </section>
-
-    <div id="sections"></div>
-
-    <div class="footer-note" id="footerNote"></div>
-  </main>
 </div>
 
 <script>
-/* ============================================================
-   DATA — 5 languages: uz-latn, uz-cyrl, ru, ky, tg
-   ============================================================ */
-const T = {};
+/* =========================================================================
+   DATA — structural (language independent)
+   ========================================================================= */
+const SETS_META = [
+  {id:"overview", icon:"—"},
+  {id:"set1", icon:"1"},
+  {id:"set2", icon:"2"},
+  {id:"set3", icon:"3"},
+  {id:"set4", icon:"4"},
+  {id:"set5", icon:"5"},
+  {id:"moduleE", icon:"E"}
+];
 
-T["uz-latn"] = {
-  meta:{
-    badge:"CAPI · Dala tadqiqoti",
-    title:"Intervyu oluvchilar uchun qoʻllanma",
-    subtitle:"HTP brend nomlari boʻyicha tadqiqot — Oʻzbekiston · Tojikiston · Qirgʻiziston",
-    quickFacts:[{value:"3",label:"davlat"},{value:"4",label:"til"},{value:"8",label:"nom"},{value:"~45",label:"daqiqa"}]
+/* =========================================================================
+   TRANSLATIONS
+   ========================================================================= */
+const T = {
+
+/* ======================================================================
+   RUSSIAN
+   ====================================================================== */
+ru: {
+  eyebrow:"Полевая инструкция",
+  brandTitle:"Нейминг бренда ИНТ",
+  brandSub:"Проведение по наборам · для интервьюеров",
+  menu:"Меню",
+  nav:{
+    overview:"Общие правила",
+    set1:"Набор 1 · FLEX",
+    set2:"Набор 2 · Устройство P2",
+    set3:"Набор 3 · Стик AIIV",
+    set4:"Набор 4 · Устройство P4",
+    set5:"Набор 5 · Стик FAIIM",
+    moduleE:"Модуль E · ESSE"
   },
-  ui:{ langLabel:"Til", progressLabel:"Oʻqildi", warnLabel:"Diqqat", noteLabel:"Eslatma",
-    footer:"Savol boʻlsa, nazorat (SV) bilan bogʻlaning. Intervyuning sifati tadqiqot natijalarining ishonchliligini belgilaydi." },
-  sections:[
-    {title:"Tadqiqot haqida", blocks:[
-      {type:"table", headers:["Band","Maʼlumot"], rows:[
-        ["Davlatlar","Oʻzbekiston · Tojikiston · Qirgʻiziston"],
-        ["Usul","CAPI — planshet orqali yuzma-yuz intervyu (har bir davlatda kamida 50 respondent)"],
-        ["Tillar","Oʻzbek · Tojik · Qirgʻiz · Rus (respondent tanlaydi)"],
-        ["Baholanadigan nomlar","Jami 8 ta nom: 5 ta toʻplam (SET 1–5) + ESSE qoʻllab-quvvatlash moduli"],
-        ["Davomiyligi","Taxminan 40–50 daqiqa"],
-        ["Mahsulot toifasi","HTP — qizdiriladigan tamaki mahsuloti"]
-      ]}
-    ]},
-    {title:"Asosiy qoidalar", blocks:[
-      {type:"bullets", items:[
-        "Kompaniyani va soʻrov maqsadini taqdim eting; maʼlumotlar maxfiy saqlanishini tushuntiring.",
-        "Respondent haqidagi maʼmuriy maʼlumotlarni (ID, sana, til, davomiylik, SV) toʻliq toʻldiring.",
-        "Har bir savolni respondent tanlagan tilda toʻgʻri ayting.",
-        "Toʻgʻri yoki notoʻgʻri javob yoʻqligini va halol fikr muhimligini taʼkidlang.",
-        "Oʻz fikringizni bildirmang, savollarni neytral ohangda oʻqing."
-      ]},
-      {type:"warning", text:"Nomlarni bir-biri bilan solishtirmang — har bir nom mustaqil baholanadi (bundan tashqari toʻplam ichidagi yakuniy tanlov, masalan P13, S13, E6, E9)."}
-    ]},
-    {title:"Terminologiya", blocks:[
-      {type:"table", headers:["Til","HTP atamasi"], rows:[
-        ["Oʻzbek (UZ)","qizdiriladigan tamaki mahsuloti"],
-        ["Tojik (TJ)","маҳсулот аз тамокуи гармкардашуда"],
-        ["Qirgʻiz (KG)","ысытылган тамеки өнүмдөрү"],
-        ["Rus (RU)","нагреваемый табак (ИНТ)"]
-      ]},
-      {type:"note", text:"Agar respondent atama bilan tanish boʻlmasa, brend nomlarini aytmang. Tushuntiring: «Tamaki barglarini yondirmasdan, qizdirish orqali foydalaniladigan mahsulot»."}
-    ]},
-    {title:"Skrining (SQ0–SQ8)", blocks:[
-      {type:"bullets", items:[
-        "SQ0 — Intervyu tilini tanlash: davlatga mos tillarni koʻrsating, til kvotasiga rioya qiling.",
-        "SQ1 — Yashash mintaqasi: davlat/mintaqa kvotasi uchun.",
-        "SQ2 — Kasbiy soha: marketing, tamaki, OAV, sogʻliqni saqlash sohasida ishlasa (①–⑤) — SOʻROVNI YAKUNLANG.",
-        "SQ3 — Yosh: qonuniy yoshga mos kelmasa (19 va kichik yoki 50 va katta) — SOʻROVNI YAKUNLANG.",
-        "SQ4 — Jinsi: kvota uchun.",
-        "SQ5 — Hozir tamaki/nikotin isteʼmol qilmasa — SOʻROVNI YAKUNLANG.",
-        "SQ6 / SQ6-1 — isteʼmol qilinadigan mahsulot turlari va asosiysi.",
-        "SQ7 / SQ8 — faqat HTP isteʼmol qilmaydiganlarga: xabardorlik va foydalanish niyati."
-      ]},
-      {type:"warning", text:"SQ2, SQ3 yoki SQ5 da yakunlash sharti chiqsa, intervyuni davom ettirmang."}
-    ]},
-    {title:"Tuzilma va ketma-ketlik", blocks:[
-      {type:"table", headers:["Toʻplam","Davlatlar","Toifa","Nom(lar)","Baholash usuli"], rows:[
-        ["SET 1","UZ · TJ · KG","Bosh brend","FLEX","Monadik, ikki bosqichli"],
-        ["SET 2","TJ","P2 qurilmasi","FLEX BRYZ / MINGLE / WITHIX","Toʻplam ichida, ikki bosqichli"],
-        ["SET 3","TJ","P2 stiki","AIIV","Monadik, ikki bosqichli"],
-        ["SET 4","UZ · TJ · KG","P4 qurilmasi","FLEX ESSENZ / ORIGIN","Toʻplam ichida, ikki bosqichli"],
-        ["SET 5","UZ · TJ · KG","P4 stiki","FAIIM","Monadik, ikki bosqichli"],
-        ["E moduli","UZ · TJ · KG","ESSE qoʻllab-quvvatlash","ESSE + 4 variant","Barcha respondentlar, oxirida"]
-      ]},
-      {type:"subheading", text:"Har bir toʻplam ikki bosqichda oʻtkaziladi:"},
-      {type:"bullets", items:[
-        "① Faqat nomni baholash — faqat matnli kartochka: talaffuz va esda qolish qulayligi.",
-        "② Qadoq maketi koʻrsatilgandan keyin — assotsiatsiyalar, taqiqlar, obraz, jozibadorlik, farqlanish."
-      ]},
-      {type:"warning", text:"Nom toʻliq baholanmaguncha qadoq maketini hech qachon koʻrsatmang."},
-      {type:"warning", text:"Qadoq maketlarida ESSE yoki boshqa qoʻllab-quvvatlovchi brend elementi boʻlmasin."},
-      {type:"note", text:"E moduli barcha toʻplamlar tugagandan soʻng BARCHA respondentlar bilan bir marta oʻtkaziladi."},
-      {type:"note", text:"E5/E8 uchun rotatsiya: A guruhi 1→2→3→4; B guruhi 4→3→2→1. Har biriga ~50%."}
-    ]},
-    {title:"Davlatlar boʻyicha qamrov", blocks:[
-      {type:"subheading", text:"Tojikiston — barcha toʻplamlar"},
-      {type:"paragraph", text:"SET 1, 2, 3, 4, 5 va E moduli — hammasi beriladi."},
-      {type:"subheading", text:"Oʻzbekiston va Qirgʻiziston — faqat SET 1, 4, 5 va E moduli"},
-      {type:"warning", text:"SET 2 va SET 3 faqat Tojikistonda — boshqa ikki davlatda BERILMAYDI."}
-    ]},
-    {title:"Toʻplamni oʻtkazish protokoli", blocks:[
-      {type:"subheading", text:"Bitta nomli toʻplamlar (SET 1, 3, 5)"},
-      {type:"bullets", items:[
-        "Kartochkani koʻrsating, nomni 2–3 marta ovoz chiqarib aytishini soʻrang.",
-        "Talaffuz va esda qolish savollariga javob oling.",
-        "Qiyin boʻlsa — sabab savolini bering.",
-        "Qadoq maketini koʻrsatib, qolgan savollarni bering."
-      ]},
-      {type:"subheading", text:"Bir nechta variantli toʻplamlar (SET 2, 4)"},
-      {type:"bullets", items:[
-        "Har bir variantni rotatsiya tartibida koʻrsating.",
-        "Toʻliq shaklda ayting: «FLEX + qism» (masalan FLEX BRYZ).",
-        "Barcha variantlar ① bosqichda baholanmaguncha maket koʻrsatmang.",
-        "Yakunida eng afzal variantni tanlashini soʻrang (P13/S13)."
-      ]}
-    ]},
-    {title:"Taqiqlangan assotsiatsiyalar", blocks:[
-      {type:"note", text:"Bu savollar madaniy/diniy xavflarni aniqlash uchun majburiy. Toʻgʻri/notoʻgʻri javob yoʻqligini tushuntiring."},
-      {type:"bullets", items:[
-        "Avval: sleng/soʻkinish/diniy jihatdan noqulaymi? (Ha/Yoʻq)",
-        "«Ha» boʻlsa — aynan soʻz va taqiq turini aniqlang.",
-        "«Yoʻq» boʻlsa — keyingi boʻlimga oʻting."
-      ]}
-    ]},
-    {title:"E moduli — ESSE", blocks:[
-      {type:"bullets", items:[
-        "ESSE — mavjud oddiy sigareta brendi ekanligini tushuntiring, kartochkani koʻrsating.",
-        "Xabardorlik, assotsiatsiyalar, jozibadorlik va obrazni baholang.",
-        "[A] FLEX qurilma brendi qoʻllab-quvvatlashi — munosabat va sabab (ijobiy/salbiy).",
-        "E5/E6 — 4 variant rotatsiya boʻyicha baholanadi, soʻng eng afzali tanlanadi.",
-        "[B] FAIIM stik brendi uchun xuddi shunday (E7–E9)."
-      ]},
-      {type:"warning", text:"Rotatsiya guruhini (A/B) qatʼiy qoʻllang — har biriga taxminan yarmi toʻgʻri kelsin."}
-    ]},
-    {title:"Zarur materiallar", blocks:[
-      {type:"checklist", items:[
-        "Planshet kompyuter",
-        "Har bir nomning lotin/kirill kartochkalari — 1-bosqich",
-        "ESSE elementlarisiz qadoq maketi kartochkalari — 2-bosqich",
-        "ESSE va 4 variant kartochkalari — E moduli",
-        "Respondent roziligi shakli va mukofot"
-      ]}
-    ]},
-    {title:"Tez-tez uchraydigan xatolar", blocks:[
-      {type:"warninglist", items:[
-        "Qadoq maketini nom baholanmasdan koʻrsatish.",
-        "SET 2/3 ni Oʻzbekiston yoki Qirgʻizistonda oʻtkazish.",
-        "Rotatsiya guruhlariga rioya qilmaslik.",
-        "Nomlarni solishtirishga undash yoki fikr bildirish.",
-        "Yakunlash shartida intervyuni davom ettirish.",
-        "«Toʻgʻri/notoʻgʻri javob yoʻq» eslatmasini unutish.",
-        "E modulini toʻplamlar tugamasdan yoki qisman oʻtkazish."
-      ]}
-    ]}
-  ]
+  groupOverview:"Введение",
+  groupSets:"Наборы",
+  groupModule:"Завершающий модуль",
+
+  overview:{
+    eyebrow:"Прочитать перед началом поля",
+    title:"Общий принцип для всех наборов",
+    lede:"Этот документ дополняет основную анкету и предназначен для обучения полевой команды: как проводить каждый набор, в каком порядке, с какими переходами и на что обращать особое внимание.",
+    diagramStage1Title:"Этап ① — чистая оценка нейминга",
+    diagramStage1Desc:"Показывается только текстовая карточка с названием. Респондент оценивает звучание названия само по себе — без визуального влияния упаковки или бренда.",
+    diagramStage2Title:"Этап ② — оценка после показа макета",
+    diagramStage2Desc:"Показывается нейтральный макет упаковки (без элементов ESSE). Задаются вопросы об ассоциациях, образе, привлекательности и намерении купить.",
+    goldenRuleLabel:"Золотое правило",
+    goldenRuleText:"Карточка макета упаковки никогда не показывается раньше, чем полностью завершён Этап ① для соответствующего названия. Если это правило нарушено хотя бы один раз — данные по этому респонденту для этого набора считаются непригодными.",
+    transitionTitle:"Переход между наборами",
+    transitionLede:"В анкете нет отдельной связки между окончанием одного набора и началом следующего — каждый набор начинается со своей собственной инструкции. Чтобы респондент не путал только что оценённое название с новым, перед началом каждого набора, кроме первого, интервьюер обязан произнести переходную фразу:",
+    transitionPhrase:"«Спасибо. Теперь мы переходим к оценке другого названия — оно никак не связано с тем, которое вы только что оценивали. Пожалуйста, отвечайте на вопросы, думая только об этом новом названии.»",
+    transitionNote1Label:"Наборы с устройствами (2 и 4)",
+    transitionNote1:"фраза произносится непосредственно перед «Вступлением к платформе» — описанием того, как устроено устройство.",
+    transitionNote2Label:"Монадические наборы (1, 3, 5)",
+    transitionNote2:"фраза произносится сразу после общей инструкции, перед показом текстовой карточки.",
+    tableTitle:"Сводная таблица по всем наборам",
+    tableHeaders:["Набор","Страны","Кол-во названий","Вопросов","Ротация","Время"],
+    tableRows:[
+      ["Набор 1","Все 3 (KG, TJ, UZ)","1 (FLEX)","13","Нет","6–8 мин"],
+      ["Набор 2","Только TJ","3","15","3 подгруппы","12–15 мин"],
+      ["Набор 3","Только TJ","1 (AIIV)","13","Нет","6–8 мин"],
+      ["Набор 4","Все 3 (KG, TJ, UZ)","2","15","2 подгруппы","10–12 мин"],
+      ["Набор 5","Все 3 (KG, TJ, UZ)","1 (FAIIM)","13","Нет","6–8 мин"],
+      ["Модуль E","Все 3 (KG, TJ, UZ)","ESSE + 8 вариантов","14","2 группы (A/B)","10–12 мин"]
+    ],
+    totalTimeTitle:"Общее ориентировочное время интервью",
+    totalTimeTJ:"Таджикистан (все наборы): ~50–60 минут",
+    totalTimeUZKG:"Узбекистан и Кыргызстан (Наборы 1, 4, 5 + Модуль E): ~33–40 минут",
+    checklistTitle:"Чек-лист интервьюера перед началом поля",
+    checklist:[
+      "Планшет с настроенным CAPI-скриптом, соответствующим стране (TJ — 5 наборов, UZ/KG — 3 набора)",
+      "Все текстовые карточки для каждого названия",
+      "Все карточки нейтральных макетов упаковки (без элементов ESSE)",
+      "Карточка бренда ESSE и 8 карточек вариантов эндорсмента (4 для устройства + 4 для стика)",
+      "Все карточки с шкальными вариантами ответов",
+      "Знание назначенной ротационной группы для каждого респондента (A/B для Модуля E; подгруппа 1/2/3 для Набора 2; подгруппа 1/2 для Набора 4)",
+      "Отработанная переходная фраза между наборами",
+      "Понимание условной логики skip-переходов (Q3/P3/R3/S3/T3 — только при трудном произношении; Q8 и аналоги — только при наличии ассоциации с табу; Q10-1 и аналоги — только при низкой привлекательности)"
+    ]
+  },
+
+  labels:{
+    countries:"Страны",
+    testType:"Тип теста",
+    participants:"Респонденты",
+    questions:"Вопросы",
+    time:"Ориент. время",
+    rotation:"Ротация",
+    materials:"Материалы",
+    stage1:"Этап ① — чистая оценка нейминга",
+    stage2:"Этап ② — оценка после показа макета",
+    transition:"Переход",
+    final:"Финал",
+    timing:"Тайминг",
+    attention:"На что обратить внимание",
+    mistakes:"Частые ошибки",
+    keyDiff:"Ключевое отличие от других наборов",
+    monadic:"Монадический (одно название, без сравнения)",
+    setBased:"На основе набора (несколько названий оценивает каждый респондент)",
+    allScreened:"Все респонденты, прошедшие скрининг"
+  },
+
+  set1:{
+    title:"Набор 1 · Мастер-бренд FLEX",
+    subtitle:"Монадический тест единственного мастер-бренда — без сравнения",
+    countries:"Узбекистан · Таджикистан · Кыргызстан",
+    testType:"Монадический (одно название, без сравнения)",
+    participants:"Все респонденты, прошедшие скрининг",
+    questions:"Q1–Q12",
+    time:"6–8 минут",
+    materials:["1 текстовая карточка «FLEX»","1 карточка с нейтральным макетом упаковки (без ESSE)","Карточки с шкальными вариантами ответов"],
+    stage1:[
+      {c:"",t:"Покажите текстовую карточку «FLEX»"},
+      {c:"",t:"Попросите произнести название вслух 2–3 раза"},
+      {c:"Q1",t:"Лёгкость произношения (7-балльная шкала)"},
+      {c:"Q2",t:"Запоминаемость (7-балльная шкала)"},
+      {c:"Q3",t:"Причины трудности, топ-3 ранжирование",cond:"Только если Q1 = ①②③. Если ④–⑦ — пропустить."}
+    ],
+    transitionText:"«Сейчас мы покажем вам пример того, как «FLEX» может выглядеть на реальной упаковке продукта»",
+    stage2:[
+      {c:"",t:"Показать карточку макета (без ESSE)"},
+      {c:"Q4",t:"Спонтанные ассоциации (открытый вопрос, MA)"},
+      {c:"Q5",t:"Ассоциации как с брендом ИНТ: сначала первая (SA), потом последующие (MA)"},
+      {c:"Q6",t:"Ассоциация с другой категорией/человеком"},
+      {c:"Q7",t:"Есть ли ассоциация с табу (да/нет)"},
+      {c:"Q8",t:"Детали: слово + тип табу",cond:"Только если Q7 = «да»"},
+      {c:"Q9",t:"Выбор образов (список из 21, MA)"},
+      {c:"Q10",t:"Общая привлекательность (7-балльная шкала)"},
+      {c:"Q10-1",t:"Причины неприятия, топ-3",cond:"Только если Q10 = ①②③"},
+      {c:"Q11",t:"Новизна и отличие"},
+      {c:"Q12",t:"Намерение купить/использовать"}
+    ],
+    notes:[
+      "Это единственное название, которое респондент видит без сравнения — не давайте наводящих сравнений с другими продуктами на рынке",
+      "Перед вопросами про табу (Q7/Q8) обязательно произнести вводную фразу про отсутствие правильных/неправильных ответов"
+    ]
+  },
+
+  set2:{
+    title:"Набор 2 · Устройство P2 (FLEX BRYZ / FLEX MINGLE / FLEX WITHIX)",
+    subtitle:"Три названия оценивает каждый респондент, с ротацией порядка",
+    countries:"Только Таджикистан",
+    testType:"На основе набора (3 названия оценивает каждый респондент)",
+    participants:"3 подгруппы респондентов — разный порядок предъявления названий",
+    questions:"P1–P13",
+    time:"12–15 минут",
+    materials:["3 текстовые карточки (BRYZ, MINGLE, WITHIX)","3 карточки нейтральных макетов упаковки (без ESSE)","Иллюстрация устройства","Карточки с шкальными вариантами ответов"],
+    importantLabel:"Важно",
+    important:"Каждый респондент оценивает все три названия. Ротация касается только порядка их предъявления, а не того, какое название показать — сравнивать (вопрос P13) можно только то, что респондент видел целиком.",
+    rotationTitle:"Порядок ротации",
+    rotationHeaders:["Подгруппа","Порядок предъявления названий"],
+    rotationRows:[["1","BRYZ → MINGLE → WITHIX"],["2","MINGLE → WITHIX → BRYZ"],["3","WITHIX → BRYZ → MINGLE"]],
+    rotationNote:"Порядок закреплён за ID анкеты заранее в CAPI-скрипте — интервьюер не выбирает его самостоятельно.",
+    preSteps:[
+      {t:"Произнести переходную фразу (если это не первый набор в интервью)"},
+      {t:"Зачитать вступление к платформе: объяснить, что устройство использует одновременно табачный стик и жидкостный картридж"},
+      {t:"Показать иллюстрацию устройства, дать 10–15 секунд на рассмотрение"}
+    ],
+    stage1Lede:"Для каждого из трёх названий по порядку ротации:",
+    stage1:[
+      {c:"",t:"Показать текстовую карточку названия"},
+      {c:"",t:"Попросить произнести вслух 2–3 раза"},
+      {c:"P1",t:"Лёгкость произношения"},
+      {c:"P1-1",t:"Попросить произнести полное название «FLEX + вариант», задать лёгкость произношения вместе с «FLEX»"},
+      {c:"P2",t:"Запоминаемость"},
+      {c:"P3",t:"Причины трудности",cond:"Только если P1 = ①②③. Если ④–⑦ — пропустить."},
+      {c:"",t:"Повторить шаги для второго и третьего названия"}
+    ],
+    transitionText:"«Сейчас мы покажем вам примеры того, как каждое название может выглядеть на реальной упаковке продукта»",
+    stage2Lede:"Показать 3 карточки макетов (в том же порядке ротации). Для каждого из трёх названий по порядку:",
+    stage2:[
+      {c:"P4",t:"Спонтанные ассоциации"},
+      {c:"P5",t:"Ассоциации как с брендом ИНТ"},
+      {c:"P6",t:"Ассоциация с другой категорией/человеком"},
+      {c:"P7 / P8",t:"Табу — да/нет; если «да» — детали"},
+      {c:"P9",t:"Образы из списка 21"},
+      {c:"P10",t:"Общая привлекательность"},
+      {c:"P10-1",t:"Причины неприятия",cond:"Только если P10 = ①②③"},
+      {c:"P11",t:"Новизна и отличие"},
+      {c:"P12",t:"Намерение купить/использовать"},
+      {c:"",t:"Повторить для второго и третьего названия"}
+    ],
+    finalLabel:"Финал",
+    final:"После того как респондент оценил все три названия по обоим этапам, задать P13: «Из трёх названий устройства, которые вы только что увидели, какое вам нравится больше всего?» Перед этим вопросом кратко напомнить вслух все три названия или показать все три карточки одновременно.",
+    keyDiff:"Единственный набор с тремя сравниваемыми названиями и с дополнительным вопросом P1-1 (произношение в связке с «FLEX»).",
+    mistakes:"Показ макета до завершения Этапа ① по всем трём названиям; пропуск P1-1; один и тот же порядок ротации у всех респондентов подряд (проверять по ID)."
+  },
+
+  set3:{
+    title:"Набор 3 · Стик P2 AIIV",
+    subtitle:"Монадический тест стикового названия",
+    countries:"Только Таджикистан",
+    testType:"Монадический",
+    participants:"Все респонденты, прошедшие скрининг",
+    questions:"R1–R12",
+    time:"6–8 минут",
+    materials:["1 текстовая карточка «AIIV»","1 карточка нейтрального макета упаковки стика","Карточки с шкальными вариантами ответов"],
+    stage1:[
+      {c:"",t:"Показать карточку «AIIV», попросить произнести вслух 2–3 раза"},
+      {c:"R1",t:"Лёгкость произношения"},
+      {c:"R2",t:"Запоминаемость"},
+      {c:"R3",t:"Причины трудности",cond:"Только если R1 = ①②③"}
+    ],
+    transitionText:"Переход + показ макета",
+    stage2:[
+      {c:"R4",t:"Спонтанные ассоциации"},
+      {c:"R5",t:"Ассоциации как с брендом ИНТ (первая + последующие)"},
+      {c:"R6",t:"Ассоциация с другой категорией/человеком"},
+      {c:"R7",t:"Есть ли ассоциация с табу"},
+      {c:"R8",t:"Детали",cond:"Только если R7 = «да»"},
+      {c:"R9",t:"Образы (список 21)"},
+      {c:"R10",t:"Общая привлекательность"},
+      {c:"R10-1",t:"Причины неприятия",cond:"Только если R10 = ①②③"},
+      {c:"R11",t:"Новизна и отличие"},
+      {c:"R12",t:"Намерение купить/использовать"}
+    ],
+    notes:[
+      "Структура идентична Набору 1 (монадический тест) — интервьюеры, уже отработавшие Набор 1, освоят Набор 3 без дополнительного тренинга",
+      "Важно: название AIIV тестируется как самостоятельный бренд стика, без связки с «FLEX» — не путать с логикой Набора 2/4, где устройство идёт вместе с мастер-брендом"
+    ]
+  },
+
+  set4:{
+    title:"Набор 4 · Устройство P4 (FLEX ESSENZ / FLEX ORIGIN)",
+    subtitle:"Два названия оценивает каждый респондент, с ротацией порядка",
+    countries:"Узбекистан · Таджикистан · Кыргызстан",
+    testType:"На основе набора (2 названия оценивает каждый респондент)",
+    participants:"2 подгруппы — ESSENZ→ORIGIN и ORIGIN→ESSENZ (50/50)",
+    questions:"S1–S13",
+    time:"10–12 минут",
+    materials:["2 текстовые карточки (ESSENZ, ORIGIN)","2 карточки нейтральных макетов","Иллюстрация устройства P4","Карточки с шкальными вариантами ответов"],
+    preSteps:[
+      {t:"Переходная фраза"},
+      {t:"Вступление к платформе: объяснить, что устройство P4 нагревает стик снаружи, без жидкостного картриджа. Показать иллюстрацию."}
+    ],
+    stage1Lede:"Для каждого из двух названий по порядку ротации:",
+    stage1:[
+      {c:"",t:"Показать карточку, попросить произнести вслух 2–3 раза"},
+      {c:"S1",t:"Лёгкость произношения"},
+      {c:"S1-1",t:"Лёгкость произношения вместе с «FLEX»"},
+      {c:"S2",t:"Запоминаемость"},
+      {c:"S3",t:"Причины трудности",cond:"Только если S1 = ①②③"},
+      {c:"",t:"Повторить для второго названия"}
+    ],
+    stage2Lede:"Показать 2 карточки макетов. Для каждого названия:",
+    stage2:[
+      {c:"S4",t:"Спонтанные ассоциации"},
+      {c:"S5",t:"Ассоциации как с брендом ИНТ"},
+      {c:"S6",t:"Ассоциация с другой категорией/человеком"},
+      {c:"S7 / S8",t:"Табу; если «да» — детали"},
+      {c:"S9",t:"Образы"},
+      {c:"S10",t:"Общая привлекательность"},
+      {c:"S10-1",t:"Причины неприятия",cond:"Только если S10 = ①②③"},
+      {c:"S11",t:"Новизна и отличие"},
+      {c:"S12",t:"Намерение купить/использовать"},
+      {c:"",t:"Повторить для второго названия"}
+    ],
+    finalLabel:"Финал",
+    final:"S13 — выбор фаворита из двух названий.",
+    notes:[
+      "Как и Набор 2, содержит S1-1 (произношение с «FLEX») — не путать с монадическими наборами (1, 3, 5), где такого вопроса нет",
+      "Только 2 названия вместо 3 — ротация проще (2 подгруппы, не 3)",
+      "Важно объяснить респонденту разницу между устройством P2 (Набор 2, с жидкостным картриджем) и устройством P4 (этот набор, без картриджа) — если респондент проходит оба набора (в Таджикистане), не путайте их между собой в его восприятии"
+    ]
+  },
+
+  set5:{
+    title:"Набор 5 · Стик P4 FAIIM",
+    subtitle:"Монадический тест стикового названия",
+    countries:"Узбекистан · Таджикистан · Кыргызстан",
+    testType:"Монадический",
+    participants:"Все респонденты, прошедшие скрининг",
+    questions:"T1–T12",
+    time:"6–8 минут",
+    materials:["1 текстовая карточка «FAIIM»","1 карточка нейтрального макета упаковки","Карточки с шкальными вариантами ответов"],
+    preSteps:[{t:"Переходная фраза"}],
+    stage1:[
+      {c:"",t:"Показать карточку «FAIIM», попросить произнести вслух 2–3 раза"},
+      {c:"T1",t:"Лёгкость произношения"},
+      {c:"T2",t:"Запоминаемость"},
+      {c:"T3",t:"Причины трудности",cond:"Только если T1 = ①②③"}
+    ],
+    transitionText:"Переход + показ макета упаковки",
+    stage2:[
+      {c:"T4",t:"Спонтанные ассоциации"},
+      {c:"T5",t:"Ассоциации как с брендом ИНТ"},
+      {c:"T6",t:"Ассоциация с другой категорией/человеком"},
+      {c:"T7 / T8",t:"Табу; если «да» — детали"},
+      {c:"T9",t:"Образы"},
+      {c:"T10",t:"Общая привлекательность"},
+      {c:"T10-1",t:"Причины неприятия",cond:"Только если T10 = ①②③"},
+      {c:"T11",t:"Новизна и отличие"},
+      {c:"T12",t:"Намерение купить/использовать"}
+    ],
+    notes:[
+      "Структурно идентичен Наборам 1 и 3 (монадический тест)",
+      "Это последний набор перед Модулем E — респондент к этому моменту уже устал (это 4-е или 5-е название за интервью в Таджикистане). Следите за признаками усталости (короткие односложные ответы, «не знаю» на открытые вопросы) — при необходимости сделайте короткую паузу 30–60 секунд перед началом набора"
+    ]
+  },
+
+  moduleE:{
+    title:"Модуль E · Стратегия эндорсмента ESSE",
+    subtitle:"Проводится последним, со всеми респондентами",
+    countries:"Узбекистан · Таджикистан · Кыргызстан",
+    testType:"Проводится с",
+    participants:"Все респонденты, после завершения всех наборов",
+    questions:"E1–E9",
+    time:"10–12 минут",
+    materials:["Карточка бренда ESSE","4 карточки-варианта эндорсмента устройства","4 карточки-варианта эндорсмента стика","Карточки с шкальными вариантами ответов"],
+    generalTitle:"Общая часть",
+    general:[
+      {t:"Объяснить: «ESSE — существующий бренд обычных сигарет», показать карточку бренда"},
+      {c:"E1",t:"Знакомство с ESSE"},
+      {c:"E2",t:"Спонтанные ассоциации с ESSE"},
+      {c:"E3",t:"Общая привлекательность ESSE"},
+      {c:"E3-1",t:"Образы ESSE (список 21)"}
+    ],
+    blockATitle:"Блок [A] — Эндорсмент устройства (FLEX)",
+    blockA:[
+      {t:"Объяснить концепцию эндорсмента для устройства"},
+      {c:"E4",t:"Насколько позитивно/негативно отношение к идее ESSE как бренда устройства"},
+      {c:"E4-1",t:"Причины «за», топ-3",cond:"Только если E4 = ⑤⑥⑦"},
+      {c:"E4-2",t:"Причины «против», топ-3",cond:"Только если E4 = ①②③④"},
+      {c:"E5",t:"Оценить каждый из 4 вариантов (100% эндорсмент / совместный брендинг / раздельный брендинг / без эндорсмента) по 7-балльной шкале, показывая соответствующую карточку для каждого"},
+      {c:"E6",t:"Выбор наиболее предпочтительного варианта из четырёх (после того как все оценены)"}
+    ],
+    rotationATitle:"Ротация вариантов (по группе A/B)",
+    rotationA:["Группа A: показывать Вариант 1 → 2 → 3 → 4","Группа B: показывать Вариант 4 → 3 → 2 → 1"],
+    blockBTitle:"Блок [B] — Эндорсмент стика (FAIIM)",
+    blockB:[
+      {t:"Объяснить концепцию эндорсмента для стика"},
+      {c:"E7",t:"Насколько позитивно/негативно отношение к идее ESSE как бренда стика"},
+      {c:"E7-1",t:"Причины «за»",cond:"Только если E7 = ⑤⑥⑦"},
+      {c:"E7-2",t:"Причины «против»",cond:"Только если E7 = ①②③④"},
+      {t:"Та же ротация A/B, что и в блоке A"},
+      {c:"E8",t:"Оценить каждый из 4 вариантов эндорсмента стика"},
+      {c:"E9",t:"Выбор наиболее предпочтительного варианта"}
+    ],
+    notes:[
+      "Критично: этот модуль всегда идёт последним. Если провести его раньше основных наборов, оценки самих названий (FLEX, FAIIM и т.д.) будут искажены якорением на бренде ESSE",
+      "Одна и та же ротационная группа (A или B) должна использоваться и в блоке устройства, и в блоке стика для одного респондента — не переключать группу между E5/E6 и E8/E9",
+      "Респондент к этому моменту прошёл уже весь основной опрос — это самый уязвимый к усталости этап; если чувствуете снижение вовлечённости, можно сократить зачитывание длинных описаний вариантов, но саму последовательность показа карточек менять нельзя"
+    ]
+  },
+
+  footerPrev:"Назад",
+  footerNext:"Далее"
+},
+
+/* ======================================================================
+   UZBEK (Cyrillic)
+   ====================================================================== */
+uz: {
+  eyebrow:"Далада ишлаш учун йўриқнома",
+  brandTitle:"ИНТ бренди неймингини тадқиқ қилиш",
+  brandSub:"Тўпламлар бўйича ўтказиш · интервьюерлар учун",
+  menu:"Меню",
+  nav:{
+    overview:"Умумий қоидалар",
+    set1:"1-тўплам · FLEX",
+    set2:"2-тўплам · P2 қурилмаси",
+    set3:"3-тўплам · AIIV стик",
+    set4:"4-тўплам · P4 қурилмаси",
+    set5:"5-тўплам · FAIIM стик",
+    moduleE:"E модули · ESSE"
+  },
+  groupOverview:"Кириш",
+  groupSets:"Тўпламлар",
+  groupModule:"Якуний модул",
+
+  overview:{
+    eyebrow:"Далага чиқишдан олдин ўқинг",
+    title:"Барча тўпламлар учун умумий тамойил",
+    lede:"Ушбу ҳужжат асосий анкетани тўлдиради ва дала жамоасини ўқитиш учун мўлжалланган: ҳар бир тўпламни қандай тартибда, қандай ўтишлар билан ўтказиш ва нимага алоҳида эътибор бериш кераклигини босқичма-босқич тушунтиради.",
+    diagramStage1Title:"① босқич — неймингнинг соф баҳоси",
+    diagramStage1Desc:"Респондентга фақат номи ёзилган матн карточкаси кўрсатилади. У номнинг ўзини — қадоқ ёки бренднинг визуал таъсирисиз — қандай эшитилишини баҳолайди.",
+    diagramStage2Title:"② босқич — макет кўрсатилгандан кейинги баҳо",
+    diagramStage2Desc:"Нейтрал қадоқ макети кўрсатилади (ESSE элементларисиз). Ассоциациялар, образ, жозибадорлик ва сотиб олиш ниятига оид саволлар берилади.",
+    goldenRuleLabel:"Олтин қоида",
+    goldenRuleText:"Қадоқ макети карточкаси тегишли ном учун ① босқич тўлиқ якунланмагунча ҳеч қачон кўрсатилмайди. Агар бу қоида ҳатто бир марта бузилса — ушбу респондент бўйича шу тўпламнинг маълумотлари яроқсиз ҳисобланади.",
+    transitionTitle:"Тўпламлар орасидаги ўтиш",
+    transitionLede:"Анкетада бир тўпламнинг тугаши билан кейингисининг бошланиши ўртасида алоҳида боғловчи қисм йўқ — ҳар бир тўплам ўзининг алоҳида йўриқномасидан бошланади. Респондент ҳозиргина баҳолаган номни янгиси билан аралаштириб юбормаслиги учун, биринчисидан бошқа ҳар бир тўплам олдидан интервьюер қуйидаги ўтиш жумласини айтиши шарт:",
+    transitionPhrase:"«Раҳмат. Энди биз бошқа номни баҳолашга ўтамиз — у сиз ҳозиргина баҳолаган ном билан ҳеч қандай боғлиқ эмас. Илтимос, саволларга фақат ушбу янги ном ҳақида ўйлаб жавоб беринг.»",
+    transitionNote1Label:"Қурилмали тўпламлар (2 ва 4)",
+    transitionNote1:"жумла бевосита «Платформага кириш» — қурилма қандай тузилганлиги тавсифидан олдин айтилади.",
+    transitionNote2Label:"Монадик тўпламлар (1, 3, 5)",
+    transitionNote2:"жумла умумий йўриқномадан дарҳол кейин, матн карточкаси кўрсатилишидан олдин айтилади.",
+    tableTitle:"Барча тўпламлар бўйича умумлаштирувчи жадвал",
+    tableHeaders:["Тўплам","Мамлакатлар","Номлар сони","Саволлар","Ротация","Вақт"],
+    tableRows:[
+      ["1-тўплам","Барча 3та (KG, TJ, UZ)","1 (FLEX)","13","Йўқ","6–8 дақ."],
+      ["2-тўплам","Фақат TJ","3","15","3 кичик гуруҳ","12–15 дақ."],
+      ["3-тўплам","Фақат TJ","1 (AIIV)","13","Йўқ","6–8 дақ."],
+      ["4-тўплам","Барча 3та (KG, TJ, UZ)","2","15","2 кичик гуруҳ","10–12 дақ."],
+      ["5-тўплам","Барча 3та (KG, TJ, UZ)","1 (FAIIM)","13","Йўқ","6–8 дақ."],
+      ["E модули","Барча 3та (KG, TJ, UZ)","ESSE + 8 вариант","14","2 гуруҳ (A/B)","10–12 дақ."]
+    ],
+    totalTimeTitle:"Интервьюнинг умумий тахминий давомийлиги",
+    totalTimeTJ:"Тожикистон (барча тўпламлар): ~50–60 дақиқа",
+    totalTimeUZKG:"Ўзбекистон ва Қирғизистон (1, 4, 5-тўпламлар + E модули): ~33–40 дақиқа",
+    checklistTitle:"Далага чиқишдан олдин интервьюер чек-листи",
+    checklist:[
+      "Мамлакатга мос созланган CAPI-скрипт билан планшет (TJ — 5 тўплам, UZ/KG — 3 тўплам)",
+      "Ҳар бир ном учун барча матн карточкалари",
+      "Барча нейтрал қадоқ макети карточкалари (ESSE элементларисиз)",
+      "ESSE бренд карточкаси ва 8та эндорсмент варианти карточкаси (4таси қурилма учун + 4таси стик учун)",
+      "Шкала бўйича жавоб вариантлари карточкалари",
+      "Ҳар бир респондент учун белгиланган ротация гуруҳини билиш (E модули учун A/B; 2-тўплам учун 1/2/3 кичик гуруҳ; 4-тўплам учун 1/2 кичик гуруҳ)",
+      "Тўпламлар орасидаги ўтиш жумласини яхши ўзлаштириш",
+      "Skip-ўтишлар шартли мантиғини тушуниш (Q3/P3/R3/S3/T3 — фақат талаффуз қийин бўлганда; Q8 ва ўхшашлари — фақат табу билан ассоциация мавжуд бўлганда; Q10-1 ва ўхшашлари — фақат жозибадорлик паст бўлганда)"
+    ]
+  },
+
+  labels:{
+    countries:"Мамлакатлар",
+    testType:"Тест тури",
+    participants:"Респондентлар",
+    questions:"Саволлар",
+    time:"Тахминий вақт",
+    rotation:"Ротация",
+    materials:"Материаллар",
+    stage1:"① босқич — неймингнинг соф баҳоси",
+    stage2:"② босқич — макет кўрсатилгандан кейинги баҳо",
+    transition:"Ўтиш",
+    final:"Якун",
+    timing:"Вақт кетиши",
+    attention:"Нимага эътибор бериш керак",
+    mistakes:"Тез-тез учрайдиган хатолар",
+    keyDiff:"Бошқа тўпламлардан асосий фарқи",
+    monadic:"Монадик (солиштиришсиз, битта ном)",
+    setBased:"Тўплам асосида (ҳар бир респондент бир нечта номни баҳолайди)",
+    allScreened:"Скринингдан ўтган барча респондентлар"
+  },
+
+  set1:{
+    title:"1-тўплам · FLEX мастер-бренди",
+    subtitle:"Ягона мастер-брендни солиштиришсиз монадик тест қилиш",
+    countries:"Ўзбекистон · Тожикистон · Қирғизистон",
+    testType:"Монадик (солиштиришсиз, битта ном)",
+    participants:"Скринингдан ўтган барча респондентлар",
+    questions:"Q1–Q12",
+    time:"6–8 дақиқа",
+    materials:["«FLEX» матн карточкаси — 1 дона","Нейтрал қадоқ макети карточкаси (ESSEсиз) — 1 дона","Шкала бўйича жавоб вариантлари карточкалари"],
+    stage1:[
+      {c:"",t:"«FLEX» матн карточкасини кўрсатинг"},
+      {c:"",t:"Номни 2–3 марта овоз чиқариб айтишни сўранг"},
+      {c:"Q1",t:"Талаффуз енгиллиги (7 баллик шкала)"},
+      {c:"Q2",t:"Эсда қолувчанлик (7 баллик шкала)"},
+      {c:"Q3",t:"Қийинчилик сабаблари, топ-3 рейтинг",cond:"Фақат Q1 = ①②③ бўлса. ④–⑦ бўлса — ўтказиб юборинг."}
+    ],
+    transitionText:"«Ҳозир биз сизга «FLEX» ҳақиқий маҳсулот қадоғида қандай кўринишини мисол тариқасида кўрсатамиз»",
+    stage2:[
+      {c:"",t:"Макет карточкасини кўрсатинг (ESSEсиз)"},
+      {c:"Q4",t:"Спонтан ассоциациялар (очиқ савол, MA)"},
+      {c:"Q5",t:"ИНТ бренди сифатида ассоциациялар: аввал биринчиси (SA), сўнг қолганлари (MA)"},
+      {c:"Q6",t:"Бошқа категория/шахс билан ассоциация"},
+      {c:"Q7",t:"Табу билан ассоциация борми (ҳа/йўқ)"},
+      {c:"Q8",t:"Тафсилотлар: сўз + табу тури",cond:"Фақат Q7 = «ҳа» бўлса"},
+      {c:"Q9",t:"Образларни танлаш (21та рўйхатдан, MA)"},
+      {c:"Q10",t:"Умумий жозибадорлик (7 баллик шкала)"},
+      {c:"Q10-1",t:"Рад этиш сабаблари, топ-3",cond:"Фақат Q10 = ①②③ бўлса"},
+      {c:"Q11",t:"Янгилик ва фарқланиш"},
+      {c:"Q12",t:"Сотиб олиш/фойдаланиш нияти"}
+    ],
+    notes:[
+      "Бу респондент солиштиришсиз кўрадиган ягона ном — бозордаги бошқа маҳсулотлар билан йўналтирувчи солиштиришлар бермасинг",
+      "Табу ҳақидаги саволлардан (Q7/Q8) олдин тўғри/нотўғри жавоб йўқлиги ҳақидаги кириш жумласини айтишни унутманг"
+    ]
+  },
+
+  set2:{
+    title:"2-тўплам · P2 қурилмаси (FLEX BRYZ / FLEX MINGLE / FLEX WITHIX)",
+    subtitle:"Ҳар бир респондент учта номни баҳолайди, тартиб ротацияси билан",
+    countries:"Фақат Тожикистон",
+    testType:"Тўплам асосида (ҳар бир респондент 3 номни баҳолайди)",
+    participants:"3 респондент кичик гуруҳи — номлар кўрсатилиш тартиби турлича",
+    questions:"P1–P13",
+    time:"12–15 дақиқа",
+    materials:["3 матн карточкаси (BRYZ, MINGLE, WITHIX)","3 нейтрал қадоқ макети карточкаси (ESSEсиз)","Қурилма иллюстрацияси","Шкала бўйича жавоб вариантлари карточкалари"],
+    importantLabel:"Муҳим",
+    important:"Ҳар бир респондент барча учта номни баҳолайди. Ротация фақат уларнинг кўрсатилиш тартибига тегишли, қайси ном кўрсатилишига эмас — солиштириш (P13 саволи) фақат респондент тўлиқ кўрган нарсалар бўйича мумкин.",
+    rotationTitle:"Ротация тартиби",
+    rotationHeaders:["Кичик гуруҳ","Номларнинг кўрсатилиш тартиби"],
+    rotationRows:[["1","BRYZ → MINGLE → WITHIX"],["2","MINGLE → WITHIX → BRYZ"],["3","WITHIX → BRYZ → MINGLE"]],
+    rotationNote:"Тартиб анкета ID сига олдиндан CAPI-скриптда бириктирилган — интервьюер уни ўзи танламайди.",
+    preSteps:[
+      {t:"Ўтиш жумласини айтинг (агар бу интервьюдаги биринчи тўплам бўлмаса)"},
+      {t:"Платформага киришни ўқиб беринг: қурилма бир вақтнинг ўзида тамаки стиги ва суюқлик картриджидан фойдаланишини тушунтиринг"},
+      {t:"Қурилма иллюстрациясини кўрсатинг, кўриб чиқиш учун 10–15 сония вақт беринг"}
+    ],
+    stage1Lede:"Ротация тартиби бўйича ҳар бир учта ном учун:",
+    stage1:[
+      {c:"",t:"Номнинг матн карточкасини кўрсатинг"},
+      {c:"",t:"2–3 марта овоз чиқариб айтишни сўранг"},
+      {c:"P1",t:"Талаффуз енгиллиги"},
+      {c:"P1-1",t:"«FLEX + вариант» тўлиқ номини айтишни сўранг, «FLEX» билан бирга талаффуз енгиллигини сўранг"},
+      {c:"P2",t:"Эсда қолувчанлик"},
+      {c:"P3",t:"Қийинчилик сабаблари",cond:"Фақат P1 = ①②③ бўлса. ④–⑦ бўлса — ўтказиб юборинг."},
+      {c:"",t:"Иккинчи ва учинчи номлар учун қадамларни такрорланг"}
+    ],
+    transitionText:"«Ҳозир биз сизга ҳар бир номнинг ҳақиқий маҳсулот қадоғида қандай кўринишини мисоллар тариқасида кўрсатамиз»",
+    stage2Lede:"3та макет карточкасини кўрсатинг (худди шу ротация тартибида). Ҳар бир учта ном учун тартиб бўйича:",
+    stage2:[
+      {c:"P4",t:"Спонтан ассоциациялар"},
+      {c:"P5",t:"ИНТ бренди сифатида ассоциациялар"},
+      {c:"P6",t:"Бошқа категория/шахс билан ассоциация"},
+      {c:"P7 / P8",t:"Табу — ҳа/йўқ; «ҳа» бўлса — тафсилотлар"},
+      {c:"P9",t:"21та рўйхатдан образлар"},
+      {c:"P10",t:"Умумий жозибадорлик"},
+      {c:"P10-1",t:"Рад этиш сабаблари",cond:"Фақат P10 = ①②③ бўлса"},
+      {c:"P11",t:"Янгилик ва фарқланиш"},
+      {c:"P12",t:"Сотиб олиш/фойдаланиш нияти"},
+      {c:"",t:"Иккинчи ва учинчи номлар учун такрорланг"}
+    ],
+    finalLabel:"Якун",
+    final:"Респондент ҳар икки босқич бўйича барча учта номни баҳолагандан сўнг, P13 саволини беринг: «Ҳозиргина кўрган учта қурилма номидан қайси бири сизга кўпроқ ёқади?» Бу саволдан олдин барча учта номни овоз чиқариб эслатинг ёки барча учта карточкани бир вақтда кўрсатинг."	,
+    keyDiff:"Учта солиштириладиган номга эга ягона тўплам, шунингдек қўшимча P1-1 саволига эга («FLEX» билан биргаликда талаффуз).",
+    mistakes:"Барча учта ном бўйича ① босқич якунланмасдан макетни кўрсатиш; P1-1 ни ўтказиб юбориш; барча респондентларда кетма-кет бир хил ротация тартиби (ID бўйича текширинг)."
+  },
+
+  set3:{
+    title:"3-тўплам · P2 стик AIIV",
+    subtitle:"Стик номини монадик тест қилиш",
+    countries:"Фақат Тожикистон",
+    testType:"Монадик",
+    participants:"Скринингдан ўтган барча респондентлар",
+    questions:"R1–R12",
+    time:"6–8 дақиқа",
+    materials:["«AIIV» матн карточкаси — 1 дона","Стик қадоғи нейтрал макети карточкаси — 1 дона","Шкала бўйича жавоб вариантлари карточкалари"],
+    stage1:[
+      {c:"",t:"«AIIV» карточкасини кўрсатинг, 2–3 марта овоз чиқариб айтишни сўранг"},
+      {c:"R1",t:"Талаффуз енгиллиги"},
+      {c:"R2",t:"Эсда қолувчанлик"},
+      {c:"R3",t:"Қийинчилик сабаблари",cond:"Фақат R1 = ①②③ бўлса"}
+    ],
+    transitionText:"Ўтиш + макетни кўрсатиш",
+    stage2:[
+      {c:"R4",t:"Спонтан ассоциациялар"},
+      {c:"R5",t:"ИНТ бренди сифатида ассоциациялар (биринчиси + қолганлари)"},
+      {c:"R6",t:"Бошқа категория/шахс билан ассоциация"},
+      {c:"R7",t:"Табу билан ассоциация борми"},
+      {c:"R8",t:"Тафсилотлар",cond:"Фақат R7 = «ҳа» бўлса"},
+      {c:"R9",t:"Образлар (21та рўйхат)"},
+      {c:"R10",t:"Умумий жозибадорлик"},
+      {c:"R10-1",t:"Рад этиш сабаблари",cond:"Фақат R10 = ①②③ бўлса"},
+      {c:"R11",t:"Янгилик ва фарқланиш"},
+      {c:"R12",t:"Сотиб олиш/фойдаланиш нияти"}
+    ],
+    notes:[
+      "Тузилиши 1-тўпламга (монадик тест) айнан ўхшайди — 1-тўпламни ўзлаштирган интервьюерлар 3-тўпламни қўшимча ўқитувсиз ўзлаштиради",
+      "Муҳим: AIIV номи «FLEX» билан боғланмаган ҳолда, мустақил стик бренди сифатида синалади — қурилма мастер-бренд билан бирга кетадиган 2/4-тўплам мантиғи билан аралаштирманг"
+    ]
+  },
+
+  set4:{
+    title:"4-тўплам · P4 қурилмаси (FLEX ESSENZ / FLEX ORIGIN)",
+    subtitle:"Ҳар бир респондент иккита номни баҳолайди, тартиб ротацияси билан",
+    countries:"Ўзбекистон · Тожикистон · Қирғизистон",
+    testType:"Тўплам асосида (ҳар бир респондент 2 номни баҳолайди)",
+    participants:"2 кичик гуруҳ — ESSENZ→ORIGIN ва ORIGIN→ESSENZ (50/50)",
+    questions:"S1–S13",
+    time:"10–12 дақиқа",
+    materials:["2 матн карточкаси (ESSENZ, ORIGIN)","2 нейтрал макет карточкаси","P4 қурилмаси иллюстрацияси","Шкала бўйича жавоб вариантлари карточкалари"],
+    preSteps:[
+      {t:"Ўтиш жумласи"},
+      {t:"Платформага кириш: P4 қурилмаси стикни ташқаридан қиздиришини, суюқлик картриджи йўқлигини тушунтиринг. Иллюстрацияни кўрсатинг."}
+    ],
+    stage1Lede:"Ротация тартиби бўйича ҳар бир иккита ном учун:",
+    stage1:[
+      {c:"",t:"Карточкани кўрсатинг, 2–3 марта овоз чиқариб айтишни сўранг"},
+      {c:"S1",t:"Талаффуз енгиллиги"},
+      {c:"S1-1",t:"«FLEX» билан бирга талаффуз енгиллиги"},
+      {c:"S2",t:"Эсда қолувчанлик"},
+      {c:"S3",t:"Қийинчилик сабаблари",cond:"Фақат S1 = ①②③ бўлса"},
+      {c:"",t:"Иккинчи ном учун такрорланг"}
+    ],
+    stage2Lede:"2та макет карточкасини кўрсатинг. Ҳар бир ном учун:",
+    stage2:[
+      {c:"S4",t:"Спонтан ассоциациялар"},
+      {c:"S5",t:"ИНТ бренди сифатида ассоциациялар"},
+      {c:"S6",t:"Бошқа категория/шахс билан ассоциация"},
+      {c:"S7 / S8",t:"Табу; «ҳа» бўлса — тафсилотлар"},
+      {c:"S9",t:"Образлар"},
+      {c:"S10",t:"Умумий жозибадорлик"},
+      {c:"S10-1",t:"Рад этиш сабаблари",cond:"Фақат S10 = ①②③ бўлса"},
+      {c:"S11",t:"Янгилик ва фарқланиш"},
+      {c:"S12",t:"Сотиб олиш/фойдаланиш нияти"},
+      {c:"",t:"Иккинчи ном учун такрорланг"}
+    ],
+    finalLabel:"Якун",
+    final:"S13 — иккита номдан энг маъқулини танлаш.",
+    notes:[
+      "2-тўплам сингари, S1-1 саволига эга («FLEX» билан талаффуз) — бундай савол бўлмаган монадик тўпламлар (1, 3, 5) билан аралаштирманг",
+      "Фақат 2та ном, 3та эмас — ротация соддароқ (2 кичик гуруҳ, 3 эмас)",
+      "Респондентга P2 қурилмаси (2-тўплам, суюқлик картрижи билан) ва P4 қурилмаси (бу тўплам, картриджсиз) ўртасидаги фарқни тушунтириш муҳим — агар респондент иккала тўпламдан ҳам ўтса (Тожикистонда), унинг қабулида уларни аралаштириб юбормасин"
+    ]
+  },
+
+  set5:{
+    title:"5-тўплам · P4 стик FAIIM",
+    subtitle:"Стик номини монадик тест қилиш",
+    countries:"Ўзбекистон · Тожикистон · Қирғизистон",
+    testType:"Монадик",
+    participants:"Скринингдан ўтган барча респондентлар",
+    questions:"T1–T12",
+    time:"6–8 дақиқа",
+    materials:["«FAIIM» матн карточкаси — 1 дона","Нейтрал қадоқ макети карточкаси — 1 дона","Шкала бўйича жавоб вариантлари карточкалари"],
+    preSteps:[{t:"Ўтиш жумласи"}],
+    stage1:[
+      {c:"",t:"«FAIIM» карточкасини кўрсатинг, 2–3 марта овоз чиқариб айтишни сўранг"},
+      {c:"T1",t:"Талаффуз енгиллиги"},
+      {c:"T2",t:"Эсда қолувчанлик"},
+      {c:"T3",t:"Қийинчилик сабаблари",cond:"Фақат T1 = ①②③ бўлса"}
+    ],
+    transitionText:"Ўтиш + қадоқ макетини кўрсатиш",
+    stage2:[
+      {c:"T4",t:"Спонтан ассоциациялар"},
+      {c:"T5",t:"ИНТ бренди сифатида ассоциациялар"},
+      {c:"T6",t:"Бошқа категория/шахс билан ассоциация"},
+      {c:"T7 / T8",t:"Табу; «ҳа» бўлса — тафсилотлар"},
+      {c:"T9",t:"Образлар"},
+      {c:"T10",t:"Умумий жозибадорлик"},
+      {c:"T10-1",t:"Рад этиш сабаблари",cond:"Фақат T10 = ①②③ бўлса"},
+      {c:"T11",t:"Янгилик ва фарқланиш"},
+      {c:"T12",t:"Сотиб олиш/фойдаланиш нияти"}
+    ],
+    notes:[
+      "Тузилиши 1- ва 3-тўпламларга айнан ўхшайди (монадик тест)",
+      "Бу E модулидан олдинги охирги тўплам — респондент бу пайтга келиб аллақачон чарчаган бўлади (Тожикистонда интервьюдаги 4- ёки 5-ном). Чарчоқ белгиларига (қисқа, бир бўғинли жавоблар, очиқ саволларга «билмайман») эътибор беринг — зарур бўлса, тўплам бошланишидан олдин 30–60 сониялик қисқа танаффус қилинг"
+    ]
+  },
+
+  moduleE:{
+    title:"E модули · ESSE эндорсмент стратегияси",
+    subtitle:"Барча респондентлар билан энг охирида ўтказилади",
+    countries:"Ўзбекистон · Тожикистон · Қирғизистон",
+    testType:"Билан ўтказилади",
+    participants:"Барча тўпламлар якунлангандан сўнг, барча респондентлар",
+    questions:"E1–E9",
+    time:"10–12 дақиқа",
+    materials:["ESSE бренд карточкаси","Қурилма эндорсменти учун 4та вариант карточкаси","Стик эндорсменти учун 4та вариант карточкаси","Шкала бўйича жавоб вариантлари карточкалари"],
+    generalTitle:"Умумий қисм",
+    general:[
+      {t:"Тушунтиринг: «ESSE — мавжуд оддий сигарет бренди», бренд карточкасини кўрсатинг"},
+      {c:"E1",t:"ESSE билан танишлик"},
+      {c:"E2",t:"ESSE билан спонтан ассоциациялар"},
+      {c:"E3",t:"ESSE нинг умумий жозибадорлиги"},
+      {c:"E3-1",t:"ESSE образлари (21та рўйхат)"}
+    ],
+    blockATitle:"[A] блок — Қурилма эндорсменти (FLEX)",
+    blockA:[
+      {t:"Қурилма учун эндорсмент концепциясини тушунтиринг"},
+      {c:"E4",t:"ESSE ни қурилма бренди сифатида кўриш ғоясига қанчалик ижобий/салбий муносабат"},
+      {c:"E4-1",t:"«Ёқлаш» сабаблари, топ-3",cond:"Фақат E4 = ⑤⑥⑦ бўлса"},
+      {c:"E4-2",t:"«Қаршилик» сабаблари, топ-3",cond:"Фақат E4 = ①②③④ бўлса"},
+      {c:"E5",t:"4та вариантнинг (100% эндорсмент / қўшма брендинг / алоҳида брендинг / эндорсментсиз) ҳар бирини 7 баллик шкала бўйича, ҳар бирига мос карточкани кўрсатган ҳолда баҳоланг"},
+      {c:"E6",t:"Барчаси баҳолангандан сўнг, тўрттадан энг маъқул вариантни танлаш"}
+    ],
+    rotationATitle:"Вариантлар ротацияси (A/B гуруҳи бўйича)",
+    rotationA:["A гуруҳи: 1 → 2 → 3 → 4 вариантларни кўрсатинг","B гуруҳи: 4 → 3 → 2 → 1 вариантларни кўрсатинг"],
+    blockBTitle:"[B] блок — Стик эндорсменти (FAIIM)",
+    blockB:[
+      {t:"Стик учун эндорсмент концепциясини тушунтиринг"},
+      {c:"E7",t:"ESSE ни стик бренди сифатида кўриш ғоясига қанчалик ижобий/салбий муносабат"},
+      {c:"E7-1",t:"«Ёқлаш» сабаблари",cond:"Фақат E7 = ⑤⑥⑦ бўлса"},
+      {c:"E7-2",t:"«Қаршилик» сабаблари",cond:"Фақат E7 = ①②③④ бўлса"},
+      {t:"[A] блокдаги каби худди шундай A/B ротацияси"},
+      {c:"E8",t:"Стик эндорсменти учун 4та вариантнинг ҳар бирини баҳоланг"},
+      {c:"E9",t:"Энг маъқул вариантни танлаш"}
+    ],
+    notes:[
+      "Муҳим: бу модул ҳар доим энг охирида ўтказилади. Агар у асосий тўпламлардан олдин ўтказилса, номларнинг ўзи (FLEX, FAIIM ва ҳ.к.) баҳоси ESSE брендига «якорланиш» туфайли бузилади",
+      "Битта респондент учун қурилма блокида ҳам, стик блокида ҳам айнан бир хил ротация гуруҳи (A ёки B) ишлатилиши керак — E5/E6 ва E8/E9 орасида гуруҳни алмаштирманг",
+      "Бу пайтга келиб респондент бутун асосий сўровномадан ўтган бўлади — бу чарчоққа энг сезгир босқич; агар қизиқиш пасайганини сезсангиз, узун вариант тавсифларини қисқартиришингиз мумкин, лекин карточкаларни кўрсатиш кетма-кетлигининг ўзини ўзгартириб бўлмайди"
+    ]
+  },
+
+  footerPrev:"Орқага",
+  footerNext:"Кейинги"
+},
+
+/* ======================================================================
+   TAJIK
+   ====================================================================== */
+tg: {
+  eyebrow:"Дастурамал барои кор дар саҳро",
+  brandTitle:"Тадқиқи номгузории бренди ИНТ",
+  brandSub:"Гузаронидан аз рӯи маҷмӯаҳо · барои интервьюерон",
+  menu:"Меню",
+  nav:{
+    overview:"Қоидаҳои умумӣ",
+    set1:"Маҷмӯаи 1 · FLEX",
+    set2:"Маҷмӯаи 2 · Дастгоҳи P2",
+    set3:"Маҷмӯаи 3 · Стики AIIV",
+    set4:"Маҷмӯаи 4 · Дастгоҳи P4",
+    set5:"Маҷмӯаи 5 · Стики FAIIM",
+    moduleE:"Модули E · ESSE"
+  },
+  groupOverview:"Муқаддима",
+  groupSets:"Маҷмӯаҳо",
+  groupModule:"Модули хотимавӣ",
+
+  overview:{
+    eyebrow:"Пеш аз оғози саҳро хонед",
+    title:"Принсипи умумӣ барои ҳамаи маҷмӯаҳо",
+    lede:"Ин ҳуҷҷат саволномаи асосиро пурра мекунад ва барои омӯзиши гурӯҳи саҳроӣ пешбинӣ шудааст: чӣ тавр ҳар як маҷмӯаро гузаронидан, бо кадом тартиб, бо кадом гузаришҳо ва ба чӣ бояд диққати махсус дод.",
+    diagramStage1Title:"Марҳилаи ① — арзёбии холиси номгузорӣ",
+    diagramStage1Desc:"Ба респондент танҳо кортаи матнӣ бо ном нишон дода мешавад. Ӯ садои номро худ аз худ — бидуни таъсири визуалии қуттӣ ё бренд — арзёбӣ мекунад.",
+    diagramStage2Title:"Марҳилаи ② — арзёбӣ пас аз нишон додани макет",
+    diagramStage2Desc:"Макети бетарафи қуттӣ нишон дода мешавад (бидуни унсурҳои ESSE). Саволҳо дар бораи ассотсиатсияҳо, тасвир, ҷолибият ва нияти хариду фурӯш пурсида мешаванд.",
+    goldenRuleLabel:"Қоидаи заррин",
+    goldenRuleText:"Кортаи макети қуттӣ ҳеҷ гоҳ пеш аз пурра анҷом ёфтани Марҳилаи ① барои номи мувофиқ нишон дода намешавад. Агар ин қоида ҳатто як бор вайрон шавад — маълумоти ин респондент оид ба ин маҷмӯа ғайриқобили истифода ҳисобида мешавад.",
+    transitionTitle:"Гузариш байни маҷмӯаҳо",
+    transitionLede:"Дар саволнома пайванди алоҳида байни хотимаи як маҷмӯа ва оғози маҷмӯаи навбатӣ вуҷуд надорад — ҳар як маҷмӯа бо дастурамали худ оғоз мешавад. То респондент номи ҳозир арзёбикардаашро бо номи нав омехта накунад, пеш аз оғози ҳар як маҷмӯа, ба ғайр аз якум, интервьюер вазифадор аст ибораи гузариширо гӯяд:",
+    transitionPhrase:"«Ташаккур. Ҳоло мо ба арзёбии номи дигар мегузарем — он ҳеҷ рабте ба номе, ки шумо ҳозир арзёбӣ кардед, надорад. Лутфан, ба саволҳо танҳо дар бораи ин номи нав фикр карда ҷавоб диҳед.»",
+    transitionNote1Label:"Маҷмӯаҳо бо дастгоҳҳо (2 ва 4)",
+    transitionNote1:"ибора бевосита пеш аз «Муқаддима ба платформа» — тавсифи сохти дастгоҳ гуфта мешавад.",
+    transitionNote2Label:"Маҷмӯаҳои монадӣ (1, 3, 5)",
+    transitionNote2:"ибора дарҳол пас аз дастурамали умумӣ, пеш аз нишон додани кортаи матнӣ гуфта мешавад.",
+    tableTitle:"Ҷадвали ҷамъбастӣ оид ба ҳамаи маҷмӯаҳо",
+    tableHeaders:["Маҷмӯа","Кишварҳо","Шумораи номҳо","Саволҳо","Ротатсия","Вақт"],
+    tableRows:[
+      ["Маҷмӯаи 1","Ҳар се (KG, TJ, UZ)","1 (FLEX)","13","Не","6–8 дақ."],
+      ["Маҷмӯаи 2","Танҳо TJ","3","15","3 зергурӯҳ","12–15 дақ."],
+      ["Маҷмӯаи 3","Танҳо TJ","1 (AIIV)","13","Не","6–8 дақ."],
+      ["Маҷмӯаи 4","Ҳар се (KG, TJ, UZ)","2","15","2 зергурӯҳ","10–12 дақ."],
+      ["Маҷмӯаи 5","Ҳар се (KG, TJ, UZ)","1 (FAIIM)","13","Не","6–8 дақ."],
+      ["Модули E","Ҳар се (KG, TJ, UZ)","ESSE + 8 вариант","14","2 гурӯҳ (A/B)","10–12 дақ."]
+    ],
+    totalTimeTitle:"Вақти тахминии умумии мусоҳиба",
+    totalTimeTJ:"Тоҷикистон (ҳамаи маҷмӯаҳо): ~50–60 дақиқа",
+    totalTimeUZKG:"Ӯзбекистон ва Қирғизистон (Маҷмӯаҳои 1, 4, 5 + Модули E): ~33–40 дақиқа",
+    checklistTitle:"Чек-листи интервьюер пеш аз оғози саҳро",
+    checklist:[
+      "Планшет бо скрипти CAPI-и мутобиқ ба кишвар (TJ — 5 маҷмӯа, UZ/KG — 3 маҷмӯа)",
+      "Ҳамаи кортаҳои матнӣ барои ҳар як ном",
+      "Ҳамаи кортаҳои макети бетарафи қуттӣ (бидуни унсурҳои ESSE)",
+      "Кортаи бренди ESSE ва 8 кортаи вариантҳои эндорсмент (4 барои дастгоҳ + 4 барои стик)",
+      "Ҳамаи кортаҳо бо вариантҳои шкалавии ҷавоб",
+      "Донистани гурӯҳи ротатсионии таъиншуда барои ҳар як респондент (A/B барои Модули E; зергурӯҳи 1/2/3 барои Маҷмӯаи 2; зергурӯҳи 1/2 барои Маҷмӯаи 4)",
+      "Малакаи ибораи гузариш байни маҷмӯаҳо",
+      "Дарки мантиқи шартии гузаришҳои skip (Q3/P3/R3/S3/T3 — танҳо ҳангоми талаффузи мушкил; Q8 ва монанди он — танҳо ҳангоми мавҷудияти ассотсиатсия бо тобу; Q10-1 ва монанди он — танҳо ҳангоми ҷолибияти паст)"
+    ]
+  },
+
+  labels:{
+    countries:"Кишварҳо",
+    testType:"Навъи тест",
+    participants:"Респондентон",
+    questions:"Саволҳо",
+    time:"Вақти тахминӣ",
+    rotation:"Ротатсия",
+    materials:"Маводҳо",
+    stage1:"Марҳилаи ① — арзёбии холиси номгузорӣ",
+    stage2:"Марҳилаи ② — арзёбӣ пас аз нишон додани макет",
+    transition:"Гузариш",
+    final:"Хотима",
+    timing:"Вақти сарф",
+    attention:"Ба чӣ диққат бояд дод",
+    mistakes:"Хатогиҳои маъмул",
+    keyDiff:"Фарқи асосӣ аз дигар маҷмӯаҳо",
+    monadic:"Монадӣ (як ном, бидуни муқоиса)",
+    setBased:"Дар асоси маҷмӯа (ҳар респондент якчанд номро арзёбӣ мекунад)",
+    allScreened:"Ҳамаи респондентоне, ки скринингро гузаштаанд"
+  },
+
+  set1:{
+    title:"Маҷмӯаи 1 · Мастер-бренди FLEX",
+    subtitle:"Тести монадии як мастер-бренд — бидуни муқоиса",
+    countries:"Ӯзбекистон · Тоҷикистон · Қирғизистон",
+    testType:"Монадӣ (як ном, бидуни муқоиса)",
+    participants:"Ҳамаи респондентоне, ки скринингро гузаштаанд",
+    questions:"Q1–Q12",
+    time:"6–8 дақиқа",
+    materials:["1 кортаи матнии «FLEX»","1 кортаи макети бетарафи қуттӣ (бидуни ESSE)","Кортаҳо бо вариантҳои шкалавии ҷавоб"],
+    stage1:[
+      {c:"",t:"Кортаи матнии «FLEX»-ро нишон диҳед"},
+      {c:"",t:"Хоҳиш кунед номро 2–3 бор бо овоз баланд гӯянд"},
+      {c:"Q1",t:"Осонии талаффуз (шкалаи 7-балла)"},
+      {c:"Q2",t:"Дар ёд мондашавӣ (шкалаи 7-балла)"},
+      {c:"Q3",t:"Сабабҳои мушкилот, рейтинги топ-3",cond:"Танҳо агар Q1 = ①②③. Агар ④–⑦ — гузаред."}
+    ],
+    transitionText:"«Ҳоло мо ба шумо намунаеро нишон медиҳем, ки чӣ тавр «FLEX» дар қуттии воқеии маҳсулот метавонад намуд дошта бошад»",
+    stage2:[
+      {c:"",t:"Кортаи макетро нишон диҳед (бидуни ESSE)"},
+      {c:"Q4",t:"Ассотсиатсияҳои худангезанда (саволи кушода, MA)"},
+      {c:"Q5",t:"Ассотсиатсия ҳамчун бренди ИНТ: аввал якум (SA), баъд боқимонда (MA)"},
+      {c:"Q6",t:"Ассотсиатсия бо категория/шахси дигар"},
+      {c:"Q7",t:"Оё ассотсиатсия бо тобу мавҷуд аст (ҳа/не)"},
+      {c:"Q8",t:"Тафсилот: калима + навъи тобу",cond:"Танҳо агар Q7 = «ҳа»"},
+      {c:"Q9",t:"Интихоби тасвирҳо (аз рӯйхати 21, MA)"},
+      {c:"Q10",t:"Ҷолибияти умумӣ (шкалаи 7-балла)"},
+      {c:"Q10-1",t:"Сабабҳои радкунӣ, топ-3",cond:"Танҳо агар Q10 = ①②③"},
+      {c:"Q11",t:"Навоварӣ ва фарқият"},
+      {c:"Q12",t:"Нияти хариду истифода"}
+    ],
+    notes:[
+      "Ин ягона номест, ки респондент бидуни муқоиса мебинад — муқоисаҳои роҳнамоӣ бо дигар маҳсулоти бозор надиҳед",
+      "Пеш аз саволҳо дар бораи тобу (Q7/Q8) ҳатман ибораи муқаддимавӣ дар бораи набудани ҷавоби дуруст/нодуруст гӯед"
+    ]
+  },
+
+  set2:{
+    title:"Маҷмӯаи 2 · Дастгоҳи P2 (FLEX BRYZ / FLEX MINGLE / FLEX WITHIX)",
+    subtitle:"Ҳар респондент се номро арзёбӣ мекунад, бо ротатсияи тартиб",
+    countries:"Танҳо Тоҷикистон",
+    testType:"Дар асоси маҷмӯа (ҳар респондент 3 номро арзёбӣ мекунад)",
+    participants:"3 зергурӯҳи респондент — тартиби гуногуни пешниҳоди номҳо",
+    questions:"P1–P13",
+    time:"12–15 дақиқа",
+    materials:["3 кортаи матнӣ (BRYZ, MINGLE, WITHIX)","3 кортаи макети бетарафи қуттӣ (бидуни ESSE)","Тасвири дастгоҳ","Кортаҳо бо вариантҳои шкалавии ҷавоб"],
+    importantLabel:"Муҳим",
+    important:"Ҳар респондент ҳар се номро арзёбӣ мекунад. Ротатсия танҳо ба тартиби пешниҳоди онҳо дахл дорад, на ба ин, ки кадом ном нишон дода шавад — муқоиса (саволи P13) танҳо оид ба чизе, ки респондент пурра дидааст, мумкин аст.",
+    rotationTitle:"Тартиби ротатсия",
+    rotationHeaders:["Зергурӯҳ","Тартиби пешниҳоди номҳо"],
+    rotationRows:[["1","BRYZ → MINGLE → WITHIX"],["2","MINGLE → WITHIX → BRYZ"],["3","WITHIX → BRYZ → MINGLE"]],
+    rotationNote:"Тартиб пешакӣ ба ID-и саволнома дар скрипти CAPI мустаҳкам шудааст — интервьюер онро худаш интихоб намекунад.",
+    preSteps:[
+      {t:"Ибораи гузаришро гӯед (агар ин маҷмӯаи аввал дар мусоҳиба набошад)"},
+      {t:"Муқаддимаи платформаро хонед: фаҳмонед, ки дастгоҳ ҳамзамон стики тамоку ва картриҷи моеъро истифода мебарад"},
+      {t:"Тасвири дастгоҳро нишон диҳед, 10–15 сония барои дидан вақт диҳед"}
+    ],
+    stage1Lede:"Барои ҳар яке аз се ном аз рӯи тартиби ротатсия:",
+    stage1:[
+      {c:"",t:"Кортаи матнии номро нишон диҳед"},
+      {c:"",t:"Хоҳиш кунед 2–3 бор бо овоз баланд гӯянд"},
+      {c:"P1",t:"Осонии талаффуз"},
+      {c:"P1-1",t:"Хоҳиш кунед номи пурраи «FLEX + вариант»-ро гӯянд, осонии талаффузро якҷоя бо «FLEX» пурсед"},
+      {c:"P2",t:"Дар ёд мондашавӣ"},
+      {c:"P3",t:"Сабабҳои мушкилот",cond:"Танҳо агар P1 = ①②③. Агар ④–⑦ — гузаред."},
+      {c:"",t:"Қадамҳоро барои номи дуюм ва сеюм такрор кунед"}
+    ],
+    transitionText:"«Ҳоло мо ба шумо намунаҳоро нишон медиҳем, ки чӣ тавр ҳар як ном дар қуттии воқеии маҳсулот метавонад намуд дошта бошад»",
+    stage2Lede:"3 кортаи макетро нишон диҳед (бо ҳамон тартиби ротатсия). Барои ҳар яке аз се ном аз рӯи тартиб:",
+    stage2:[
+      {c:"P4",t:"Ассотсиатсияҳои худангезанда"},
+      {c:"P5",t:"Ассотсиатсия ҳамчун бренди ИНТ"},
+      {c:"P6",t:"Ассотсиатсия бо категория/шахси дигар"},
+      {c:"P7 / P8",t:"Тобу — ҳа/не; агар «ҳа» — тафсилот"},
+      {c:"P9",t:"Тасвирҳо аз рӯйхати 21"},
+      {c:"P10",t:"Ҷолибияти умумӣ"},
+      {c:"P10-1",t:"Сабабҳои радкунӣ",cond:"Танҳо агар P10 = ①②③"},
+      {c:"P11",t:"Навоварӣ ва фарқият"},
+      {c:"P12",t:"Нияти хариду истифода"},
+      {c:"",t:"Барои номи дуюм ва сеюм такрор кунед"}
+    ],
+    finalLabel:"Хотима",
+    final:"Пас аз он ки респондент ҳар се номро аз рӯи ҳар ду марҳила арзёбӣ кард, саволи P13-ро диҳед: «Аз се номи дастгоҳ, ки шумо ҳозир диҳед, кадоме ба шумо бештар маъқул аст?» Пеш аз ин савол ба таври мухтасар ҳар се номро бо овоз ёдовар шавед ё ҳар се кортаро якбора нишон диҳед.",
+    keyDiff:"Ягона маҷмӯа бо се номи муқоисашаванда ва бо саволи иловагии P1-1 (талаффуз якҷоя бо «FLEX»).",
+    mistakes:"Нишон додани макет пеш аз анҷоми Марҳилаи ① оид ба ҳар се ном; гузарондани P1-1; як тартиби ротатсия дар ҳамаи респондентон пай дар пай (аз рӯи ID санҷед)."
+  },
+
+  set3:{
+    title:"Маҷмӯаи 3 · Стики P2 AIIV",
+    subtitle:"Тести монадии номи стик",
+    countries:"Танҳо Тоҷикистон",
+    testType:"Монадӣ",
+    participants:"Ҳамаи респондентоне, ки скринингро гузаштаанд",
+    questions:"R1–R12",
+    time:"6–8 дақиқа",
+    materials:["1 кортаи матнии «AIIV»","1 кортаи макети бетарафи қуттии стик","Кортаҳо бо вариантҳои шкалавии ҷавоб"],
+    stage1:[
+      {c:"",t:"Кортаи «AIIV»-ро нишон диҳед, хоҳиш кунед 2–3 бор бо овоз баланд гӯянд"},
+      {c:"R1",t:"Осонии талаффуз"},
+      {c:"R2",t:"Дар ёд мондашавӣ"},
+      {c:"R3",t:"Сабабҳои мушкилот",cond:"Танҳо агар R1 = ①②③"}
+    ],
+    transitionText:"Гузариш + нишон додани макет",
+    stage2:[
+      {c:"R4",t:"Ассотсиатсияҳои худангезанда"},
+      {c:"R5",t:"Ассотсиатсия ҳамчун бренди ИНТ (якум + боқимонда)"},
+      {c:"R6",t:"Ассотсиатсия бо категория/шахси дигар"},
+      {c:"R7",t:"Оё ассотсиатсия бо тобу мавҷуд аст"},
+      {c:"R8",t:"Тафсилот",cond:"Танҳо агар R7 = «ҳа»"},
+      {c:"R9",t:"Тасвирҳо (рӯйхати 21)"},
+      {c:"R10",t:"Ҷолибияти умумӣ"},
+      {c:"R10-1",t:"Сабабҳои радкунӣ",cond:"Танҳо агар R10 = ①②③"},
+      {c:"R11",t:"Навоварӣ ва фарқият"},
+      {c:"R12",t:"Нияти хариду истифода"}
+    ],
+    notes:[
+      "Сохтор ба Маҷмӯаи 1 (тести монадӣ) айнан монанд аст — интервьюероне, ки Маҷмӯаи 1-ро аллакай кор кардаанд, Маҷмӯаи 3-ро бидуни тренинги иловагӣ азхуд мекунанд",
+      "Муҳим: номи AIIV ҳамчун бренди мустақили стик, бидуни алоқа бо «FLEX» санҷида мешавад — бо мантиқи Маҷмӯаи 2/4, ки дар он дастгоҳ якҷоя бо мастер-бренд меравад, омехта накунед"
+    ]
+  },
+
+  set4:{
+    title:"Маҷмӯаи 4 · Дастгоҳи P4 (FLEX ESSENZ / FLEX ORIGIN)",
+    subtitle:"Ҳар респондент ду номро арзёбӣ мекунад, бо ротатсияи тартиб",
+    countries:"Ӯзбекистон · Тоҷикистон · Қирғизистон",
+    testType:"Дар асоси маҷмӯа (ҳар респондент 2 номро арзёбӣ мекунад)",
+    participants:"2 зергурӯҳ — ESSENZ→ORIGIN ва ORIGIN→ESSENZ (50/50)",
+    questions:"S1–S13",
+    time:"10–12 дақиқа",
+    materials:["2 кортаи матнӣ (ESSENZ, ORIGIN)","2 кортаи макети бетараф","Тасвири дастгоҳи P4","Кортаҳо бо вариантҳои шкалавии ҷавоб"],
+    preSteps:[
+      {t:"Ибораи гузариш"},
+      {t:"Муқаддимаи платформа: фаҳмонед, ки дастгоҳи P4 стикро аз берун гарм мекунад, бидуни картриҷи моеъ. Тасвирро нишон диҳед."}
+    ],
+    stage1Lede:"Барои ҳар яке аз ду ном аз рӯи тартиби ротатсия:",
+    stage1:[
+      {c:"",t:"Кортаро нишон диҳед, хоҳиш кунед 2–3 бор бо овоз баланд гӯянд"},
+      {c:"S1",t:"Осонии талаффуз"},
+      {c:"S1-1",t:"Осонии талаффуз якҷоя бо «FLEX»"},
+      {c:"S2",t:"Дар ёд мондашавӣ"},
+      {c:"S3",t:"Сабабҳои мушкилот",cond:"Танҳо агар S1 = ①②③"},
+      {c:"",t:"Барои номи дуюм такрор кунед"}
+    ],
+    stage2Lede:"2 кортаи макетро нишон диҳед. Барои ҳар як ном:",
+    stage2:[
+      {c:"S4",t:"Ассотсиатсияҳои худангезанда"},
+      {c:"S5",t:"Ассотсиатсия ҳамчун бренди ИНТ"},
+      {c:"S6",t:"Ассотсиатсия бо категория/шахси дигар"},
+      {c:"S7 / S8",t:"Тобу; агар «ҳа» — тафсилот"},
+      {c:"S9",t:"Тасвирҳо"},
+      {c:"S10",t:"Ҷолибияти умумӣ"},
+      {c:"S10-1",t:"Сабабҳои радкунӣ",cond:"Танҳо агар S10 = ①②③"},
+      {c:"S11",t:"Навоварӣ ва фарқият"},
+      {c:"S12",t:"Нияти хариду истифода"},
+      {c:"",t:"Барои номи дуюм такрор кунед"}
+    ],
+    finalLabel:"Хотима",
+    final:"S13 — интихоби беҳтарин аз ду ном.",
+    notes:[
+      "Мисли Маҷмӯаи 2, дорои S1-1 (талаффуз якҷоя бо «FLEX») — бо маҷмӯаҳои монадӣ (1, 3, 5), ки чунин савол надоранд, омехта накунед",
+      "Танҳо 2 ном, на 3 — ротатсия соддатар аст (2 зергурӯҳ, на 3)",
+      "Фаҳмонидани фарқи байни дастгоҳи P2 (Маҷмӯаи 2, бо картриҷи моеъ) ва дастгоҳи P4 (ин маҷмӯа, бидуни картриҷ) ба респондент муҳим аст — агар респондент ҳар ду маҷмӯаро гузарад (дар Тоҷикистон), онҳоро дар дарки ӯ омехта накунед"
+    ]
+  },
+
+  set5:{
+    title:"Маҷмӯаи 5 · Стики P4 FAIIM",
+    subtitle:"Тести монадии номи стик",
+    countries:"Ӯзбекистон · Тоҷикистон · Қирғизистон",
+    testType:"Монадӣ",
+    participants:"Ҳамаи респондентоне, ки скринингро гузаштаанд",
+    questions:"T1–T12",
+    time:"6–8 дақиқа",
+    materials:["1 кортаи матнии «FAIIM»","1 кортаи макети бетарафи қуттӣ","Кортаҳо бо вариантҳои шкалавии ҷавоб"],
+    preSteps:[{t:"Ибораи гузариш"}],
+    stage1:[
+      {c:"",t:"Кортаи «FAIIM»-ро нишон диҳед, хоҳиш кунед 2–3 бор бо овоз баланд гӯянд"},
+      {c:"T1",t:"Осонии талаффуз"},
+      {c:"T2",t:"Дар ёд мондашавӣ"},
+      {c:"T3",t:"Сабабҳои мушкилот",cond:"Танҳо агар T1 = ①②③"}
+    ],
+    transitionText:"Гузариш + нишон додани макети қуттӣ",
+    stage2:[
+      {c:"T4",t:"Ассотсиатсияҳои худангезанда"},
+      {c:"T5",t:"Ассотсиатсия ҳамчун бренди ИНТ"},
+      {c:"T6",t:"Ассотсиатсия бо категория/шахси дигар"},
+      {c:"T7 / T8",t:"Тобу; агар «ҳа» — тафсилот"},
+      {c:"T9",t:"Тасвирҳо"},
+      {c:"T10",t:"Ҷолибияти умумӣ"},
+      {c:"T10-1",t:"Сабабҳои радкунӣ",cond:"Танҳо агар T10 = ①②③"},
+      {c:"T11",t:"Навоварӣ ва фарқият"},
+      {c:"T12",t:"Нияти хариду истифода"}
+    ],
+    notes:[
+      "Аз ҷиҳати сохтор ба Маҷмӯаҳои 1 ва 3 айнан монанд аст (тести монадӣ)",
+      "Ин охирин маҷмӯа пеш аз Модули E аст — респондент то ин лаҳза аллакай хаста шудааст (ин номи 4-ум ё 5-ум дар мусоҳиба дар Тоҷикистон). Аломатҳои хастагиро (ҷавобҳои кӯтоҳи якҳиҷоӣ, «намедонам» ба саволҳои кушода) назорат кунед — агар лозим шавад, пеш аз оғози маҷмӯа танаффуси кӯтоҳи 30–60 сония кунед"
+    ]
+  },
+
+  moduleE:{
+    title:"Модули E · Стратегияи эндорсменти ESSE",
+    subtitle:"Ҳамеша дар охир, бо ҳамаи респондентон гузаронида мешавад",
+    countries:"Ӯзбекистон · Тоҷикистон · Қирғизистон",
+    testType:"Бо кӣ гузаронида мешавад",
+    participants:"Ҳамаи респондентон, пас аз анҷоми ҳамаи маҷмӯаҳо",
+    questions:"E1–E9",
+    time:"10–12 дақиқа",
+    materials:["Кортаи бренди ESSE","4 кортаи вариантҳои эндорсменти дастгоҳ","4 кортаи вариантҳои эндорсменти стик","Кортаҳо бо вариантҳои шкалавии ҷавоб"],
+    generalTitle:"Қисми умумӣ",
+    general:[
+      {t:"Фаҳмонед: «ESSE — бренди мавҷудаи сигаретҳои оддӣ», кортаи брендро нишон диҳед"},
+      {c:"E1",t:"Шиносоӣ бо ESSE"},
+      {c:"E2",t:"Ассотсиатсияҳои худангезанда бо ESSE"},
+      {c:"E3",t:"Ҷолибияти умумии ESSE"},
+      {c:"E3-1",t:"Тасвирҳои ESSE (рӯйхати 21)"}
+    ],
+    blockATitle:"Блоки [A] — Эндорсменти дастгоҳ (FLEX)",
+    blockA:[
+      {t:"Консепсияи эндорсментро барои дастгоҳ фаҳмонед"},
+      {c:"E4",t:"То чӣ андоза муносибати мусбат/манфӣ ба идеяи ESSE ҳамчун бренди дастгоҳ"},
+      {c:"E4-1",t:"Сабабҳои «мувофиқ», топ-3",cond:"Танҳо агар E4 = ⑤⑥⑦"},
+      {c:"E4-2",t:"Сабабҳои «зид», топ-3",cond:"Танҳо агар E4 = ①②③④"},
+      {c:"E5",t:"Ҳар яке аз 4 вариант (эндорсменти 100% / брендинги муштарак / брендинги алоҳида / бидуни эндорсмент)-ро аз рӯи шкалаи 7-балла, бо нишон додани кортаи мувофиқ барои ҳар як, арзёбӣ кунед"},
+      {c:"E6",t:"Пас аз он ки ҳама арзёбӣ шуданд, интихоби вариант аз ҳама бештар маъқул аз чор"}
+    ],
+    rotationATitle:"Ротатсияи вариантҳо (аз рӯи гурӯҳи A/B)",
+    rotationA:["Гурӯҳи A: Вариантҳои 1 → 2 → 3 → 4-ро нишон диҳед","Гурӯҳи B: Вариантҳои 4 → 3 → 2 → 1-ро нишон диҳед"],
+    blockBTitle:"Блоки [B] — Эндорсменти стик (FAIIM)",
+    blockB:[
+      {t:"Консепсияи эндорсментро барои стик фаҳмонед"},
+      {c:"E7",t:"То чӣ андоза муносибати мусбат/манфӣ ба идеяи ESSE ҳамчун бренди стик"},
+      {c:"E7-1",t:"Сабабҳои «мувофиқ»",cond:"Танҳо агар E7 = ⑤⑥⑦"},
+      {c:"E7-2",t:"Сабабҳои «зид»",cond:"Танҳо агар E7 = ①②③④"},
+      {t:"Ҳамон ротатсияи A/B, ки дар блоки A буд"},
+      {c:"E8",t:"Ҳар яке аз 4 вариантҳои эндорсменти стикро арзёбӣ кунед"},
+      {c:"E9",t:"Интихоби вариант аз ҳама бештар маъқул"}
+    ],
+    notes:[
+      "Муҳим: ин модул ҳамеша дар охир меравад. Агар он пеш аз маҷмӯаҳои асосӣ гузаронида шавад, арзёбии худи номҳо (FLEX, FAIIM ва ғ.) бо «лангар шудан» ба бренди ESSE вайрон мешавад",
+      "Барои як респондент бояд ҳам дар блоки дастгоҳ, ҳам дар блоки стик як гурӯҳи ротатсионӣ (A ё B) истифода шавад — гурӯҳро байни E5/E6 ва E8/E9 иваз накунед",
+      "То ин лаҳза респондент тамоми пурсиши асосиро гузаштааст — ин марҳилаи ба хастагӣ бештар осебпазир аст; агар пасравии ҷалбшавиро ҳис кунед, метавонед хониши тавсифҳои дарози вариантҳоро кӯтоҳ кунед, аммо тартиби нишон додани кортаҳоро тағйир додан мумкин нест"
+    ]
+  },
+
+  footerPrev:"Қафо",
+  footerNext:"Баъдӣ"
+},
+
+/* ======================================================================
+   KYRGYZ
+   ====================================================================== */
+ky: {
+  eyebrow:"Талаага чыгуу үчүн көрсөтмө",
+  brandTitle:"ИНТ бренди неймингин изилдөө",
+  brandSub:"Топтомдор боюнча өткөрүү · интервьюерлер үчүн",
+  menu:"Меню",
+  nav:{
+    overview:"Жалпы эрежелер",
+    set1:"1-топтом · FLEX",
+    set2:"2-топтом · P2 түзмөгү",
+    set3:"3-топтом · AIIV стиги",
+    set4:"4-топтом · P4 түзмөгү",
+    set5:"5-топтом · FAIIM стиги",
+    moduleE:"E модулу · ESSE"
+  },
+  groupOverview:"Кириш сөз",
+  groupSets:"Топтомдор",
+  groupModule:"Аяктоочу модуль",
+
+  overview:{
+    eyebrow:"Талаага чыгардан мурун окуп чыгыңыз",
+    title:"Бардык топтомдор үчүн жалпы принцип",
+    lede:"Бул документ негизги суроолорду толуктайт жана талаа тобун окутуу үчүн арналган: ар бир топтомду кандай тартипте, кандай өтүүлөр менен өткөрүү жана эмнеге өзгөчө көңүл буруу керектигин кадам сайын түшүндүрөт.",
+    diagramStage1Title:"① этап — неймингдин таза баасы",
+    diagramStage1Desc:"Респондентке аты жазылган текст карточкасы гана көрсөтүлөт. Ал аттын өзүн — кабынын же брендинин визуалдык таасирисиз — кандай угуларын баалайт.",
+    diagramStage2Title:"② этап — макет көрсөтүлгөндөн кийинки баа",
+    diagramStage2Desc:"Бейтарап кап макети көрсөтүлөт (ESSE элементтерисиз). Ассоциациялар, образ, тартымдуулук жана сатып алуу нияты боюнча суроолор берилет.",
+    goldenRuleLabel:"Алтын эреже",
+    goldenRuleText:"Кап макетинин карточкасы тиешелүү ат үчүн ① этап толук аяктаганга чейин эч качан көрсөтүлбөйт. Бул эреже бир жолу гана бузулса да — ушул респондент боюнча бул топтомдун маалыматтары жараксыз деп эсептелет.",
+    transitionTitle:"Топтомдор ортосундагы өтүү",
+    transitionLede:"Суроолордо бир топтомдун аякташы менен кийинкисинин башталышы ортосунда өзүнчө байланыш жок — ар бир топтом өзүнүн көрсөтмөсү менен башталат. Респондент жаңы эле баалаган атты жаңысы менен чаташтырбашы үчүн, биринчисинен башка ар бир топтомдун алдында интервьюер өтүү сүйлөмүн айтууга милдеттүү:",
+    transitionPhrase:"«Рахмат. Эми биз башка атты баалоого өтөбүз — ал сиз азыр эле баалаган ат менен эч кандай байланышы жок. Суроолорго жооп бергенде, сураныч, ушул жаңы ат жөнүндө гана ойлонуп жооп бериңиз.»",
+    transitionNote1Label:"Түзмөктөрдүн топтомдору (2 жана 4)",
+    transitionNote1:"сүйлөм түздөн-түз «Платформага киришүү» — түзмөктүн курулушунун сүрөттөлүшүнөн мурун айтылат.",
+    transitionNote2Label:"Монадиялык топтомдор (1, 3, 5)",
+    transitionNote2:"сүйлөм жалпы көрсөтмөдөн дароо кийин, текст карточкасы көрсөтүлгөнгө чейин айтылат.",
+    tableTitle:"Бардык топтомдор боюнча жыйынтыктоочу таблица",
+    tableHeaders:["Топтом","Өлкөлөр","Аттардын саны","Суроолор","Ротация","Убакыт"],
+    tableRows:[
+      ["1-топтом","Баары 3 (KG, TJ, UZ)","1 (FLEX)","13","Жок","6–8 мүн."],
+      ["2-топтом","Бир гана TJ","3","15","3 чакан топ","12–15 мүн."],
+      ["3-топтом","Бир гана TJ","1 (AIIV)","13","Жок","6–8 мүн."],
+      ["4-топтом","Баары 3 (KG, TJ, UZ)","2","15","2 чакан топ","10–12 мүн."],
+      ["5-топтом","Баары 3 (KG, TJ, UZ)","1 (FAIIM)","13","Жок","6–8 мүн."],
+      ["E модулу","Баары 3 (KG, TJ, UZ)","ESSE + 8 вариант","14","2 топ (A/B)","10–12 мүн."]
+    ],
+    totalTimeTitle:"Маектин жалпы болжолдуу узактыгы",
+    totalTimeTJ:"Тажикстан (бардык топтомдор): ~50–60 мүнөт",
+    totalTimeUZKG:"Өзбекстан жана Кыргызстан (1, 4, 5-топтомдор + E модулу): ~33–40 мүнөт",
+    checklistTitle:"Талаага чыгардын алдында интервьюердин чек-листи",
+    checklist:[
+      "Өлкөгө ылайык тууралган CAPI-скрипт бар планшет (TJ — 5 топтом, UZ/KG — 3 топтом)",
+      "Ар бир ат үчүн бардык текст карточкалары",
+      "Бардык бейтарап кап макети карточкалары (ESSE элементтерисиз)",
+      "ESSE бренд карточкасы жана 8 эндорсмент варианты карточкасы (4 — түзмөк үчүн + 4 — стик үчүн)",
+      "Шкалалык жооп варианттары бар бардык карточкалар",
+      "Ар бир респондент үчүн дайындалган ротациялык топту билүү (E модулу үчүн A/B; 2-топтом үчүн 1/2/3 чакан топ; 4-топтом үчүн 1/2 чакан топ)",
+      "Топтомдор ортосундагы өтүү сүйлөмүн жакшы өздөштүрүү",
+      "Skip-өтүүлөрдүн шарттуу логикасын түшүнүү (Q3/P3/R3/S3/T3 — айтылышы кыйын болгондо гана; Q8 жана ушул сыяктуулар — табу менен ассоциация болгондо гана; Q10-1 жана ушул сыяктуулар — тартымдуулугу төмөн болгондо гана)"
+    ]
+  },
+
+  labels:{
+    countries:"Өлкөлөр",
+    testType:"Тест түрү",
+    participants:"Респонденттер",
+    questions:"Суроолор",
+    time:"Болжолдуу убакыт",
+    rotation:"Ротация",
+    materials:"Материалдар",
+    stage1:"① этап — неймингдин таза баасы",
+    stage2:"② этап — макет көрсөтүлгөндөн кийинки баа",
+    transition:"Өтүү",
+    final:"Жыйынтык",
+    timing:"Убакыт кетүүсү",
+    attention:"Эмнеге көңүл буруу керек",
+    mistakes:"Көп кездешкен каталар",
+    keyDiff:"Башка топтомдордон негизги айырмасы",
+    monadic:"Монадиялык (салыштыруусуз, бир ат)",
+    setBased:"Топтомго негизделген (ар бир респондент бир нече атты баалайт)",
+    allScreened:"Скринингден өткөн бардык респонденттер"
+  },
+
+  set1:{
+    title:"1-топтом · FLEX мастер-бренди",
+    subtitle:"Жалгыз мастер-брендди салыштыруусуз монадиялык тесттөө",
+    countries:"Өзбекстан · Тажикстан · Кыргызстан",
+    testType:"Монадиялык (салыштыруусуз, бир ат)",
+    participants:"Скринингден өткөн бардык респонденттер",
+    questions:"Q1–Q12",
+    time:"6–8 мүнөт",
+    materials:["«FLEX» текст карточкасы — 1 даана","Бейтарап кап макети карточкасы (ESSEсиз) — 1 даана","Шкалалык жооп варианттары бар карточкалар"],
+    stage1:[
+      {c:"",t:"«FLEX» текст карточкасын көрсөтүңүз"},
+      {c:"",t:"Атты 2–3 жолу үн чыгарып айтууну сураныңыз"},
+      {c:"Q1",t:"Айтылышынын жеңилдиги (7 баллдык шкала)"},
+      {c:"Q2",t:"Эсте калуучулук (7 баллдык шкала)"},
+      {c:"Q3",t:"Кыйынчылык себептери, топ-3 рейтинги",cond:"Эгер Q1 = ①②③ болсо гана. ④–⑦ болсо — өткөрүп жибериңиз."}
+    ],
+    transitionText:"«Азыр биз сизге «FLEX» чыныгы азык-түлүк кабында кандай көрүнөрүнүн мисалын көрсөтөбүз»",
+    stage2:[
+      {c:"",t:"Макет карточкасын көрсөтүңүз (ESSEсиз)"},
+      {c:"Q4",t:"Спонтандуу ассоциациялар (ачык суроо, MA)"},
+      {c:"Q5",t:"ИНТ брендине карата ассоциациялар: адегенде биринчиси (SA), андан кийин калгандары (MA)"},
+      {c:"Q6",t:"Башка категория/адам менен ассоциация"},
+      {c:"Q7",t:"Табу менен ассоциация барбы (ооба/жок)"},
+      {c:"Q8",t:"Деталдар: сөз + табунун түрү",cond:"Эгер Q7 = «ооба» болсо гана"},
+      {c:"Q9",t:"Образдарды тандоо (21 тизмеден, MA)"},
+      {c:"Q10",t:"Жалпы тартымдуулук (7 баллдык шкала)"},
+      {c:"Q10-1",t:"Четке кагуу себептери, топ-3",cond:"Эгер Q10 = ①②③ болсо гана"},
+      {c:"Q11",t:"Жаңылык жана айырмачылык"},
+      {c:"Q12",t:"Сатып алуу/колдонуу нияты"}
+    ],
+    notes:[
+      "Бул респондент салыштыруусуз көргөн жалгыз ат — рынокто башка азык-түлүктөр менен жетектөөчү салыштыруу бербеңиз",
+      "Табу жөнүндөгү суроолордун алдында (Q7/Q8) туура/туура эмес жооп жок экени тууралуу киришүү сүйлөмүн айтууну унутпаңыз"
+    ]
+  },
+
+  set2:{
+    title:"2-топтом · P2 түзмөгү (FLEX BRYZ / FLEX MINGLE / FLEX WITHIX)",
+    subtitle:"Ар бир респондент үч атты баалайт, тартип ротациясы менен",
+    countries:"Бир гана Тажикстан",
+    testType:"Топтомго негизделген (ар бир респондент 3 атты баалайт)",
+    participants:"3 респондент чакан тобу — аттарды көрсөтүү тартиби ар башка",
+    questions:"P1–P13",
+    time:"12–15 мүнөт",
+    materials:["3 текст карточкасы (BRYZ, MINGLE, WITHIX)","3 бейтарап кап макети карточкасы (ESSEсиз)","Түзмөктүн иллюстрациясы","Шкалалык жооп варианттары бар карточкалар"],
+    importantLabel:"Маанилүү",
+    important:"Ар бир респондент үч атты тең баалайт. Ротация алардын көрсөтүлүү тартибине гана тиешелүү, кайсы ат көрсөтүлөрүнө эмес — салыштыруу (P13 суроосу) респондент толук көргөн нерселер боюнча гана мүмкүн.",
+    rotationTitle:"Ротация тартиби",
+    rotationHeaders:["Чакан топ","Аттарды көрсөтүү тартиби"],
+    rotationRows:[["1","BRYZ → MINGLE → WITHIX"],["2","MINGLE → WITHIX → BRYZ"],["3","WITHIX → BRYZ → MINGLE"]],
+    rotationNote:"Тартип суроонун ID'сине алдын ала CAPI-скриптте бекитилген — интервьюер аны өзү тандабайт.",
+    preSteps:[
+      {t:"Өтүү сүйлөмүн айтыңыз (эгер бул маектеги биринчи топтом болбосо)"},
+      {t:"Платформага киришүүнү окуп бериңиз: түзмөк бир эле убакта тамеки стигин жана суюктук картриджин колдонорун түшүндүрүңүз"},
+      {t:"Түзмөктүн иллюстрациясын көрсөтүңүз, карап чыгууга 10–15 секунд убакыт бериңиз"}
+    ],
+    stage1Lede:"Ротация тартиби боюнча ар бир үч ат үчүн:",
+    stage1:[
+      {c:"",t:"Аттын текст карточкасын көрсөтүңүз"},
+      {c:"",t:"2–3 жолу үн чыгарып айтууну сураныңыз"},
+      {c:"P1",t:"Айтылышынын жеңилдиги"},
+      {c:"P1-1",t:"«FLEX + вариант» толук атын айтууну сураныңыз, «FLEX» менен бирге айтылышынын жеңилдигин сураңыз"},
+      {c:"P2",t:"Эсте калуучулук"},
+      {c:"P3",t:"Кыйынчылык себептери",cond:"Эгер P1 = ①②③ болсо гана. ④–⑦ болсо — өткөрүп жибериңиз."},
+      {c:"",t:"Экинчи жана үчүнчү аттар үчүн кадамдарды кайталаңыз"}
+    ],
+    transitionText:"«Азыр биз сизге ар бир аттын чыныгы азык-түлүк кабында кандай көрүнөрүнүн мисалдарын көрсөтөбүз»",
+    stage2Lede:"3 макет карточкасын көрсөтүңүз (ошол эле ротация тартибинде). Ар бир үч ат үчүн тартип боюнча:",
+    stage2:[
+      {c:"P4",t:"Спонтандуу ассоциациялар"},
+      {c:"P5",t:"ИНТ брендине карата ассоциациялар"},
+      {c:"P6",t:"Башка категория/адам менен ассоциация"},
+      {c:"P7 / P8",t:"Табу — ооба/жок; «ооба» болсо — деталдар"},
+      {c:"P9",t:"21 тизмеден образдар"},
+      {c:"P10",t:"Жалпы тартымдуулук"},
+      {c:"P10-1",t:"Четке кагуу себептери",cond:"Эгер P10 = ①②③ болсо гана"},
+      {c:"P11",t:"Жаңылык жана айырмачылык"},
+      {c:"P12",t:"Сатып алуу/колдонуу нияты"},
+      {c:"",t:"Экинчи жана үчүнчү аттар үчүн кайталаңыз"}
+    ],
+    finalLabel:"Жыйынтык",
+    final:"Респондент эки этап боюнча үч атты тең баалагандан кийин, P13 суроосун бериңиз: «Азыр эле көргөн үч түзмөк атынын кайсынысы сизге көбүрөөк жагат?» Бул суроонун алдында үч атты кыскача үн менен эстетиңиз же үчөөнү тең бир учурда көрсөтүңүз.",
+    keyDiff:"Үч салыштырылуучу аты бар жалгыз топтом, ошондой эле кошумча P1-1 суроосу бар («FLEX» менен бирге айтуу).",
+    mistakes:"Үч аттын баары боюнча ① этап аякталганга чейин макетти көрсөтүү; P1-1ди өткөрүп жиберүү; бардык респонденттерде катары менен бирдей ротация тартиби (ID боюнча текшериңиз)."
+  },
+
+  set3:{
+    title:"3-топтом · P2 стиги AIIV",
+    subtitle:"Стик атынын монадиялык тести",
+    countries:"Бир гана Тажикстан",
+    testType:"Монадиялык",
+    participants:"Скринингден өткөн бардык респонденттер",
+    questions:"R1–R12",
+    time:"6–8 мүнөт",
+    materials:["«AIIV» текст карточкасы — 1 даана","Стик кабынын бейтарап макети карточкасы — 1 даана","Шкалалык жооп варианттары бар карточкалар"],
+    stage1:[
+      {c:"",t:"«AIIV» карточкасын көрсөтүңүз, 2–3 жолу үн чыгарып айтууну сураныңыз"},
+      {c:"R1",t:"Айтылышынын жеңилдиги"},
+      {c:"R2",t:"Эсте калуучулук"},
+      {c:"R3",t:"Кыйынчылык себептери",cond:"Эгер R1 = ①②③ болсо гана"}
+    ],
+    transitionText:"Өтүү + макетти көрсөтүү",
+    stage2:[
+      {c:"R4",t:"Спонтандуу ассоциациялар"},
+      {c:"R5",t:"ИНТ брендине карата ассоциациялар (биринчиси + калгандары)"},
+      {c:"R6",t:"Башка категория/адам менен ассоциация"},
+      {c:"R7",t:"Табу менен ассоциация барбы"},
+      {c:"R8",t:"Деталдар",cond:"Эгер R7 = «ооба» болсо гана"},
+      {c:"R9",t:"Образдар (21 тизме)"},
+      {c:"R10",t:"Жалпы тартымдуулук"},
+      {c:"R10-1",t:"Четке кагуу себептери",cond:"Эгер R10 = ①②③ болсо гана"},
+      {c:"R11",t:"Жаңылык жана айырмачылык"},
+      {c:"R12",t:"Сатып алуу/колдонуу нияты"}
+    ],
+    notes:[
+      "Түзүлүшү 1-топтомго (монадиялык тест) так окшош — 1-топтомду мурда иштеп чыккан интервьюерлер 3-топтомду кошумча окутуусуз өздөштүрөт",
+      "Маанилүү: AIIV аты «FLEX» менен байланышсыз, өз алдынча стик бренди катары сыналат — түзмөк мастер-бренд менен бирге баруучу 2/4-топтомдун логикасы менен чаташтырбаңыз"
+    ]
+  },
+
+  set4:{
+    title:"4-топтом · P4 түзмөгү (FLEX ESSENZ / FLEX ORIGIN)",
+    subtitle:"Ар бир респондент эки атты баалайт, тартип ротациясы менен",
+    countries:"Өзбекстан · Тажикстан · Кыргызстан",
+    testType:"Топтомго негизделген (ар бир респондент 2 атты баалайт)",
+    participants:"2 чакан топ — ESSENZ→ORIGIN жана ORIGIN→ESSENZ (50/50)",
+    questions:"S1–S13",
+    time:"10–12 мүнөт",
+    materials:["2 текст карточкасы (ESSENZ, ORIGIN)","2 бейтарап макет карточкасы","P4 түзмөгүнүн иллюстрациясы","Шкалалык жооп варианттары бар карточкалар"],
+    preSteps:[
+      {t:"Өтүү сүйлөмү"},
+      {t:"Платформага киришүү: P4 түзмөгү стикти сырттан ысытарын, суюктук картриджи жок экенин түшүндүрүңүз. Иллюстрацияны көрсөтүңүз."}
+    ],
+    stage1Lede:"Ротация тартиби боюнча ар бир эки ат үчүн:",
+    stage1:[
+      {c:"",t:"Карточканы көрсөтүңүз, 2–3 жолу үн чыгарып айтууну сураныңыз"},
+      {c:"S1",t:"Айтылышынын жеңилдиги"},
+      {c:"S1-1",t:"«FLEX» менен бирге айтылышынын жеңилдиги"},
+      {c:"S2",t:"Эсте калуучулук"},
+      {c:"S3",t:"Кыйынчылык себептери",cond:"Эгер S1 = ①②③ болсо гана"},
+      {c:"",t:"Экинчи ат үчүн кайталаңыз"}
+    ],
+    stage2Lede:"2 макет карточкасын көрсөтүңүз. Ар бир ат үчүн:",
+    stage2:[
+      {c:"S4",t:"Спонтандуу ассоциациялар"},
+      {c:"S5",t:"ИНТ брендине карата ассоциациялар"},
+      {c:"S6",t:"Башка категория/адам менен ассоциация"},
+      {c:"S7 / S8",t:"Табу; «ооба» болсо — деталдар"},
+      {c:"S9",t:"Образдар"},
+      {c:"S10",t:"Жалпы тартымдуулук"},
+      {c:"S10-1",t:"Четке кагуу себептери",cond:"Эгер S10 = ①②③ болсо гана"},
+      {c:"S11",t:"Жаңылык жана айырмачылык"},
+      {c:"S12",t:"Сатып алуу/колдонуу нияты"},
+      {c:"",t:"Экинчи ат үчүн кайталаңыз"}
+    ],
+    finalLabel:"Жыйынтык",
+    final:"S13 — эки аттан эң жагымдуусун тандоо.",
+    notes:[
+      "2-топтом сыяктуу эле, S1-1 (FLEX менен айтуу) суроосу бар — мындай суроо жок монадиялык топтомдор (1, 3, 5) менен чаташтырбаңыз",
+      "Болгону 2 ат, 3 эмес — ротация жөнөкөй (2 чакан топ, 3 эмес)",
+      "Респондентке P2 түзмөгү (2-топтом, суюктук картриджи менен) менен P4 түзмөгүнүн (бул топтом, картриджсиз) айырмасын түшүндүрүү маанилүү — эгер респондент эки топтомдон тең өтсө (Тажикстанда), аларды анын кабылдоосунда чаташтырбаңыз"
+    ]
+  },
+
+  set5:{
+    title:"5-топтом · P4 стиги FAIIM",
+    subtitle:"Стик атынын монадиялык тести",
+    countries:"Өзбекстан · Тажикстан · Кыргызстан",
+    testType:"Монадиялык",
+    participants:"Скринингден өткөн бардык респонденттер",
+    questions:"T1–T12",
+    time:"6–8 мүнөт",
+    materials:["«FAIIM» текст карточкасы — 1 даана","Бейтарап кап макети карточкасы — 1 даана","Шкалалык жооп варианттары бар карточкалар"],
+    preSteps:[{t:"Өтүү сүйлөмү"}],
+    stage1:[
+      {c:"",t:"«FAIIM» карточкасын көрсөтүңүз, 2–3 жолу үн чыгарып айтууну сураныңыз"},
+      {c:"T1",t:"Айтылышынын жеңилдиги"},
+      {c:"T2",t:"Эсте калуучулук"},
+      {c:"T3",t:"Кыйынчылык себептери",cond:"Эгер T1 = ①②③ болсо гана"}
+    ],
+    transitionText:"Өтүү + кап макетин көрсөтүү",
+    stage2:[
+      {c:"T4",t:"Спонтандуу ассоциациялар"},
+      {c:"T5",t:"ИНТ брендине карата ассоциациялар"},
+      {c:"T6",t:"Башка категория/адам менен ассоциация"},
+      {c:"T7 / T8",t:"Табу; «ооба» болсо — деталдар"},
+      {c:"T9",t:"Образдар"},
+      {c:"T10",t:"Жалпы тартымдуулук"},
+      {c:"T10-1",t:"Четке кагуу себептери",cond:"Эгер T10 = ①②③ болсо гана"},
+      {c:"T11",t:"Жаңылык жана айырмачылык"},
+      {c:"T12",t:"Сатып алуу/колдонуу нияты"}
+    ],
+    notes:[
+      "Түзүлүшү боюнча 1- жана 3-топтомдорго так окшош (монадиялык тест)",
+      "Бул E модулунун алдындагы акыркы топтом — респондент бул учурга чейин чарчап калат (Тажикстанда маектеги 4- же 5-аты). Чарчоо белгилерине (кыска, бир муундуу жооптор, ачык суроолорго «билбейм») көңүл буруңуз — керек болсо, топтом башталардын алдында 30–60 секунддук кыска тыныгуу жасаңыз"
+    ]
+  },
+
+  moduleE:{
+    title:"E модулу · ESSE эндорсмент стратегиясы",
+    subtitle:"Ар дайым эң аягында, бардык респонденттер менен өткөрүлөт",
+    countries:"Өзбекстан · Тажикстан · Кыргызстан",
+    testType:"Ким менен өткөрүлөт",
+    participants:"Бардык топтомдор аяктагандан кийин, бардык респонденттер",
+    questions:"E1–E9",
+    time:"10–12 мүнөт",
+    materials:["ESSE бренд карточкасы","Түзмөк эндорсменти үчүн 4 вариант карточкасы","Стик эндорсменти үчүн 4 вариант карточкасы","Шкалалык жооп варианттары бар карточкалар"],
+    generalTitle:"Жалпы бөлүк",
+    general:[
+      {t:"Түшүндүрүңүз: «ESSE — учурдагы кадимки сигарет бренди», бренд карточкасын көрсөтүңүз"},
+      {c:"E1",t:"ESSE менен таанышуу"},
+      {c:"E2",t:"ESSE менен спонтандуу ассоциациялар"},
+      {c:"E3",t:"ESSE'нин жалпы тартымдуулугу"},
+      {c:"E3-1",t:"ESSE образдары (21 тизме)"}
+    ],
+    blockATitle:"[A] блогу — Түзмөк эндорсменти (FLEX)",
+    blockA:[
+      {t:"Түзмөк үчүн эндорсмент концепциясын түшүндүрүңүз"},
+      {c:"E4",t:"ESSE'ни түзмөк бренди катары көрүү идеясына канчалык оң/терс мамиле"},
+      {c:"E4-1",t:"«Макул» себептери, топ-3",cond:"Эгер E4 = ⑤⑥⑦ болсо гана"},
+      {c:"E4-2",t:"«Каршы» себептери, топ-3",cond:"Эгер E4 = ①②③④ болсо гана"},
+      {c:"E5",t:"4 варианттын ар бирин (100% эндорсмент / биргелешкен брендинг / өзүнчө брендинг / эндорсментсиз) 7 баллдык шкала боюнча, ар бирине тиешелүү карточканы көрсөтүп баалаңыз"},
+      {c:"E6",t:"Бардыгы бааланганда кийин, төрттөн эң жагымдуу вариантты тандоо"}
+    ],
+    rotationATitle:"Варианттардын ротациясы (A/B тобу боюнча)",
+    rotationA:["A тобу: 1 → 2 → 3 → 4 варианттарын көрсөтүңүз","B тобу: 4 → 3 → 2 → 1 варианттарын көрсөтүңүз"],
+    blockBTitle:"[B] блогу — Стик эндорсменти (FAIIM)",
+    blockB:[
+      {t:"Стик үчүн эндорсмент концепциясын түшүндүрүңүз"},
+      {c:"E7",t:"ESSE'ни стик бренди катары көрүү идеясына канчалык оң/терс мамиле"},
+      {c:"E7-1",t:"«Макул» себептери",cond:"Эгер E7 = ⑤⑥⑦ болсо гана"},
+      {c:"E7-2",t:"«Каршы» себептери",cond:"Эгер E7 = ①②③④ болсо гана"},
+      {t:"[A] блогундагыдай эле A/B ротациясы"},
+      {c:"E8",t:"Стик эндорсментинин 4 вариантынын ар бирин баалаңыз"},
+      {c:"E9",t:"Эң жагымдуу вариантты тандоо"}
+    ],
+    notes:[
+      "Маанилүү: бул модуль ар дайым эң аягында өтөт. Эгер ал негизги топтомдордон мурун өткөрүлсө, аттардын өзүнүн баасы (FLEX, FAIIM ж.б.) ESSE брендине «дементелип калуу» аркылуу бурмаланат",
+      "Бир респондент үчүн түзмөк блогунда да, стик блогунда да так бир эле ротациялык топ (A же B) колдонулушу керек — E5/E6 менен E8/E9 ортосунда топту алмаштырбаңыз",
+      "Бул учурга чейин респондент бүткүл негизги сурамжылоодон өткөн — бул чарчоого эң алсыз этап; эгер катышуунун төмөндөгөнүн сезсеңиз, варианттардын узун сүрөттөлүшүн окууну кыскартсаңыз болот, бирок карточкаларды көрсөтүү ирети өзгөрүүсүз калышы керек"
+    ]
+  },
+
+  footerPrev:"Артка",
+  footerNext:"Кийинки"
+}
 };
 
-T["uz-cyrl"] = {
-  meta:{
-    badge:"CAPI · Дала тадқиқоти",
-    title:"Интервью олувчилар учун қўлланма",
-    subtitle:"HTP бренд номлари бўйича тадқиқот — Ўзбекистон · Тожикистон · Қирғизистон",
-    quickFacts:[{value:"3",label:"давлат"},{value:"4",label:"тил"},{value:"8",label:"ном"},{value:"~45",label:"дақиқа"}]
-  },
-  ui:{ langLabel:"Тил", progressLabel:"Ўқилди", warnLabel:"Диққат", noteLabel:"Эслатма",
-    footer:"Савол бўлса, назорат (SV) билан боғланинг. Интервьюнинг сифати тадқиқот натижаларининг ишончлилигини белгилайди." },
-  sections:[
-    {title:"Тадқиқот ҳақида", blocks:[
-      {type:"table", headers:["Банд","Маълумот"], rows:[
-        ["Давлатлар","Ўзбекистон · Тожикистон · Қирғизистон"],
-        ["Усул","CAPI — планшет орқали юзма-юз интервью (ҳар бир давлатда камида 50 респондент)"],
-        ["Тиллар","Ўзбек · Тожик · Қирғиз · Рус (респондент танлайди)"],
-        ["Баҳоланадиган номлар","Жами 8 та ном: 5 та тўплам (SET 1–5) + ESSE қўллаб-қувватлаш модули"],
-        ["Давомийлиги","Тахминан 40–50 дақиқа"],
-        ["Маҳсулот тоифаси","HTP — қиздириладиган тамаки маҳсулоти"]
-      ]}
-    ]},
-    {title:"Асосий қоидалар", blocks:[
-      {type:"bullets", items:[
-        "Компанияни ва сўров мақсадини тақдим этинг; маълумотлар махфий сақланишини тушунтиринг.",
-        "Респондент ҳақидаги маъмурий маълумотларни (ID, сана, тил, давомийлик, SV) тўлиқ тўлдиринг.",
-        "Ҳар бир саволни респондент танлаган тилда тўғри айтинг.",
-        "Тўғри ёки нотўғри жавоб йўқлигини ва ҳалол фикр муҳимлигини таъкидланг.",
-        "Ўз фикрингизни билдирманг, саволларни нейтрал оҳангда ўқинг."
-      ]},
-      {type:"warning", text:"Номларни бир-бири билан солиштирманг — ҳар бир ном мустақил баҳоланади (бундан ташқари тўплам ичидаги якуний танлов, масалан P13, S13, E6, E9)."}
-    ]},
-    {title:"Терминология", blocks:[
-      {type:"table", headers:["Тил","HTP атамаси"], rows:[
-        ["Ўзбек (UZ)","қиздириладиган тамаки маҳсулоти"],
-        ["Тожик (TJ)","маҳсулот аз тамокуи гармкардашуда"],
-        ["Қирғиз (KG)","ысытылган тамеки өнүмдөрү"],
-        ["Рус (RU)","нагреваемый табак (ИНТ)"]
-      ]},
-      {type:"note", text:"Агар респондент атама билан таниш бўлмаса, бренд номларини айтманг. Тушунтиринг: «Тамаки барглари ёндирилмасдан, қиздириш орқали фойдаланиладиган маҳсулот»."}
-    ]},
-    {title:"Скрининг (SQ0–SQ8)", blocks:[
-      {type:"bullets", items:[
-        "SQ0 — Интервью тилини танлаш: давлатга мос тилларни кўрсатинг, тил квотасига риоя қилинг.",
-        "SQ1 — Яшаш минтақаси: давлат/минтақа квотаси учун.",
-        "SQ2 — Касбий соҳа: маркетинг, тамаки, ОАВ, соғлиқни сақлаш соҳасида ишласа (①–⑤) — СЎРОВНИ ЯКУНЛАНГ.",
-        "SQ3 — Ёши: қонуний ёшга мос келмаса (19 ва кичик ёки 50 ва катта) — СЎРОВНИ ЯКУНЛАНГ.",
-        "SQ4 — Жинси: квота учун.",
-        "SQ5 — Ҳозир тамаки/никотин истеъмол қилмаса — СЎРОВНИ ЯКУНЛАНГ.",
-        "SQ6 / SQ6-1 — истеъмол қилинадиган маҳсулот турлари ва асосийси.",
-        "SQ7 / SQ8 — фақат HTP истеъмол қилмайдиганларга: хабардорлик ва фойдаланиш нияти."
-      ]},
-      {type:"warning", text:"SQ2, SQ3 ёки SQ5 да якунлаш шарти чиқса, интервьюни давом эттирманг."}
-    ]},
-    {title:"Тузилма ва кетма-кетлик", blocks:[
-      {type:"table", headers:["Тўплам","Давлатлар","Тоифа","Ном(лар)","Баҳолаш усули"], rows:[
-        ["SET 1","UZ · TJ · KG","Бош бренд","FLEX","Монадик, икки босқичли"],
-        ["SET 2","TJ","P2 қурилмаси","FLEX BRYZ / MINGLE / WITHIX","Тўплам ичида, икки босқичли"],
-        ["SET 3","TJ","P2 стики","AIIV","Монадик, икки босқичли"],
-        ["SET 4","UZ · TJ · KG","P4 қурилмаси","FLEX ESSENZ / ORIGIN","Тўплам ичида, икки босқичли"],
-        ["SET 5","UZ · TJ · KG","P4 стики","FAIIM","Монадик, икки босқичли"],
-        ["E модули","UZ · TJ · KG","ESSE қўллаб-қувватлаш","ESSE + 4 вариант","Барча респондентлар, охирида"]
-      ]},
-      {type:"subheading", text:"Ҳар бир тўплам икки босқичда ўтказилади:"},
-      {type:"bullets", items:[
-        "① Фақат номни баҳолаш — фақат матнли карточка: талаффуз ва эсда қолиш қулайлиги.",
-        "② Қадоқ макети кўрсатилгандан кейин — ассоциациялар, тақиқлар, образ, жозибадорлик, фарқланиш."
-      ]},
-      {type:"warning", text:"Ном тўлиқ баҳоланмагунча қадоқ макетини ҳеч қачон кўрсатманг."},
-      {type:"warning", text:"Қадоқ макетларида ESSE ёки бошқа қўллаб-қувватловчи бренд элементи бўлмасин."},
-      {type:"note", text:"E модули барча тўпламлар тугагандан сўнг БАРЧА респондентлар билан бир марта ўтказилади."},
-      {type:"note", text:"E5/E8 учун ротация: A гуруҳи 1→2→3→4; B гуруҳи 4→3→2→1. Ҳар бирига ~50%."}
-    ]},
-    {title:"Давлатлар бўйича қамров", blocks:[
-      {type:"subheading", text:"Тожикистон — барча тўпламлар"},
-      {type:"paragraph", text:"SET 1, 2, 3, 4, 5 ва E модули — ҳаммаси берилади."},
-      {type:"subheading", text:"Ўзбекистон ва Қирғизистон — фақат SET 1, 4, 5 ва E модули"},
-      {type:"warning", text:"SET 2 ва SET 3 фақат Тожикистонда — бошқа икки давлатда БЕРИЛМАЙДИ."}
-    ]},
-    {title:"Тўпламни ўтказиш протоколи", blocks:[
-      {type:"subheading", text:"Битта номли тўпламлар (SET 1, 3, 5)"},
-      {type:"bullets", items:[
-        "Карточкани кўрсатинг, номни 2–3 марта овоз чиқариб айтишини сўранг.",
-        "Талаффуз ва эсда қолиш саволларига жавоб олинг.",
-        "Қийин бўлса — сабаб саволини беринг.",
-        "Қадоқ макетини кўрсатиб, қолган саволларни беринг."
-      ]},
-      {type:"subheading", text:"Бир нечта вариантли тўпламлар (SET 2, 4)"},
-      {type:"bullets", items:[
-        "Ҳар бир вариантни ротация тартибида кўрсатинг.",
-        "Тўлиқ шаклда айтинг: «FLEX + қисм» (масалан FLEX BRYZ).",
-        "Барча вариантлар ① босқичда баҳоланмагунча макет кўрсатманг.",
-        "Якунида энг афзал вариантни танлашини сўранг (P13/S13)."
-      ]}
-    ]},
-    {title:"Тақиқланган ассоциациялар", blocks:[
-      {type:"note", text:"Бу саволлар маданий/диний хавфларни аниқлаш учун мажбурий. Тўғри/нотўғри жавоб йўқлигини тушунтиринг."},
-      {type:"bullets", items:[
-        "Аввал: сленг/сўкиниш/диний жиҳатдан ноқулайми? (Ҳа/Йўқ)",
-        "«Ҳа» бўлса — айнан сўз ва тақиқ турини аниқланг.",
-        "«Йўқ» бўлса — кейинги бўлимга ўтинг."
-      ]}
-    ]},
-    {title:"E модули — ESSE", blocks:[
-      {type:"bullets", items:[
-        "ESSE — мавжуд оддий сигарета бренди эканлигини тушунтиринг, карточкани кўрсатинг.",
-        "Хабардорлик, ассоциациялар, жозибадорлик ва образни баҳоланг.",
-        "[A] FLEX қурилма бренди қўллаб-қувватлаши — муносабат ва сабаб (ижобий/салбий).",
-        "E5/E6 — 4 вариант ротация бўйича баҳоланади, сўнг энг афзали танланади.",
-        "[B] FAIIM стик бренди учун худди шундай (E7–E9)."
-      ]},
-      {type:"warning", text:"Ротация гуруҳини (A/B) қатъий қўлланг — ҳар бирига тахминан ярми тўғри келсин."}
-    ]},
-    {title:"Зарур материаллар", blocks:[
-      {type:"checklist", items:[
-        "Планшет компьютер",
-        "Ҳар бир номнинг лотин/кирилл карточкалари — 1-босқич",
-        "ESSE элементларисиз қадоқ макети карточкалари — 2-босқич",
-        "ESSE ва 4 вариант карточкалари — E модули",
-        "Респондент розилиги шакли ва мукофот"
-      ]}
-    ]},
-    {title:"Тез-тез учрайдиган хатолар", blocks:[
-      {type:"warninglist", items:[
-        "Қадоқ макетини ном баҳоланмасдан кўрсатиш.",
-        "SET 2/3 ни Ўзбекистон ёки Қирғизистонда ўтказиш.",
-        "Ротация гуруҳларига риоя қилмаслик.",
-        "Номларни солиштиришга ундаш ёки фикр билдириш.",
-        "Якунлаш шартида интервьюни давом эттириш.",
-        "«Тўғри/нотўғри жавоб йўқ» эслатмасини унутиш.",
-        "E модулини тўпламлар тугамасдан ёки қисман ўтказиш."
-      ]}
-    ]}
-  ]
-};
+/* =========================================================================
+   RENDER ENGINE
+   ========================================================================= */
+let lang = 'ru';
+let currentSet = 'overview';
+const order = ["overview","set1","set2","set3","set4","set5","moduleE"];
 
-T["ru"] = {
-  meta:{
-    badge:"CAPI · Полевое исследование",
-    title:"Руководство для интервьюеров",
-    subtitle:"Исследование названий брендов HTP — Узбекистан · Таджикистан · Кыргызстан",
-    quickFacts:[{value:"3",label:"страны"},{value:"4",label:"языка"},{value:"8",label:"названий"},{value:"~45",label:"минут"}]
-  },
-  ui:{ langLabel:"Язык", progressLabel:"Прочитано", warnLabel:"Внимание", noteLabel:"Примечание",
-    footer:"По вопросам обращайтесь к супервайзеру (SV). От качества интервью зависит достоверность результатов исследования." },
-  sections:[
-    {title:"О исследовании", blocks:[
-      {type:"table", headers:["Пункт","Информация"], rows:[
-        ["Страны","Узбекистан · Таджикистан · Кыргызстан"],
-        ["Метод","CAPI — личное интервью с планшетом (не менее 50 респондентов в каждой стране)"],
-        ["Языки","Узбекский · Таджикский · Кыргызский · Русский (по выбору респондента)"],
-        ["Оцениваемые названия","Всего 8 названий: 5 блоков (SET 1–5) + модуль поддержки бренда ESSE"],
-        ["Длительность","Примерно 40–50 минут"],
-        ["Категория продукта","HTP — табачное изделие с нагреванием"]
-      ]}
-    ]},
-    {title:"Основные правила", blocks:[
-      {type:"bullets", items:[
-        "Представьте компанию и цель опроса; объясните, что данные конфиденциальны.",
-        "Полностью заполните административные данные о респонденте (ID, дата, язык, длительность, SV).",
-        "Задавайте каждый вопрос на языке, выбранном респондентом.",
-        "Подчеркните, что правильных или неправильных ответов нет — важно честное мнение.",
-        "Не выражайте своё мнение, читайте вопросы нейтральным тоном."
-      ]},
-      {type:"warning", text:"Никогда не сравнивайте названия между собой — каждое название оценивается независимо (кроме итогового выбора внутри блока, например P13, S13, E6, E9)."}
-    ]},
-    {title:"Терминология", blocks:[
-      {type:"table", headers:["Язык","Термин HTP"], rows:[
-        ["Узбекский (UZ)","qizdiriladigan tamaki mahsuloti"],
-        ["Таджикский (TJ)","маҳсулот аз тамокуи гармкардашуда"],
-        ["Кыргызский (KG)","ысытылган тамеки өнүмдөрү"],
-        ["Русский (RU)","нагреваемый табак (ИНТ)"]
-      ]},
-      {type:"note", text:"Если респондент не знаком с термином, не называйте конкретные бренды. Объясните: «Изделие, которое используется путём нагревания табачных листьев, а не их сжигания»."}
-    ]},
-    {title:"Скрининг (SQ0–SQ8)", blocks:[
-      {type:"bullets", items:[
-        "SQ0 — выбор языка интервью: покажите языки, соответствующие стране, соблюдайте языковые квоты.",
-        "SQ1 — регион проживания: для квот по стране/региону.",
-        "SQ2 — сфера деятельности: если работает в маркетинге, табачной отрасли, СМИ, здравоохранении (①–⑤) — ЗАВЕРШИТЕ ОПРОС.",
-        "SQ3 — возраст: если не соответствует законному возрасту (19 и младше или 50 и старше) — ЗАВЕРШИТЕ ОПРОС.",
-        "SQ4 — пол: для квоты.",
-        "SQ5 — если сейчас не употребляет табак/никотин — ЗАВЕРШИТЕ ОПРОС.",
-        "SQ6 / SQ6-1 — виды употребляемой продукции и основной вид.",
-        "SQ7 / SQ8 — только для тех, кто не употребляет HTP: осведомлённость и намерение использовать."
-      ]},
-      {type:"warning", text:"Если возникло условие завершения на SQ2, SQ3 или SQ5 — не продолжайте интервью."}
-    ]},
-    {title:"Структура и порядок", blocks:[
-      {type:"table", headers:["Блок","Страны","Категория","Название(я)","Метод оценки"], rows:[
-        ["SET 1","UZ · TJ · KG","Основной бренд","FLEX","Монадический, два этапа"],
-        ["SET 2","TJ","Устройство P2","FLEX BRYZ / MINGLE / WITHIX","Внутри блока, два этапа"],
-        ["SET 3","TJ","Стик P2","AIIV","Монадический, два этапа"],
-        ["SET 4","UZ · TJ · KG","Устройство P4","FLEX ESSENZ / ORIGIN","Внутри блока, два этапа"],
-        ["SET 5","UZ · TJ · KG","Стик P4","FAIIM","Монадический, два этапа"],
-        ["Модуль E","UZ · TJ · KG","Поддержка ESSE","ESSE + 4 варианта","Все респонденты, в конце"]
-      ]},
-      {type:"subheading", text:"Каждый блок проводится в два этапа:"},
-      {type:"bullets", items:[
-        "① Только название — только текстовая карточка: удобство произношения и запоминания.",
-        "② После показа макета упаковки — ассоциации, запреты, образ, привлекательность, отличие."
-      ]},
-      {type:"warning", text:"Никогда не показывайте макет упаковки, пока название не оценено полностью."},
-      {type:"warning", text:"На макетах упаковки не должно быть ESSE или других элементов поддерживающего бренда."},
-      {type:"note", text:"Модуль E проводится один раз со ВСЕМИ респондентами после завершения всех блоков."},
-      {type:"note", text:"Для E5/E8 ротация: группа A — 1→2→3→4; группа B — 4→3→2→1. По ~50% в каждую группу."}
-    ]},
-    {title:"Охват по странам", blocks:[
-      {type:"subheading", text:"Таджикистан — все блоки"},
-      {type:"paragraph", text:"SET 1, 2, 3, 4, 5 и модуль E — предоставляются все."},
-      {type:"subheading", text:"Узбекистан и Кыргызстан — только SET 1, 4, 5 и модуль E"},
-      {type:"warning", text:"SET 2 и SET 3 проводятся только в Таджикистане — в двух других странах НЕ ПРОВОДЯТСЯ."}
-    ]},
-    {title:"Проведение блока", blocks:[
-      {type:"subheading", text:"Блоки с одним названием (SET 1, 3, 5)"},
-      {type:"bullets", items:[
-        "Покажите карточку, попросите произнести название вслух 2–3 раза.",
-        "Задайте вопросы о произношении и запоминаемости.",
-        "Если сложно — задайте вопрос о причинах.",
-        "Покажите макет упаковки и задайте оставшиеся вопросы."
-      ]},
-      {type:"subheading", text:"Блоки с несколькими вариантами (SET 2, 4)"},
-      {type:"bullets", items:[
-        "Показывайте каждый вариант по порядку ротации.",
-        "Произносите полную форму: «FLEX + часть» (например, FLEX BRYZ).",
-        "Не показывайте макеты, пока все варианты не оценены на этапе ①.",
-        "В конце спросите, какой вариант понравился больше всего (P13/S13)."
-      ]}
-    ]},
-    {title:"Запрещённые ассоциации", blocks:[
-      {type:"note", text:"Эти вопросы обязательны для выявления культурных и религиозных рисков. Объясните, что правильных или неправильных ответов нет."},
-      {type:"bullets", items:[
-        "Сначала: напоминает ли сленг/ругательство/что-то неудобное с религиозной точки зрения? (Да/Нет)",
-        "Если «Да» — уточните конкретное слово и тип запрета.",
-        "Если «Нет» — переходите к следующему разделу."
-      ]}
-    ]},
-    {title:"Модуль E — ESSE", blocks:[
-      {type:"bullets", items:[
-        "Объясните, что ESSE — существующий бренд обычных сигарет, покажите карточку.",
-        "Оцените осведомлённость, ассоциации, привлекательность и образ.",
-        "[A] Поддержка бренда устройства FLEX — отношение и причина (положительная/отрицательная).",
-        "E5/E6 — 4 варианта оцениваются по ротации, затем выбирается наиболее предпочтительный.",
-        "[B] Аналогично для стик-бренда FAIIM (E7–E9)."
-      ]},
-      {type:"warning", text:"Строго соблюдайте группу ротации (A/B) — в каждую группу должно попасть примерно по 50% респондентов."}
-    ]},
-    {title:"Необходимые материалы", blocks:[
-      {type:"checklist", items:[
-        "Планшетный компьютер",
-        "Карточки каждого названия латиницей и кириллицей — для этапа 1",
-        "Карточки макетов упаковки без элементов ESSE — для этапа 2",
-        "Карточка ESSE и 4 варианта поддержки — для модуля E",
-        "Форма согласия респондента и вознаграждение за участие"
-      ]}
-    ]},
-    {title:"Частые ошибки", blocks:[
-      {type:"warninglist", items:[
-        "Показ макета упаковки до полной оценки названия.",
-        "Проведение SET 2/3 в Узбекистане или Кыргызстане.",
-        "Несоблюдение групп ротации.",
-        "Побуждение сравнивать названия или выражение собственного мнения.",
-        "Продолжение интервью при наличии условия завершения.",
-        "Забыть напомнить, что правильных/неправильных ответов нет.",
-        "Проведение модуля E до завершения всех блоков или только с частью респондентов."
-      ]}
-    ]}
-  ]
-};
+function esc(s){
+  const d=document.createElement('div');d.textContent=s;return d.innerHTML;
+}
 
-T["ky"] = {
-  meta:{
-    badge:"CAPI · Талаа изилдөөсү",
-    title:"Интервью алуучулар үчүн колдонмо",
-    subtitle:"HTP бренд аталыштары боюнча изилдөө — Өзбекстан · Тажикстан · Кыргызстан",
-    quickFacts:[{value:"3",label:"өлкө"},{value:"4",label:"тил"},{value:"8",label:"аталыш"},{value:"~45",label:"мүнөт"}]
-  },
-  ui:{ langLabel:"Тил", progressLabel:"Окулду", warnLabel:"Көңүл буруңуз", noteLabel:"Эскертүү",
-    footer:"Суроолор болсо, көзөмөлчү (SV) менен байланышыңыз. Интервьюнун сапаты изилдөө натыйжаларынын ишенимдүүлүгүн аныктайт." },
-  sections:[
-    {title:"Изилдөө жөнүндө", blocks:[
-      {type:"table", headers:["Пункт","Маалымат"], rows:[
-        ["Өлкөлөр","Өзбекстан · Тажикстан · Кыргызстан"],
-        ["Ыкма","CAPI — планшет аркылуу жүзмө-жүз интервью (ар бир өлкөдө кеминде 50 респондент)"],
-        ["Тилдер","Өзбек · Тажик · Кыргыз · Орус (респондент тандайт)"],
-        ["Бааланган аталыштар","Жалпы 8 аталыш: 5 топтом (SET 1–5) + ESSE колдоо модулу"],
-        ["Узактыгы","Болжол менен 40–50 мүнөт"],
-        ["Продукт категориясы","HTP — ысытылган тамеки өнүмү"]
-      ]}
-    ]},
-    {title:"Негизги эрежелер", blocks:[
-      {type:"bullets", items:[
-        "Компанияны жана изилдөөнүн максатын тааныштырыңыз; маалыматтар купуя сакталарын түшүндүрүңүз.",
-        "Респондент жөнүндөгү административдик маалыматтарды (ID, күн, тил, узактык, SV) толук толтуруңуз.",
-        "Ар бир суроону респондент тандаган тилде туура бериңиз.",
-        "Туура же туура эмес жооп жок экенин жана чынчыл пикир маанилүү экенин белгилеңиз.",
-        "Өз пикириңизди билдирбеңиз, суроолорду нейтралдуу үн менен окуңуз."
-      ]},
-      {type:"warning", text:"Аталыштарды бири-бири менен салыштырбаңыз — ар бир аталыш өз алдынча бааланат (топтом ичиндеги жыйынтык тандоодон тышкары, мисалы P13, S13, E6, E9)."}
-    ]},
-    {title:"Терминология", blocks:[
-      {type:"table", headers:["Тил","HTP термини"], rows:[
-        ["Өзбек (UZ)","qizdiriladigan tamaki mahsuloti"],
-        ["Тажик (TJ)","маҳсулот аз тамокуи гармкардашуда"],
-        ["Кыргыз (KG)","ысытылган тамеки өнүмдөрү"],
-        ["Орус (RU)","нагреваемый табак (ИНТ)"]
-      ]},
-      {type:"note", text:"Эгер респондент термин менен тааныш болбосо, конкреттүү бренд аталыштарын айтпаңыз. Мындай түшүндүрүңүз: «Тамеки жалбырактарын өрттөбөстөн, ысытуу аркылуу колдонулуучу өнүм»."}
-    ]},
-    {title:"Скрининг (SQ0–SQ8)", blocks:[
-      {type:"bullets", items:[
-        "SQ0 — интервью тилин тандоо: өлкөгө ылайык тилдерди көрсөтүңүз, тил квотасын сактаңыз.",
-        "SQ1 — жашаган аймагы: өлкө/аймак квотасы үчүн.",
-        "SQ2 — кесиптик тармак: маркетинг, тамеки, ММК, ден соолук сактоо тармагында иштесе (①–⑤) — СУРОО-ЖООПТУ АЯКТАҢЫЗ.",
-        "SQ3 — жашы: мыйзамдуу жашка дал келбесе (19 жана андан кичине же 50 жана андан улуу) — СУРОО-ЖООПТУ АЯКТАҢЫЗ.",
-        "SQ4 — жынысы: квота үчүн.",
-        "SQ5 — азыр тамеки/никотин колдонбосо — СУРОО-ЖООПТУ АЯКТАҢЫЗ.",
-        "SQ6 / SQ6-1 — колдонулуучу продукттардын түрлөрү жана негизгиси.",
-        "SQ7 / SQ8 — HTP колдонбогондорго гана: кабардар болуу жана колдонуу ниети."
-      ]},
-      {type:"warning", text:"SQ2, SQ3 же SQ5до аяктоо шарты чыкса, интервьюну улантпаңыз."}
-    ]},
-    {title:"Түзүлүш жана ирети", blocks:[
-      {type:"table", headers:["Топтом","Өлкөлөр","Категория","Аталыш(тар)","Баалоо ыкмасы"], rows:[
-        ["SET 1","UZ · TJ · KG","Башкы бренд","FLEX","Монадикалык, эки этап"],
-        ["SET 2","TJ","P2 түзмөгү","FLEX BRYZ / MINGLE / WITHIX","Топтом ичинде, эки этап"],
-        ["SET 3","TJ","P2 стиги","AIIV","Монадикалык, эки этап"],
-        ["SET 4","UZ · TJ · KG","P4 түзмөгү","FLEX ESSENZ / ORIGIN","Топтом ичинде, эки этап"],
-        ["SET 5","UZ · TJ · KG","P4 стиги","FAIIM","Монадикалык, эки этап"],
-        ["E модулу","UZ · TJ · KG","ESSE колдоо","ESSE + 4 вариант","Бардык респонденттер, аягында"]
-      ]},
-      {type:"subheading", text:"Ар бир топтом эки этапта өткөрүлөт:"},
-      {type:"bullets", items:[
-        "① Аталышты гана баалоо — текст карточкасы гана: айтуу жана эсте калуу ыңгайлуулугу.",
-        "② Кап-салма макети көрсөтүлгөндөн кийин — ассоциациялар, тыюулар, образ, тартымдуулук, айырмалануу."
-      ]},
-      {type:"warning", text:"Аталыш толук бааланмайынча кап-салма макетин эч качан көрсөтпөңүз."},
-      {type:"warning", text:"Кап-салма макеттеринде ESSE же башка колдоочу бренд элементи болбошу керек."},
-      {type:"note", text:"E модулу бардык топтомдор аяктагандан кийин БАРДЫК респонденттер менен бир жолу өткөрүлөт."},
-      {type:"note", text:"E5/E8 үчүн ротация: A тобу 1→2→3→4; B тобу 4→3→2→1. Ар бирине ~50%."}
-    ]},
-    {title:"Өлкөлөр боюнча камтуу", blocks:[
-      {type:"subheading", text:"Тажикстан — бардык топтомдор"},
-      {type:"paragraph", text:"SET 1, 2, 3, 4, 5 жана E модулу — баары берилет."},
-      {type:"subheading", text:"Өзбекстан жана Кыргызстан — SET 1, 4, 5 жана E модулу гана"},
-      {type:"warning", text:"SET 2 жана SET 3 Тажикстанда гана — башка эки өлкөдө БЕРИЛБЕЙТ."}
-    ]},
-    {title:"Топтомду өткөрүү тартиби", blocks:[
-      {type:"subheading", text:"Бир аталыштуу топтомдор (SET 1, 3, 5)"},
-      {type:"bullets", items:[
-        "Карточканы көрсөтүңүз, аталышты 2–3 жолу үн чыгарып айтууну сураңыз.",
-        "Айтуу жана эсте калуу суроолоруна жооп алыңыз.",
-        "Кыйын болсо — себеп суроосун бериңиз.",
-        "Кап-салма макетин көрсөтүп, калган суроолорду бериңиз."
-      ]},
-      {type:"subheading", text:"Бир нече варианттуу топтомдор (SET 2, 4)"},
-      {type:"bullets", items:[
-        "Ар бир вариантты ротация тартибинде көрсөтүңүз.",
-        "Толук формада айтыңыз: «FLEX + бөлүк» (мисалы FLEX BRYZ).",
-        "Бардык варианттар ① этабында бааланмайынча макет көрсөтпөңүз.",
-        "Аягында эң жаккан вариантты тандоону сураңыз (P13/S13)."
-      ]}
-    ]},
-    {title:"Тыюу салынган ассоциациялар", blocks:[
-      {type:"note", text:"Бул суроолор маданий/диний тобокелдиктерди аныктоо үчүн милдеттүү. Туура/туура эмес жооп жок экенин түшүндүрүңүз."},
-      {type:"bullets", items:[
-        "Алгач: сленг/сөгүнүү/диний жактан ыңгайсыз нерсени эске салабы? (Ооба/Жок)",
-        "«Ооба» болсо — так сөздү жана тыюу түрүн аныктаңыз.",
-        "«Жок» болсо — кийинки бөлүккө өтүңүз."
-      ]}
-    ]},
-    {title:"E модулу — ESSE", blocks:[
-      {type:"bullets", items:[
-        "ESSE — учурдагы жөнөкөй тамеки бренди экенин түшүндүрүңүз, карточканы көрсөтүңүз.",
-        "Кабардар болуу, ассоциациялар, тартымдуулук жана образды баалаңыз.",
-        "[A] FLEX түзмөк брендин колдоо — мамиле жана себеп (оң/терс).",
-        "E5/E6 — 4 вариант ротация боюнча бааланат, андан кийин эң жакканы тандалат.",
-        "[B] FAIIM стик бренди үчүн да ушундай (E7–E9)."
-      ]},
-      {type:"warning", text:"Ротация тобун (A/B) катуу сактаңыз — ар бир топко болжол менен 50% туура келсин."}
-    ]},
-    {title:"Керектүү материалдар", blocks:[
-      {type:"checklist", items:[
-        "Планшет компьютер",
-        "Ар бир аталыштын латын/кирилл карточкалары — 1-этап үчүн",
-        "ESSE элементтерисиз кап-салма макети карточкалары — 2-этап үчүн",
-        "ESSE жана 4 вариант карточкалары — E модулу үчүн",
-        "Респонденттин макулдук формасы жана сыйлык"
-      ]}
-    ]},
-    {title:"Көп кездешкен каталар", blocks:[
-      {type:"warninglist", items:[
-        "Кап-салма макетин аталыш бааланганга чейин көрсөтүү.",
-        "SET 2/3ту Өзбекстанда же Кыргызстанда өткөрүү.",
-        "Ротация топторун сактабоо.",
-        "Аталыштарды салыштырууга түртүү же өз пикирин билдирүү.",
-        "Аяктоо шарты болгондо интервьюну улантуу.",
-        "«Туура/туура эмес жооп жок» эскертүүсүн унутуу.",
-        "E модулун топтомдор аякталганга чейин же жарым-жартылай өткөрүү."
-      ]}
-    ]}
-  ]
-};
+function renderNav(){
+  const t=T[lang];
+  const groups=[
+    {label:t.groupOverview,items:["overview"]},
+    {label:t.groupSets,items:["set1","set2","set3","set4","set5"]},
+    {label:t.groupModule,items:["moduleE"]}
+  ];
+  let html='';
+  groups.forEach(g=>{
+    html+=`<div class="nav-group-label">${esc(g.label)}</div>`;
+    g.items.forEach(id=>{
+      const meta=SETS_META.find(s=>s.id===id);
+      const active=id===currentSet?' active':'';
+      html+=`<button class="nav-item${active}" onclick="goTo('${id}')"><span class="num">${meta.icon}</span><span>${esc(t.nav[id])}</span></button>`;
+    });
+  });
+  document.getElementById('navlist').innerHTML=html;
+}
 
-T["tg"] = {
-  meta:{
-    badge:"CAPI · Тадқиқоти саҳроӣ",
-    title:"Дастури интервюгирандагон",
-    subtitle:"Тадқиқоти номҳои бренди HTP — Ӯзбекистон · Тоҷикистон · Қирғизистон",
-    quickFacts:[{value:"3",label:"кишвар"},{value:"4",label:"забон"},{value:"8",label:"ном"},{value:"~45",label:"дақиқа"}]
-  },
-  ui:{ langLabel:"Забон", progressLabel:"Хонда шуд", warnLabel:"Диққат", noteLabel:"Тавзеҳ",
-    footer:"Дар сурати саволҳо бо назоратчӣ (SV) тамос гиред. Сифати мусоҳиба эътимоднокии натиҷаҳои тадқиқотро муайян мекунад." },
-  sections:[
-    {title:"Дар бораи тадқиқот", blocks:[
-      {type:"table", headers:["Банд","Маълумот"], rows:[
-        ["Кишварҳо","Ӯзбекистон · Тоҷикистон · Қирғизистон"],
-        ["Усул","CAPI — мусоҳибаи рӯ ба рӯ бо планшет (на камтар аз 50 нафар дар ҳар кишвар)"],
-        ["Забонҳо","Ӯзбекӣ · Тоҷикӣ · Қирғизӣ · Русӣ (интихоби респондент)"],
-        ["Номҳои арзёбишаванда","Ҳамагӣ 8 ном: 5 маҷмӯа (SET 1–5) + модули дастгирии бренди ESSE"],
-        ["Давомнокӣ","Тахминан 40–50 дақиқа"],
-        ["Категорияи маҳсулот","HTP — маҳсулоти тамокуи гармкардашуда"]
-      ]}
-    ]},
-    {title:"Қоидаҳои асосӣ", blocks:[
-      {type:"bullets", items:[
-        "Ширкат ва ҳадафи пурсишро муаррифӣ кунед; тавзеҳ диҳед, ки маълумот махфӣ нигоҳ дошта мешавад.",
-        "Маълумоти маъмурии респондентро (ID, сана, забон, давомнокӣ, SV) пурра пур кунед.",
-        "Ҳар саволро бо забони интихобкардаи респондент дуруст диҳед.",
-        "Таъкид кунед, ки ҷавоби дуруст ё нодуруст вуҷуд надорад ва фикри самимӣ муҳим аст.",
-        "Фикри худро изҳор накунед, саволҳоро бо оҳанги бетараф хонед."
-      ]},
-      {type:"warning", text:"Ҳеҷ гоҳ номҳоро бо якдигар муқоиса накунед — ҳар ном мустақилона арзёбӣ мешавад (ба ғайр аз интихоби ниҳоӣ дар дохили маҷмӯа, масалан P13, S13, E6, E9)."}
-    ]},
-    {title:"Терминология", blocks:[
-      {type:"table", headers:["Забон","Истилоҳи HTP"], rows:[
-        ["Ӯзбекӣ (UZ)","qizdiriladigan tamaki mahsuloti"],
-        ["Тоҷикӣ (TJ)","маҳсулот аз тамокуи гармкардашуда"],
-        ["Қирғизӣ (KG)","ысытылган тамеки өнүмдөрү"],
-        ["Русӣ (RU)","нагреваемый табак (ИНТ)"]
-      ]},
-      {type:"note", text:"Агар респондент бо истилоҳ ошно набошад, номҳои мушаххаси брендро нагӯед. Инро тавзеҳ диҳед: «Маҳсулоте, ки на бо сӯзондан, балки бо гарм кардани баргҳои тамоку истифода мешавад»."}
-    ]},
-    {title:"Скрининг (SQ0–SQ8)", blocks:[
-      {type:"bullets", items:[
-        "SQ0 — интихоби забони мусоҳиба: забонҳои мувофиқи кишварро нишон диҳед, квотаи забониро риоя кунед.",
-        "SQ1 — минтақаи истиқомат: барои квотаи кишвар/минтақа.",
-        "SQ2 — соҳаи фаъолият: агар дар маркетинг, саноати тамоку, ВАО ё соҳаи тандурустӣ кор кунад (①–⑤) — ПУРСИШРО ХОТИМА ДИҲЕД.",
-        "SQ3 — синну сол: агар ба синну соли қонунӣ мувофиқат накунад (19 ва хурдтар ё 50 ва калонтар) — ПУРСИШРО ХОТИМА ДИҲЕД.",
-        "SQ4 — ҷинс: барои квота.",
-        "SQ5 — агар ҳоло тамоку/никотин истеъмол накунад — ПУРСИШРО ХОТИМА ДИҲЕД.",
-        "SQ6 / SQ6-1 — намудҳои маҳсулоти истеъмолшаванда ва асосӣ.",
-        "SQ7 / SQ8 — танҳо барои онҳое, ки HTP истифода намекунанд: огоҳӣ ва нияти истифода."
-      ]},
-      {type:"warning", text:"Агар дар SQ2, SQ3 ё SQ5 шарти хотимавӣ пайдо шавад, мусоҳибаро идома надиҳед."}
-    ]},
-    {title:"Сохтор ва тартиб", blocks:[
-      {type:"table", headers:["Маҷмӯа","Кишварҳо","Категория","Ном(ҳо)","Усули арзёбӣ"], rows:[
-        ["SET 1","UZ · TJ · KG","Бренди асосӣ","FLEX","Монадикӣ, ду марҳила"],
-        ["SET 2","TJ","Дастгоҳи P2","FLEX BRYZ / MINGLE / WITHIX","Дохили маҷмӯа, ду марҳила"],
-        ["SET 3","TJ","Стики P2","AIIV","Монадикӣ, ду марҳила"],
-        ["SET 4","UZ · TJ · KG","Дастгоҳи P4","FLEX ESSENZ / ORIGIN","Дохили маҷмӯа, ду марҳила"],
-        ["SET 5","UZ · TJ · KG","Стики P4","FAIIM","Монадикӣ, ду марҳила"],
-        ["Модули E","UZ · TJ · KG","Дастгирии ESSE","ESSE + 4 вариант","Ҳама респондентҳо, дар охир"]
-      ]},
-      {type:"subheading", text:"Ҳар маҷмӯа дар ду марҳила гузаронида мешавад:"},
-      {type:"bullets", items:[
-        "① Танҳо арзёбии ном — танҳо корти матнӣ: осонии талаффуз ва дар хотир мондан.",
-        "② Пас аз намоиши макети бастабандӣ — ассотсиатсияҳо, манъиятҳо, тасвир, ҷолибият, фарқият."
-      ]},
-      {type:"warning", text:"То арзёбии пурраи ном ҳеҷ гоҳ макети бастабандиро нишон надиҳед."},
-      {type:"warning", text:"Дар макетҳои бастабандӣ набояд ESSE ё дигар унсури бренди дастгиркунанда бошад."},
-      {type:"note", text:"Модули E пас аз анҷоми ҳамаи маҷмӯаҳо бо ҳамаи респондентҳо як бор гузаронида мешавад."},
-      {type:"note", text:"Барои E5/E8 ротатсия: гурӯҳи A 1→2→3→4; гурӯҳи B 4→3→2→1. Ба ҳар кадом ~50%."}
-    ]},
-    {title:"Фарогирии кишварҳо", blocks:[
-      {type:"subheading", text:"Тоҷикистон — ҳамаи маҷмӯаҳо"},
-      {type:"paragraph", text:"SET 1, 2, 3, 4, 5 ва модули E — ҳама пешниҳод мешаванд."},
-      {type:"subheading", text:"Ӯзбекистон ва Қирғизистон — танҳо SET 1, 4, 5 ва модули E"},
-      {type:"warning", text:"SET 2 ва SET 3 танҳо дар Тоҷикистон — дар ду кишвари дигар ГУЗАРОНИДА НАМЕШАВАНД."}
-    ]},
-    {title:"Тартиби гузаронидани маҷмӯа", blocks:[
-      {type:"subheading", text:"Маҷмӯаҳои якномагӣ (SET 1, 3, 5)"},
-      {type:"bullets", items:[
-        "Кортро нишон диҳед, аз респондент хоҳиш кунед номро 2–3 бор бо овоз баланд гӯяд.",
-        "Ба саволҳои талаффуз ва дар хотир мондан ҷавоб гиред.",
-        "Агар душвор бошад — саволи сабабро диҳед.",
-        "Макети бастабандиро нишон дода, саволҳои боқимондаро диҳед."
-      ]},
-      {type:"subheading", text:"Маҷмӯаҳои бисёрвариантӣ (SET 2, 4)"},
-      {type:"bullets", items:[
-        "Ҳар вариантро мувофиқи тартиби ротатсия нишон диҳед.",
-        "Дар шакли пурра гӯед: «FLEX + қисм» (масалан FLEX BRYZ).",
-        "То арзёбии ҳамаи вариантҳо дар марҳилаи ① макетро нишон надиҳед.",
-        "Дар охир хоҳиш кунед, ки вариант бештар писандидаро интихоб кунад (P13/S13)."
-      ]}
-    ]},
-    {title:"Ассотсиатсияҳои манъшуда", blocks:[
-      {type:"note", text:"Ин саволҳо барои муайян кардани хатарҳои фарҳангӣ/динӣ ҳатмист. Тавзеҳ диҳед, ки ҷавоби дуруст ё нодуруст вуҷуд надорад."},
-      {type:"bullets", items:[
-        "Аввал: оё сленг/дашном/чизи аз назари динӣ ноҷурро ба ёд меорад? (Ҳа/Не)",
-        "Агар «Ҳа» бошад — калима ва навъи манъиятро дақиқ кунед.",
-        "Агар «Не» бошад — ба бахши навбатӣ гузаред."
-      ]}
-    ]},
-    {title:"Модули E — ESSE", blocks:[
-      {type:"bullets", items:[
-        "Тавзеҳ диҳед, ки ESSE бренди мавҷудаи сигаретҳои оддист, кортро нишон диҳед.",
-        "Огоҳӣ, ассотсиатсияҳо, ҷолибият ва тасвирро арзёбӣ кунед.",
-        "[A] Дастгирии бренди дастгоҳи FLEX — муносибат ва сабаб (мусбат/манфӣ).",
-        "E5/E6 — 4 вариант мувофиқи ротатсия арзёбӣ мешаванд, сипас беҳтаринаш интихоб мешавад.",
-        "[B] Барои бренди стики FAIIM низ ҳамин тавр (E7–E9)."
-      ]},
-      {type:"warning", text:"Гурӯҳи ротатсияро (A/B) қатъиян риоя кунед — ба ҳар гурӯҳ тахминан 50% рост ояд."}
-    ]},
-    {title:"Маводи зарурӣ", blocks:[
-      {type:"checklist", items:[
-        "Планшети компютерӣ",
-        "Кортҳои ҳар ном бо алифбои лотинӣ/кириллӣ — барои марҳилаи 1",
-        "Кортҳои макети бастабандӣ бе унсурҳои ESSE — барои марҳилаи 2",
-        "Корти ESSE ва 4 вариант — барои модули E",
-        "Шакли розигии респондент ва мукофот"
-      ]}
-    ]},
-    {title:"Хатогиҳои маъмул", blocks:[
-      {type:"warninglist", items:[
-        "Нишон додани макети бастабандӣ пеш аз арзёбии пурраи ном.",
-        "Гузаронидани SET 2/3 дар Ӯзбекистон ё Қирғизистон.",
-        "Риоя накардани гурӯҳҳои ротатсия.",
-        "Ташвиқ ба муқоисаи номҳо ё изҳори фикри худ.",
-        "Идома додани мусоҳиба ҳангоми мавҷуд будани шарти хотима.",
-        "Фаромӯш кардани тавзеҳи «ҷавоби дуруст/нодуруст вуҷуд надорад».",
-        "Гузаронидани модули E пеш аз анҷоми маҷмӯаҳо ё танҳо бо қисме аз респондентҳо."
-      ]}
-    ]}
-  ]
-};
+function stepsHtml(list, stageClass, ci){
+  if(!list) return '';
+  let html=`<ul class="steps ${stageClass}">`;
+  list.forEach(s=>{
+    html+=`<li class="step"><div></div><div class="step-body">`;
+    if(s.c) html+=`<span class="code">${esc(s.c)}</span>`;
+    html+=esc(s.t);
+    if(s.cond) html+=`<span class="cond">${esc(s.cond)}</span>`;
+    html+=`</div></li>`;
+  });
+  html+='</ul>';
+  return html;
+}
 
-/* ============================================================
-   RENDER LOGIC
-   ============================================================ */
-let currentLang = "uz-cyrl";
-const CHECK_SVG = '<svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 8.5L6 12.5L14 3.5" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-const checkedState = {}; // persists across language switches, keyed by section+index
+function renderOverview(t){
+  const o=t.overview;
+  let html=`
+    <div class="page-title-block">
+      <div class="eyebrow">${esc(o.eyebrow)}</div>
+      <h1 class="page-title">${esc(o.title)}</h1>
+      <p class="page-lede">${esc(o.lede)}</p>
+    </div>
 
-function esc(s){ return s; }
+    <div class="diagram">
+      <div class="dblock stage1">
+        <div class="dkicker">${esc(t.labels.stage1)}</div>
+        <div class="dtitle">${esc(o.diagramStage1Title.replace(/^.*—\s*/,''))}</div>
+        <div class="ddesc">${esc(o.diagramStage1Desc)}</div>
+      </div>
+      <div class="dmid">→</div>
+      <div class="dblock stage2">
+        <div class="dkicker">${esc(t.labels.stage2)}</div>
+        <div class="dtitle">${esc(o.diagramStage2Title.replace(/^.*—\s*/,''))}</div>
+        <div class="ddesc">${esc(o.diagramStage2Desc)}</div>
+      </div>
+    </div>
 
-function renderBlock(block, secIdx){
-  if(block.type === "table"){
-    let thead = "<thead><tr>" + block.headers.map(h=>`<th>${h}</th>`).join("") + "</tr></thead>";
-    let tbody = "<tbody>" + block.rows.map(r=>"<tr>"+r.map(c=>`<td>${c}</td>`).join("")+"</tr>").join("") + "</tbody>";
-    return `<div class="table-wrap"><table>${thead}${tbody}</table></div>`;
+    <div class="rule-box">
+      <div class="icon">⚠️</div>
+      <div>
+        <div class="rule-label">${esc(o.goldenRuleLabel)}</div>
+        <p>${esc(o.goldenRuleText)}</p>
+      </div>
+    </div>
+
+    <div class="section-h"><h3>${esc(o.transitionTitle)}</h3></div>
+    <p class="page-lede" style="margin-bottom:4px;">${esc(o.transitionLede)}</p>
+    <div class="phrase-box">
+      <div class="phrase-label">${esc(t.labels.transition)}</div>
+      <div class="phrase-text">${esc(o.transitionPhrase)}</div>
+    </div>
+    <div class="note-box">
+      <div class="note-label">${esc(t.labels.attention)}</div>
+      <ul>
+        <li><b>${esc(o.transitionNote1Label)}</b> — ${esc(o.transitionNote1)}</li>
+        <li><b>${esc(o.transitionNote2Label)}</b> — ${esc(o.transitionNote2)}</li>
+      </ul>
+    </div>
+
+    <div class="section-h"><h3>${esc(o.tableTitle)}</h3></div>
+    <div class="table-wrap">
+      <table class="summary">
+        <thead><tr>${o.tableHeaders.map(h=>`<th>${esc(h)}</th>`).join('')}</tr></thead>
+        <tbody>
+          ${o.tableRows.map(r=>`<tr>${r.map((c,i)=>`<td${i===0?' class="setname"':''}>${esc(c)}</td>`).join('')}</tr>`).join('')}
+        </tbody>
+      </table>
+    </div>
+    <div class="materials">
+      <div class="materials-title">${esc(o.totalTimeTitle)}</div>
+      <ul>
+        <li>${esc(o.totalTimeTJ)}</li>
+        <li>${esc(o.totalTimeUZKG)}</li>
+      </ul>
+    </div>
+
+    <div class="section-h"><h3>${esc(o.checklistTitle)}</h3></div>
+    <div class="materials">
+      <ul class="checklist" style="padding-left:0;list-style:none;">
+        ${o.checklist.map(c=>`<li><span class="box"></span><span>${esc(c)}</span></li>`).join('')}
+      </ul>
+    </div>
+  `;
+  return html;
+}
+
+function renderSet(t, key){
+  const s=t[key];
+  let html=`
+    <div class="page-title-block">
+      <div class="eyebrow">${esc(s.countries)}</div>
+      <h1 class="page-title">${esc(s.title)}</h1>
+      ${s.subtitle?`<p class="page-lede">${esc(s.subtitle)}</p>`:''}
+    </div>
+
+    <div class="meta-grid">
+      <div class="meta-cell"><div class="meta-label">${esc(t.labels.testType)}</div><div class="meta-value">${esc(s.testType)}</div></div>
+      <div class="meta-cell"><div class="meta-label">${esc(t.labels.participants)}</div><div class="meta-value">${esc(s.participants)}</div></div>
+      <div class="meta-cell"><div class="meta-label">${esc(t.labels.questions)}</div><div class="meta-value">${esc(s.questions)}</div></div>
+      <div class="meta-cell"><div class="meta-label">${esc(t.labels.time)}</div><div class="meta-value">${esc(s.time)}</div></div>
+    </div>
+
+    <div class="materials">
+      <div class="materials-title">${esc(t.labels.materials)}</div>
+      <ul>${s.materials.map(m=>`<li>${esc(m)}</li>`).join('')}</ul>
+    </div>
+  `;
+
+  if(s.importantLabel){
+    html+=`<div class="note-box"><div class="note-label">${esc(s.importantLabel)}</div><ul><li>${esc(s.important)}</li></ul></div>`;
   }
-  if(block.type === "bullets"){
-    return `<ul class="bullets">${block.items.map(i=>`<li>${i}</li>`).join("")}</ul>`;
+
+  if(s.rotationTitle){
+    html+=`<div class="section-h"><h3>${esc(s.rotationTitle)}</h3></div>
+    <div class="table-wrap"><table class="summary">
+      <thead><tr>${s.rotationHeaders.map(h=>`<th>${esc(h)}</th>`).join('')}</tr></thead>
+      <tbody>${s.rotationRows.map(r=>`<tr><td class="setname">${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join('')}</tbody>
+    </table></div>`;
+    if(s.rotationNote) html+=`<p class="page-lede">${esc(s.rotationNote)}</p>`;
   }
-  if(block.type === "warning"){
-    return `<div class="callout warn"><span class="tag">${T[currentLang].ui.warnLabel}</span><div>${block.text}</div></div>`;
+
+  if(s.preSteps){
+    html+=`<div class="section-h"><span class="tag amber">${esc(t.labels.transition)}</span></div>` +
+    stepsHtml(s.preSteps,'stage1');
   }
-  if(block.type === "warninglist"){
-    return block.items.map(i=>`<div class="callout warn"><span class="tag">${T[currentLang].ui.warnLabel}</span><div>${i}</div></div>`).join("");
+
+  html+=`<div class="section-h"><h3>${esc(t.labels.stage1)}</h3><span class="tag amber">①</span></div>`;
+  if(s.stage1Lede) html+=`<p class="page-lede">${esc(s.stage1Lede)}</p>`;
+  html+=stepsHtml(s.stage1,'stage1');
+
+  if(s.transitionText){
+    html+=`<div class="phrase-box" style="margin-top:26px;">
+      <div class="phrase-label">${esc(t.labels.transition)}</div>
+      <div class="phrase-text">${esc(s.transitionText)}</div>
+    </div>`;
   }
-  if(block.type === "note"){
-    return `<div class="callout note"><span class="tag">${T[currentLang].ui.noteLabel}</span><div>${block.text}</div></div>`;
+
+  html+=`<div class="section-h"><h3>${esc(t.labels.stage2)}</h3><span class="tag teal">②</span></div>`;
+  if(s.stage2Lede) html+=`<p class="page-lede">${esc(s.stage2Lede)}</p>`;
+  html+=stepsHtml(s.stage2,'stage2');
+
+  if(s.finalLabel){
+    html+=`<div class="section-h"><h3>${esc(s.finalLabel)}</h3></div>
+    <div class="materials"><p style="margin:0;color:var(--ink-dim);font-size:14.5px;">${esc(s.final)}</p></div>`;
   }
-  if(block.type === "subheading"){
-    return `<h3>${block.text}</h3>`;
+
+  if(s.time){
+    html+=`<div class="timing-pill">⏱ <b>${esc(t.labels.timing)}:</b> ${esc(s.time)}</div>`;
   }
-  if(block.type === "paragraph"){
-    return `<p>${block.text}</p>`;
+
+  if(s.keyDiff){
+    html+=`<div class="section-h"><h3>${esc(t.labels.keyDiff)}</h3></div>
+    <div class="note-box"><p style="margin:0;color:var(--ink-dim);font-size:14.5px;">${esc(s.keyDiff)}</p></div>`;
   }
-  if(block.type === "checklist"){
-    let items = block.items.map((i,idx)=>{
-      const key = secIdx+"-"+idx;
-      const checked = checkedState[key] ? "checked" : "";
-      return `<li class="${checked}" data-key="${key}"><span class="box">${CHECK_SVG}</span><span class="txt">${i}</span></li>`;
-    }).join("");
-    return `<ul class="checklist">${items}</ul><div class="checklist-progress" id="checkProgress"></div>`;
+
+  if(s.notes){
+    html+=`<div class="note-box"><div class="note-label">${esc(t.labels.attention)}</div><ul>${s.notes.map(n=>`<li>${esc(n)}</li>`).join('')}</ul></div>`;
   }
-  return "";
+
+  if(s.mistakes){
+    html+=`<div class="mistake-box"><div class="mistake-label">${esc(t.labels.mistakes)}</div><p>${esc(s.mistakes)}</p></div>`;
+  }
+
+  return html;
+}
+
+function renderModuleE(t){
+  const s=t.moduleE;
+  let html=`
+    <div class="page-title-block">
+      <div class="eyebrow">${esc(s.countries)}</div>
+      <h1 class="page-title">${esc(s.title)}</h1>
+      <p class="page-lede">${esc(s.subtitle)}</p>
+    </div>
+
+    <div class="meta-grid">
+      <div class="meta-cell"><div class="meta-label">${esc(s.testType)}</div><div class="meta-value">${esc(s.participants)}</div></div>
+      <div class="meta-cell"><div class="meta-label">${esc(t.labels.questions)}</div><div class="meta-value">${esc(s.questions)}</div></div>
+      <div class="meta-cell"><div class="meta-label">${esc(t.labels.time)}</div><div class="meta-value">${esc(s.time)}</div></div>
+    </div>
+
+    <div class="materials">
+      <div class="materials-title">${esc(t.labels.materials)}</div>
+      <ul>${s.materials.map(m=>`<li>${esc(m)}</li>`).join('')}</ul>
+    </div>
+
+    <div class="section-h"><h3>${esc(s.generalTitle)}</h3></div>
+    ${stepsHtml(s.general,'stage1')}
+
+    <div class="section-h"><h3>${esc(s.blockATitle)}</h3><span class="tag amber">A</span></div>
+    ${stepsHtml(s.blockA,'stage1')}
+
+    <div class="materials" style="margin-top:14px;">
+      <div class="materials-title">${esc(s.rotationATitle)}</div>
+      <ul>${s.rotationA.map(r=>`<li>${esc(r)}</li>`).join('')}</ul>
+    </div>
+
+    <div class="section-h"><h3>${esc(s.blockBTitle)}</h3><span class="tag teal">B</span></div>
+    ${stepsHtml(s.blockB,'stage2')}
+
+    <div class="note-box">
+      <div class="note-label">${esc(t.labels.attention)}</div>
+      <ul>${s.notes.map(n=>`<li>${esc(n)}</li>`).join('')}</ul>
+    </div>
+  `;
+  return html;
+}
+
+function renderFooterNav(){
+  const t=T[lang];
+  const idx=order.indexOf(currentSet);
+  const prevId=idx>0?order[idx-1]:null;
+  const nextId=idx<order.length-1?order[idx+1]:null;
+  let html='<div class="footer-nav">';
+  if(prevId){
+    html+=`<button class="fbtn prev" onclick="goTo('${prevId}')"><span class="flabel">${esc(t.footerPrev)}</span><span class="ftitle">${esc(t.nav[prevId])}</span></button>`;
+  } else { html+='<div></div>'; }
+  if(nextId){
+    html+=`<button class="fbtn next" onclick="goTo('${nextId}')"><span class="flabel">${esc(t.footerNext)}</span><span class="ftitle">${esc(t.nav[nextId])}</span></button>`;
+  }
+  html+='</div>';
+  return html;
 }
 
 function render(){
-  const data = T[currentLang];
-  document.documentElement.lang = currentLang.split("-")[0];
-
-  // header
-  document.getElementById("uiTitle").childNodes[0].textContent = data.meta.title + " ";
-  document.getElementById("uiSubtitle").textContent = data.meta.subtitle;
-  document.getElementById("uiLangLabel").textContent = data.ui.langLabel;
-  document.getElementById("uiProgressLabel").textContent = data.ui.progressLabel;
-
-  // hero
-  document.getElementById("heroBadge").textContent = data.meta.badge;
-  document.getElementById("heroTitle").textContent = data.meta.title;
-  document.getElementById("heroSubtitle").textContent = data.meta.subtitle;
-  document.getElementById("quickFacts").innerHTML = data.meta.quickFacts.map(f=>
-    `<div class="qf"><b>${f.value}</b><span>${f.label}</span></div>`).join("");
-
-  // nav
-  const navList = document.getElementById("navList");
-  navList.innerHTML = data.sections.map((s,i)=>
-    `<li><a class="navlink" href="#sec-${i}" data-idx="${i}"><span class="num">${i+1}</span><span>${s.title}</span></a></li>`
-  ).join("");
-
-  // sections
-  const wrap = document.getElementById("sections");
-  wrap.innerHTML = data.sections.map((s,i)=>{
-    const blocksHtml = s.blocks.map(b=>renderBlock(b,i)).join("");
-    return `<section class="section-card" id="sec-${i}">
-      <div class="section-head"><div class="section-num">${String(i+1).padStart(2,"0")}</div><h2>${s.title}</h2></div>
-      ${blocksHtml}
-    </section>`;
-  }).join("");
-
-  document.getElementById("footerNote").textContent = data.ui.footer;
-
-  updateChecklistProgress();
-  bindChecklist();
-  setupScrollSpy();
-
-  // active stamp
-  document.querySelectorAll(".stamp-btn").forEach(b=>{
-    b.classList.toggle("active", b.dataset.lang === currentLang);
+  document.documentElement.lang = lang==='ru'?'ru':(lang==='uz'?'uz':(lang==='tg'?'tg':'ky'));
+  const t=T[lang];
+  document.title = t.brandTitle;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key=el.getAttribute('data-i18n');
+    if(t[key]) el.textContent=t[key];
   });
-}
-
-function updateChecklistProgress(){
-  const el = document.getElementById("checkProgress");
-  if(!el) return;
-  const total = Object.keys(checkedState).length ? document.querySelectorAll(".checklist li").length : document.querySelectorAll(".checklist li").length;
-  const totalItems = document.querySelectorAll(".checklist li").length;
-  const done = document.querySelectorAll(".checklist li.checked").length;
-  const label = T[currentLang].ui.progressLabel;
-  el.textContent = `${label}: ${done} / ${totalItems}`;
-}
-
-function bindChecklist(){
-  document.querySelectorAll(".checklist li").forEach(li=>{
-    li.addEventListener("click", ()=>{
-      const key = li.dataset.key;
-      checkedState[key] = !checkedState[key];
-      li.classList.toggle("checked", !!checkedState[key]);
-      updateChecklistProgress();
-    });
+  document.querySelectorAll('.lang-btn').forEach(b=>{
+    b.classList.toggle('active', b.getAttribute('data-lang')===lang);
   });
+
+  let body='';
+  if(currentSet==='overview') body=renderOverview(t);
+  else if(currentSet==='moduleE') body=renderModuleE(t);
+  else body=renderSet(t,currentSet);
+
+  body+=renderFooterNav();
+  document.getElementById('content').innerHTML=body;
+  renderNav();
+  window.scrollTo({top:0,behavior:'instant'});
+  closeSidebar();
 }
 
-/* scrollspy + top progress bar */
-let observer;
-function setupScrollSpy(){
-  const sections = document.querySelectorAll(".section-card");
-  const navlinks = document.querySelectorAll(".navlink");
-  if(observer) observer.disconnect();
-  const seen = new Set();
-
-  observer = new IntersectionObserver((entries)=>{
-    entries.forEach(entry=>{
-      const idx = entry.target.id.split("-")[1];
-      if(entry.isIntersecting){
-        seen.add(idx);
-        navlinks.forEach(l=>l.classList.remove("active"));
-        const link = document.querySelector(`.navlink[data-idx="${idx}"]`);
-        if(link) link.classList.add("active");
-      }
-    });
-    navlinks.forEach(l=>{
-      if(seen.has(l.dataset.idx)) l.classList.add("done");
-    });
-    const fill = document.getElementById("progressFill");
-    if(fill) fill.style.width = (seen.size / sections.length * 100) + "%";
-  }, { rootMargin: "-15% 0px -70% 0px", threshold: 0 });
-
-  sections.forEach(s=>observer.observe(s));
-}
-
-/* language switch buttons */
-document.querySelectorAll(".stamp-btn").forEach(btn=>{
-  btn.addEventListener("click", ()=>{
-    currentLang = btn.dataset.lang;
-    render();
-    window.scrollTo({top:0, behavior:"smooth"});
-  });
-});
+function setLang(l){ lang=l; render(); }
+function goTo(id){ currentSet=id; render(); }
+function openSidebar(){ document.getElementById('sidebar').classList.add('open'); document.getElementById('overlay').classList.add('show'); }
+function closeSidebar(){ document.getElementById('sidebar').classList.remove('open'); document.getElementById('overlay').classList.remove('show'); }
 
 render();
 </script>
